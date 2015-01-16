@@ -1,7 +1,11 @@
-\documentclass[a4paper]{scrartcl}
+\documentclass[a4paper]{scrreprt}
 \usepackage[utf8]{inputenc}
 \usepackage[german]{babel}
 \usepackage{amsmath}
+\usepackage[backend=biber,style=authortitle]{biblatex}
+\usepackage[babel]{csquotes}
+
+\addbibresource{literature.bib}
 
 \title{Untere Schranken für die Abfragekomplexität 
        monotoner symmetrischer Eigenschaften}
@@ -11,6 +15,19 @@
 
 \maketitle
 
+\begin{abstract}
+Diese Facharbeit beschäftigt sich mit unteren Schranken
+für die Abfragekomplexität von monotonen symmetrischen
+Eigenschaften von Bitfolgen, besonders für Graph-Eigenschaften.
+\end{abstract}
+
+\tableofcontents
+
+\chapter{Die Abfragekomplexität von monotonen Graph-Eigenschaften}
+\section{Grundlegende Definitionen}
+Im graphentheoretischen Teil folgen wir größtenteils
+der Notation eines Standardwerkes der Graphentheorie \footnote{\cite{diestel}}.
 
 
+\printbibliography
 \end{document}
