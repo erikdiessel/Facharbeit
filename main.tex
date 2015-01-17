@@ -6,7 +6,11 @@
 \usepackage[backend=biber,style=authortitle]{biblatex}
 \usepackage[babel]{csquotes}
 \usepackage{tikz}
-
+\usepackage{geometry}
+\geometry{
+bottom=25mm,
+top=20mm
+}
 
 \newtheorem{definition}{Definition}
 \newtheorem{Satz}{Satz}
@@ -41,7 +45,7 @@ Fragestellungen der theoretischen Informatik.
 Der bekannteste Fall ist hier die Frage, ob die beiden
 Komplexitätsklassen $P$ und $NP$ identisch sind. Diese
 Frage dreht sich um die Zeitkomplexität, die bestimmte
-Probleme benötigt. Obwohl dies seit mehr als 40 Jahren
+Probleme benötigen. Obwohl dies seit mehr als 40 Jahren
 mit großem Aufwand untersucht wird, hat man noch
 immer keine Lösung gefunden und es wird vermutet, dass
 man auch nicht mit einer Lösung in der nahen Zukunft
@@ -58,14 +62,21 @@ Die Komplexität eines Problems zu ermitteln hat
 große Relevanz für die Praxis, da so die Entwickler
 von Algorithmen wissen, wie effizient ein Algorithmus
 theoretisch überhaupt sein kann. \\
-In dieser Facharbeit beschäftigen wir uns mit der 
-Abfragekomplexität von Eigenschaften. Im Gegensatz
-zur Zeitkomplexität sind hier sehr viel bessere
-Resultate bekannt. \\
+Es wird vermutet, dass $P\neq NP$ gilt. Um dies zu beweisen
+müsste man eine untere Schranke für die Zeitkomplexität
+gewisser Probleme finden. Bis heute sind jedoch
+keine adäquaten Methoden bekannt. \\
+In dieser Facharbeit beschäftigen wir uns daher mit
+der  Abfragekomplexität von Eigenschaften. Im Gegensatz
+zur Zeitkomplexität ist es hier möglich gute
+untere Schranken zu beweisen. Die Entwicklung
+neuer Methoden für diesen ''einfachen'' Fall ermöglicht
+es vielleicht später, diese, in angepaster Form, auf
+die Zeitkomplexität anzuwenden.\\
 Im Kontext von ungerichteten Graphen
 ist die Abfragekomplexität die Anzahl
-an Abfragen der Form ``Besteht eine Kante zwischen
-der Ecke $u$ und der Ecke $v$ ?``, die ein Algorithmus
+an Abfragen der Form ''Besteht eine Kante zwischen
+der Ecke $u$ und der Ecke $v$ ?'', die ein Algorithmus
 benötigt, um zu entscheiden, ob ein gegebener Graph
 eine Eigenschaft erfüllt. Eine Graph-Eigenschaft ist
 dabei unabhängig von der konkreten Benennung der Knoten.
@@ -208,7 +219,64 @@ $\Min(P_n) = \Min(P'_n)$.
 \end{description}
 \end{proof}
 Der vorherige Satz ermöglicht uns, eine
-monotone Eigenschaft einfacher zu beschreiben.
+monotone Eigenschaft einfacher zu beschreiben. \\
+
+Wir führen nun die ersten algorithmischen Begriffe ein. \\
+Da wir uns nur mit der Abfragekomplexität beschäftigen,
+vereinfachen wir unser Berechnungsmodell: \\
+Einen Algorithmus stellen wir als Entscheidungsbaum dar.
+Die Knoten sind hierbei mit einer Kante bezeichnet, die
+abgefragt wird. Jeder Knoten hat zwei Kante, die mit
+''ja'' und ''nein'' beschriftet sind, dies steht für
+die Antwort auf die Abfrage. Die Blatt-Knoten sind
+zusätzlich mit ''ja'' und ''nein'' beschriftet,
+dies steht für den Rückgabewert des Algorithmus.
+Zu beachten ist, dass der Algorithmus nur für eine
+Eingabegröße, das heißt für eine Eckenanzahl $n$,
+festgelegt ist.\\
+Wir sagen nun, dass ein Algorithmus $\mathcal{A}$
+die Graph-Eigenschaft $P_n$ \emph{entscheidet}, wenn
+für jeden Input $G \in \mathcal{G}_n$ der Blatt-Knoten
+des zugehörigen Pfades des Entscheidungsbaums genau
+dann mit ''ja'' beschriftet ist, wenn $G \in P_n$ gilt.
+
+\begin{example}
+\label{exmpl:decisionTree}
+\begin{tikzpicture}
+
+\end{tikzpicture}
+Der hier dargestellte Entscheidungsbaum entscheidet
+die monotone Graph-Eigenschaft 
+$P_3 := \big\{ G \in \mathcal{G}_n \ \big| \ |E(G)| \geq 2 \big\}$,
+d.h. ob der Graph mindestens $2$ Kanten hat.
+Man sieht, dass die Anzahl an Abfragen von
+dem Input abhängt.
+\end{example}
+
+Wir können nun unseren zentralen Begriff definieren.
+\begin{definition}[Abfragekomplexität für einen Input]
+Die \emph{Abfragekomplexität} $C(\mathcal{A},G)$ eines
+Algorithmus $\mathcal{A}$ für den Input $G$ ist
+die Länge des zu $G$ gehörenden Pfades des
+Entscheidungsbaumes.
+\end{definition}
+Die Abfragekomplexität eines Algorithmus definieren
+wir nun als Worst-Case-Komplexität.
+\begin{definition}[Abfragekomplexität eines Algorithmus]
+Die \emph{Abfragekomplexität} $C(\mathcal{A})$ eines
+Algorithmus $\mathcal{A}$ ist
+$$ C(\mathcal{A}) := \max_{G \in \mathcal{G}_n} C(\mathcal{A},G)$$
+\end{definition}
+Der in Beispiel \ref{exmpl:decisionTree} dargestellte
+Algorithmus hat eine Abfragekomplexität von $3$, da
+der längste Pfad die Länge $3$ gibt. \\
+Nun können wir die Abfragekomplexität unabhängig
+von einem bestimmten Algorithmus definieren.
+\begin{definition}
+Die \emph{Abfragekomplexität} $C(P_n)$ einer Graph-Eigenschaft
+$P_n$ ist
+$$ C(P_n) := \min_{\mathcal{A} \text{ entscheidet } P_n} C(\mathcal{A})$$
+\end{definition}
 
 \printbibliography
 \end{document}
