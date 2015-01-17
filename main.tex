@@ -33,6 +33,56 @@ Eigenschaften von Bitfolgen, besonders für Graph-Eigenschaften.
 
 \tableofcontents
 
+\chapter{Einleitung}
+Die Frage, welche Komplexität ein Problem hat, d.h.
+wie viele Ressourcen ein Algorithmus aufbringen muss,
+um ein Problem zu lösen, ist eine der dominierenden
+Fragestellungen der theoretischen Informatik.
+Der bekannteste Fall ist hier die Frage, ob die beiden
+Komplexitätsklassen $P$ und $NP$ identisch sind. Diese
+Frage dreht sich um die Zeitkomplexität, die bestimmte
+Probleme benötigt. Obwohl dies seit mehr als 40 Jahren
+mit großem Aufwand untersucht wird, hat man noch
+immer keine Lösung gefunden und es wird vermutet, dass
+man auch nicht mit einer Lösung in der nahen Zukunft
+rechnen kann \footnote{\cite{PvsNP}}.
+Obwohl diese Fragestellung ursprünglich aus der
+Informatik stammt, gilt sie inzwischen als eines der
+größten ungelösten Probleme der Mathematik. Das Clay
+Mathematics Institute stufte es als ein ``Millenium Problem``
+der Mathematik ein und hat einen Preis von
+1 Million Dollar für seine Lösung ausgelobt
+\footnote{vgl. die offizielle Problembeschreibung:
+\cite{PvsNPOfficial}}. \\
+Die Komplexität eines Problems zu ermitteln hat
+große Relevanz für die Praxis, da so die Entwickler
+von Algorithmen wissen, wie effizient ein Algorithmus
+theoretisch überhaupt sein kann. \\
+In dieser Facharbeit beschäftigen wir uns mit der 
+Abfragekomplexität von Eigenschaften. Im Gegensatz
+zur Zeitkomplexität sind hier sehr viel bessere
+Resultate bekannt. \\
+Im Kontext von ungerichteten Graphen
+ist die Abfragekomplexität die Anzahl
+an Abfragen der Form ``Besteht eine Kante zwischen
+der Ecke $u$ und der Ecke $v$ ?``, die ein Algorithmus
+benötigt, um zu entscheiden, ob ein gegebener Graph
+eine Eigenschaft erfüllt. Eine Graph-Eigenschaft ist
+dabei unabhängig von der konkreten Benennung der Knoten.
+Von Rivest und Vuillemin wurde gezeigt,
+dass die Abfragekomplexität
+im Fall von monotonen Graph-Eigenschaften, die beim 
+Hinzufügen von Kanten erhalten bleiben, asymptotisch
+quadratisch in der Anzahl der Knoten
+ist \footnote{\cite{Rivest}}. Für die von
+ihnen gezeigte untere Schranke für die Komplexität
+$C(P_n) \geq \frac{1}{16}n^2$ wird bis heute noch
+versucht, den konstanten Faktor zu erhöhen. Die bisher beste
+untere allgemeine Schranke wurde von Scheidweiler
+und Triesch 2013 gezeigt\footnote{\cite{Scheidweiler}}:
+$C(P_n) \geq \frac{2}{3}n^2 - o(n^2)$.
+
+
 \chapter{Die Abfragekomplexität von monotonen Graph-Eigenschaften}
 \section{Grundlegende Definitionen}
 Im graphentheoretischen Teil folgen wir größtenteils
