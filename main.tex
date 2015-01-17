@@ -2,8 +2,11 @@
 \usepackage[utf8]{inputenc}
 \usepackage[german]{babel}
 \usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage[backend=biber,style=authortitle]{biblatex}
 \usepackage[babel]{csquotes}
+
+\newtheorem{definition}{Definition}
 
 \addbibresource{literature.bib}
 
@@ -27,6 +30,23 @@ Eigenschaften von Bitfolgen, besonders für Graph-Eigenschaften.
 \section{Grundlegende Definitionen}
 Im graphentheoretischen Teil folgen wir größtenteils
 der Notation eines Standardwerkes der Graphentheorie \footnote{\cite{diestel}}.
+
+\begin{definition}[Graph-Eigenschaft]
+Eine Teilmenge $P_n \subseteq \mathcal{G}_n$ der Graphen mit
+$n$ Ecken heißt \emph{Graph-Eigenschaft} auf $n$ Ecken,
+wenn sie invariant unter Isomorphie ist,
+d.h. wenn für zwei isomorphe Graphen $G, G'$ gilt:
+$G \in P \iff G' \in P$.
+\end{definition}
+
+\begin{definition}[Monotone Graph-Eigenschaft]
+Eine Graph-Eigenschaft $P_n$ heißt \emph{monoton}, wenn das
+Hinzufügen von Kanten die Eigenschaft erhält,
+d.h. wenn ein Graph
+$G' \in \mathcal{G}_n$ ein Supergraph von
+$G \in \mathcal{G}_n$ ist, so gilt 
+$G \in P_n \implies G' \in P_n$.
+\end{definition}
 
 
 \printbibliography
