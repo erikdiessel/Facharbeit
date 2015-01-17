@@ -5,8 +5,13 @@
 \usepackage{amsthm}
 \usepackage[backend=biber,style=authortitle]{biblatex}
 \usepackage[babel]{csquotes}
+\usepackage{tikz}
+
 
 \newtheorem{definition}{Definition}
+\newtheorem{Satz}{Satz}
+\theoremstyle{definition}
+\newtheorem{example}{Beispiel}
 
 \addbibresource{literature.bib}
 
@@ -29,15 +34,26 @@ Eigenschaften von Bitfolgen, besonders für Graph-Eigenschaften.
 \chapter{Die Abfragekomplexität von monotonen Graph-Eigenschaften}
 \section{Grundlegende Definitionen}
 Im graphentheoretischen Teil folgen wir größtenteils
-der Notation eines Standardwerkes der Graphentheorie \footnote{\cite{diestel}}.
+der Notation eines Standardwerkes der Graphentheorie \footnote{\cite{diestel}}. \\
+Mit $\mathcal{G}_n$ bezeichnen wir die Menge aller
+(ungerichteten) Graphen mit $n$ Ecken. \\
+Den vollständigen Graphen auf $n$ Ecken bezeichnen wir
+mit $K_n$. \\
+Ist $G \in \mathcal{G}_n$ ein Subgraph von $G' \in \mathcal{G}_n$,
+so schreiben wir $G \subseteq G$ oder $G' \supseteq G$. Ist $G$ ein
+echter Subgraph von $G'$ (d.h. $E(G) \neq E(G')$), dann schreiben
+wir $G \subset G'$ bzw. $G' \subset G$.
+
 
 \begin{definition}[Graph-Eigenschaft]
 Eine Teilmenge $P_n \subseteq \mathcal{G}_n$ der Graphen mit
-$n$ Ecken heißt \emph{Graph-Eigenschaft} auf $n$ Ecken,
+$n$ Ecken heißt \emph{Graph-Eigenschaft auf $n$ Ecken},
 wenn sie invariant unter Isomorphie ist,
 d.h. wenn für zwei isomorphe Graphen $G, G'$ gilt:
 $G \in P \iff G' \in P$.
 \end{definition}
+Statt $G \in P_n$ sagen wir auch: $G$ erfüllt die Eigenschaft $P_n$.
+
 
 \begin{definition}[Monotone Graph-Eigenschaft]
 Eine Graph-Eigenschaft $P_n$ heißt \emph{monoton}, wenn das
@@ -48,6 +64,78 @@ $G \in \mathcal{G}_n$ ist, so gilt
 $G \in P_n \implies G' \in P_n$.
 \end{definition}
 
+\begin{example}[Monotone Graph-Eigenschaft]
+\label{exmpl:Monotonie}
+Wir betrachten die folgende Graph-Eigenschaft 
+$P_4 \subseteq \mathcal{G}_4$ auf $4$ Ecken:
+$$P_4 := \{ G \in \mathcal{G}_4 \ | \ G \text{ enthält den Subgraphen } K_3 \}$$
+Diese Eigenschaft ist \emph{monoton}, da wenn 
+$G \in P_4$ gilt, $G$ den Subgraphen $K_3$
+enthält, woraus folgt, dass auch jeder Supergraph $G'\supseteq G$
+den Subgraphen $K_3$ enthält. 
+\end{example}
+
+Im folgenden werden wir uns auf monotone Graph-Eigenschaften beschränken.
+Um einige degenerierte Fälle auszuschließen, beschränken
+wir uns auch auf \emph{nichttriviale} Eigenschaften.
+\begin{definition}[Nichttriviale Graph-Eigenschaft]
+Eine monotone Graph-Eigenschaft $P_n$ heißt \emph{nichttrivial},
+wenn der leere Graph $E_n$ nicht in $P_n$ enthalten ist und
+$P_n\neq \emptyset$ gilt.
+\end{definition}
+Die Bedingung $E_n \notin P_n$ bedeutet, dass $P_n$ nicht
+alle Graphen auf $n$ Ecken beinhaltet. In diesem Fall würde
+es keinen Sinn machen, einen Algorithmus berechnen zu lassen,
+ob ein gegebener Graph die Eigenschaft erfüllt, da das Ergebnis
+unabhängig vom Graphen wäre.
+
+\begin{definition}[Minimaler Graph]
+Ein Graph $G \in \mathcal{G}_n$ heißt
+\emph{minimaler Graph der montonen Graph-Eigenschaft $P_n$},
+wenn $G \in P_n$ gilt, aber jeder echte Subgraph 
+$G' \subset G$ die Eigenschaft $P_n$ nicht erfüllt.
+\end{definition}
+
+In Beispiel \ref{exmpl:Monotonie} wäre 
+\begin{center}
+\begin{tikzpicture}[main_node/.style={circle,fill=black,minimum size=0.8em,inner sep=2pt]}]
+
+    \node[main_node] (1) at (0,0) {};
+    \node[main_node] (2) at (-0.5, -0.75)  {};
+    \node[main_node] (3) at (0.5, -0.75) {};
+    \node[main_node] (4) at (1.2, -0.3) {};
+
+    \draw (1) -- (2) -- (3) -- (1);
+\end{tikzpicture}
+\end{center}
+
+der bis auf Isomorphie eindeutige \emph{minimale} 
+Graph von $P_4$, da das Entfernen einer Kante
+den Subgraphen $K_3$ zerstören würde.
+
+\begin{definition}[Minimale Graphenmenge $\textrm{Min}(P_n)$]
+Die Menge der minimalen Graphen der monotonen Graph-Eigenschaft
+$P_n$ heißt:
+$$\textrm{Min}(P_n) := \{ G\in P_n \ | \ G \text{ ist minimal } \}$$.
+\end{definition}
+
+Die Menge $\textrm{Min}(P_n)$ charakterisiert die
+Eigenschaft vollständig, wie folgender Satz zeigt:
+
+\begin{Satz}[$\textrm{Min}(P_n)$ legt $P_n$ eindeutig fest]
+Seien $P_n, P'_n \subseteq \mathcal{G}_n$ zwei monotone 
+Graph-Eigenschaften mit
+$\textrm{Min}(P_n) = \textrm{Min}(P'_n)$, so gilt $P_n = P'_n$.
+\end{Satz}
+\begin{proof}
+Sei $G \in P_n$ beliebig. Wir zeigen dann, dass auch $G \in P'_n$
+gilt. Aus Symmetriegründen folgt dann, dass für ein beliebiges 
+$G' \in P'_n$ gilt: $G' \in P_n$, woraus die Gleichheit der
+Eigenschaften als Mengen $P_n = P'_n$ folgt. \\
+Wir setzen $G_0 := G$. Solange es möglich ist, wählen wir nun
+eine Kante $e \in E(G_i)$, sodass für $G_{i+1} := G_i - e$  
+weiterhin $G_{i+1} \in P_n$ gilt.
+\end{proof}
 
 \printbibliography
 \end{document}
