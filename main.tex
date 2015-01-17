@@ -15,6 +15,8 @@
 
 \addbibresource{literature.bib}
 
+\DeclareMathOperator\Min{Min}
+
 \title{Untere Schranken für die Abfragekomplexität 
        monotoner symmetrischer Eigenschaften}
 \subtitle{Facharbeit}
@@ -113,29 +115,50 @@ der bis auf Isomorphie eindeutige \emph{minimale}
 Graph von $P_4$, da das Entfernen einer Kante
 den Subgraphen $K_3$ zerstören würde.
 
-\begin{definition}[Minimale Graphenmenge $\textrm{Min}(P_n)$]
+\begin{definition}[Minimale Graphenmenge $\Min(P_n)$]
 Die Menge der minimalen Graphen der monotonen Graph-Eigenschaft
 $P_n$ heißt:
-$$\textrm{Min}(P_n) := \{ G\in P_n \ | \ G \text{ ist minimal } \}$$.
+$$\Min(P_n) := \{ G\in P_n \ | \ G \text{ ist minimal } \}$$
 \end{definition}
 
-Die Menge $\textrm{Min}(P_n)$ charakterisiert die
+Die Menge $\Min(P_n)$ charakterisiert die
 Eigenschaft vollständig, wie folgender Satz zeigt:
 
-\begin{Satz}[$\textrm{Min}(P_n)$ legt $P_n$ eindeutig fest]
-Seien $P_n, P'_n \subseteq \mathcal{G}_n$ zwei monotone 
-Graph-Eigenschaften mit
-$\textrm{Min}(P_n) = \textrm{Min}(P'_n)$, so gilt $P_n = P'_n$.
+\begin{Satz}[$\Min(P_n)$ legt $P_n$ eindeutig fest]
+Sind $P_n, P'_n \subseteq \mathcal{G}_n$ zwei monotone 
+Graph-Eigenschaften, so gilt
+$\Min(P_n) = \Min(P'_n)$ genau dann, wenn $P_n = P'_n$.
 \end{Satz}
-\begin{proof}
+\begin{proof} \hfill
+\begin{description}
+\item[$\boldsymbol{\Min(P_n) = \Min(P'_n) \implies P_n = P'_n}$]
+\hfill \\
 Sei $G \in P_n$ beliebig. Wir zeigen dann, dass auch $G \in P'_n$
 gilt. Aus Symmetriegründen folgt dann, dass für ein beliebiges 
 $G' \in P'_n$ gilt: $G' \in P_n$, woraus die Gleichheit der
-Eigenschaften als Mengen $P_n = P'_n$ folgt. \\
+Eigenschaften $P_n = P'_n$ folgt. \\
 Wir setzen $G_0 := G$. Solange es möglich ist, wählen wir nun
 eine Kante $e \in E(G_i)$, sodass für $G_{i+1} := G_i - e$  
-weiterhin $G_{i+1} \in P_n$ gilt.
+weiterhin $G_{i+1} \in P_n$ gilt. \\
+Es gibt nun ein $i$, für das es nicht mehr möglich ist,
+aus $G_i$ eine Kante zu entfernen und dabei die Eigenschaft
+zu erhalten (spätestens, wenn $G_i$ leer ist).
+Der Graph $G_i$ ist dann per Konstruktion ein minimaler
+Graph, folglich gilt $G_i \in \Min(P_n)$. Aufgrund der
+Voraussetzung $\Min(P_n) = \Min(P'_n)$ gilt auch 
+$G_i \in \Min(P'_n)$. Da die Eigenschaft $P'_n$ monoton ist,
+und $G_i \subseteq G$, gilt dann auch $G_i \in P'_n$,
+wie gefordert.
+\item[$\boldsymbol{P_n = P'_n \implies \Min(P_n) = \Min(P'_n)}$]
+\hfill \\
+Wegen $P_n = P'_n$ ist $G \in \mathcal{G}_n$ offensichtlich
+genau dann ein minimaler Graph von $P_n$, wenn $G$ ein 
+minimaler Graph von $P'_n$ ist. Daraus folgt 
+$\Min(P_n) = \Min(P'_n)$.
+\end{description}
 \end{proof}
+Der vorherige Satz ermöglicht uns, eine
+monotone Eigenschaft einfacher zu beschreiben.
 
 \printbibliography
 \end{document}
