@@ -6,6 +6,7 @@
 \usepackage[backend=biber,style=authortitle]{biblatex}
 \usepackage[babel]{csquotes}
 \usepackage{tikz}
+\usepackage{amsfonts}
 \usepackage{geometry}
 \geometry{
 bottom=25mm,
@@ -18,6 +19,8 @@ top=20mm
 \newtheorem{example}{Beispiel}
 
 \addbibresource{literature.bib}
+
+\nocite{Groeger}
 
 \DeclareMathOperator\Min{Min}
 
@@ -96,6 +99,7 @@ $C(P_n) \geq \frac{2}{3}n^2 - o(n^2)$.
 
 \chapter{Die Abfragekomplexität von monotonen Graph-Eigenschaften}
 \section{Grundlegende Definitionen}
+\subsection{Graph-Eigenschaften}
 Im graphentheoretischen Teil folgen wir größtenteils
 der Notation eines Standardwerkes der Graphentheorie \footnote{\cite{diestel}}. \\
 Mit $\mathcal{G}_n$ bezeichnen wir die Menge aller
@@ -219,7 +223,10 @@ $\Min(P_n) = \Min(P'_n)$.
 \end{description}
 \end{proof}
 Der vorherige Satz ermöglicht uns, eine
-monotone Eigenschaft einfacher zu beschreiben. \\
+monotone Eigenschaft einfacher zu beschreiben. Dies
+wird sich in Beweisen später nützlich erweisen.\\
+
+\subsection{Abfragekomplexität}
 
 Wir führen nun die ersten algorithmischen Begriffe ein. \\
 Da wir uns nur mit der Abfragekomplexität beschäftigen,
@@ -240,11 +247,37 @@ für jeden Input $G \in \mathcal{G}_n$ der Blatt-Knoten
 des zugehörigen Pfades des Entscheidungsbaums genau
 dann mit ''ja'' beschriftet ist, wenn $G \in P_n$ gilt.
 
-\begin{example}
+\begin{example} \ \\*
 \label{exmpl:decisionTree}
-\begin{tikzpicture}
+\begin{center}
+\begin{tikzpicture} [
+    level 1/.style = {sibling distance=6cm},
+    level 2/.style = {sibling distance=2cm}, 
+    level 3/.style = {sibling distance=2cm}, 
+]
+\tikzstyle{every node}=[circle,draw]
 
+\node [circle, draw] {$(1,2)$}
+  child {  node {$(1,3)$} 
+    child { node {Ja} edge from parent node[left,draw=none] {ja} }
+    child { node {$(2,3)$}
+      child { node {Ja} edge from parent node[left,draw=none] {ja} }
+      child { node {Nein} edge from parent node[right,draw=none] {nein} }
+      edge from parent node[right,draw=none] {nein} 
+    }
+    edge from parent node[left,draw=none] {ja}
+  }
+  child { node {$(2,3)$}
+    child { node {$(1,3)$}
+      child { node{Ja} edge from parent node[left,draw=none] {ja} }
+      child { node{Nein} edge from parent node[right,draw=none] {nein} }
+      edge from parent node[left,draw=none] {ja}
+    }
+    child { node {Nein} edge from parent node[right,draw=none] {nein} }
+    edge from parent node[right,draw=none] {nein} 
+  };
 \end{tikzpicture}
+\end{center}
 Der hier dargestellte Entscheidungsbaum entscheidet
 die monotone Graph-Eigenschaft 
 $P_3 := \big\{ G \in \mathcal{G}_n \ \big| \ |E(G)| \geq 2 \big\}$,
@@ -261,7 +294,7 @@ die Länge des zu $G$ gehörenden Pfades des
 Entscheidungsbaumes.
 \end{definition}
 Die Abfragekomplexität eines Algorithmus definieren
-wir nun als Worst-Case-Komplexität.
+wir nun als Worst-Case-~Komplexität.
 \begin{definition}[Abfragekomplexität eines Algorithmus]
 Die \emph{Abfragekomplexität} $C(\mathcal{A})$ eines
 Algorithmus $\mathcal{A}$ ist
@@ -269,13 +302,68 @@ $$ C(\mathcal{A}) := \max_{G \in \mathcal{G}_n} C(\mathcal{A},G)$$
 \end{definition}
 Der in Beispiel \ref{exmpl:decisionTree} dargestellte
 Algorithmus hat eine Abfragekomplexität von $3$, da
-der längste Pfad die Länge $3$ gibt. \\
+der längste Pfad die Länge $3$ hat. \\
 Nun können wir die Abfragekomplexität unabhängig
 von einem bestimmten Algorithmus definieren.
 \begin{definition}
 Die \emph{Abfragekomplexität} $C(P_n)$ einer Graph-Eigenschaft
 $P_n$ ist
-$$ C(P_n) := \min_{\mathcal{A} \text{ entscheidet } P_n} C(\mathcal{A})$$
+$$ C(P_n) := \min_{\mathcal{A} \ {\rm entscheidet}\  P_n} C(\mathcal{A})$$
+\end{definition}
+
+\subsection{Randomisierte Abfragekomplexität}
+
+Bisher haben wir uns nur mit \emph{deterministischer}
+Abfragekomplexität beschäftigt, d.h. die betrachteten
+Algorithmus hatten keinen Zufall zur Verfügung.
+Da randomisierte Algorithmen deterministischen Algorithmen
+oft überlegen sind, müssen wir dies auch für
+die Abfragekomplexität untersuchen.
+% Vielleicht Zitat einfügen für
+% Problem, bei dem randomisierte Algorithmen klar
+% überlegen sind.
+Wir definieren hierfür zunächst einen randomisierten
+Algorithmus, um dann dessen Komplexität zu definieren
+\footnote{vgl. \cite{Groeger}}.
+\begin{definition}[Randomisierter Algorithmus]
+Ein \emph{randomisierter Algorithmus}, der eine
+Eigenschaft $P_n$ entscheidet, ist eine
+Wahrscheinlichkeitsverteilung von deterministischen
+Algorithmen, die $P_n$ entscheiden. Formal: eine Abbildung
+$$ p_\mathcal{A}: \{ \mathcal{A} \ {\rm deterministisch} \ | \
+         \mathcal{A} \ {\rm entscheidet} \ P_n \} \to \mathbb{R} $$
+mit $\sum_\mathcal{A} p(\mathcal{A}) = 1$.
+\end{definition}
+
+Das Ausführen eines randomisierten Algorithmus findet
+dann so statt: Zu Beginn wird, mit den entsprechenden
+Wahrscheinlichkeiten, ein deterministischer Algorithmus
+ausgewählt, der dann ausgeführt wird.
+Die randomisierte Abfragekomplexität ist dann der
+Erwartungswert für die benötigte Anzahl an Abfragen.
+
+\begin{definition}[Randomisierte Abfragekomplexität für einen Input]
+Die \emph{randomisierte Abfragekomplexität} $C_R(P_n)$ eines randomisierten
+Algorithmus $p_\mathcal{A}$, für den Input $G\in \mathcal{G}_n$, ist:
+$$ C_R(p_\mathcal{A}, G) := 
+\sum_\mathcal{A} p_\mathcal{A}(\mathcal{A}) \cdot C(\mathcal{A}, G) $$
+\end{definition}
+Analog definieren wir nun die randomisierte Abfragekomplexität
+eines Algorithmus
+\begin{definition}[Randomisierte Abfragekomplexität eines Algorithmus]
+Die \emph{randomisierte Abfragekomplexität} eines randomisierten
+Algorithmus $\mathcal{A}$ ist:
+$$ C_R(\mathcal{A}) := \max_{G\in\mathcal{G}_n} C_R(\mathcal{A}, G) $$
+\end{definition}
+Analog zum deterministischen Fall kpnnen wir nun die
+\emph{randomisierte} Abfragekomplexität einer Graph-Eigenschaft
+definieren:
+\begin{definition}[Randomisierte Abfragekomplexität einer Graph-Eigenschaft]
+Die \emph{randomisierte Abfragekomplexität einer Graph-Eigenschaft}
+$P_n$ ist:
+$$ C_R(P_n) := \min_{\mathcal{A}_R}\ C(\mathcal{A}_R)$$
+wobei $\mathcal{A}_R$ aus allen randomisierten Algorithmen,
+die $P_n$ entscheiden, gewählt wird.
 \end{definition}
 
 \printbibliography
