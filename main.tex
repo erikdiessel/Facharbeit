@@ -17,9 +17,9 @@ right=20mm
 }
 
 \newtheorem{definition}{Definition}
-\newtheorem{Satz}{Satz}
-\newtheorem{conjecture}{Vermutung}
-\newtheorem{corollary}{Korollar}
+\newtheorem{Satz}[definition]{Satz}
+\newtheorem{conjecture}[definition]{Vermutung}
+\newtheorem{corollary}[definition]{Korollar}
 \theoremstyle{definition}
 \newtheorem{example}{Beispiel}
 
@@ -195,7 +195,7 @@ den Subgraphen $K_3$ zerstören würde.
 \begin{definition}[Minimale Graphenmenge $\Min(P_n)$]
 Die Menge der minimalen Graphen der monotonen Graph-Eigenschaft
 $P_n$ heißt:
-$$\Min(P_n) := \{ G\in P_n \ | \ G \text{ ist minimal } \}$$
+$$\Min(P_n) := \{ G\in P_n \ | \ G \textup{ ist minimal } \}$$
 \end{definition}
 
 Die Menge $\Min(P_n)$ charakterisiert die
@@ -325,7 +325,7 @@ $$ C(P_n) := \min_{\mathcal{A} \ {\rm entscheidet}\  P_n} C(\mathcal{A})$$
 
 Wir sind nun in der Lage, die Aanderaa-Karp-Rosenberg-Vermutung
 exakt zu formulieren:
-\footnote{\cite{Lovasz}}
+\footnote{vgl. \cite{Lovasz}}
 \begin{conjecture}[Aanderaa-Karp-Rosenberg]
 Jede monotone nichttriviale Graph-Eigenschaft $P_n$
 hat eine Abfragekomplexität von
@@ -355,7 +355,7 @@ Ein \emph{randomisierter Algorithmus}, der eine
 Eigenschaft $P_n$ entscheidet, ist eine
 Wahrscheinlichkeitsverteilung von deterministischen
 Algorithmen, die $P_n$ entscheiden. Formal: eine Abbildung
-$$ p_\mathcal{A}: \{ \mathcal{A} \ {\rm deterministisch} \ | \
+$$ p_\mathcal{A}: \{ \mathcal{A} \ \textup {deterministisch} \ | \
          \mathcal{A} \ {\rm entscheidet} \ P_n \} \to \mathbb{R} $$
 mit $\sum_\mathcal{A} p_\mathcal{A}(\mathcal{A}) = 1$.
 \end{definition}
@@ -381,7 +381,7 @@ Die \emph{randomisierte Abfragekomplexität} eines randomisierten
 Algorithmus $\mathcal{A}$ ist:
 $$ C_R(\mathcal{A}) := \max_{G\in\mathcal{G}_n} C_R(\mathcal{A}, G) $$
 \end{definition}
-Analog zum deterministischen Fall kpnnen wir nun die
+Analog zum deterministischen Fall können wir nun die
 \emph{randomisierte} Abfragekomplexität einer Graph-Eigenschaft
 definieren:
 \begin{definition}[Randomisierte Abfragekomplexität einer Graph-Eigenschaft]
@@ -393,7 +393,9 @@ wobei $\mathcal{A}_R$ aus allen randomisierten Algorithmen,
 die $P_n$ entscheiden, gewählt wird.
 \end{definition}
 
-\subsection{Einfache untere Schranken für die Abfragekomplexität}
+\section{Untere Schranken für die Abfragekomplexität}
+
+\subsection{... anhand eines minimalen Graphen}
 
 Wir zeigen nun einige einfache untere Schranken
 für die Abfragekomplexität, die auf minimalen
@@ -428,8 +430,9 @@ wir wählen. Dies bedeutet, dass ein randomisierter Algorithmus
 auch diese Anzahl an Abfragen benötigt:
 \begin{corollary}[Minimaler Graph liefert untere Schranke für 
                   randomisierte Abfragekomplexität]
+\label{cor:MinGraphRandCompl}
 Sei $H\in \mathcal{G}_n$ ein minimaler Graph der monotonen
-Graph Eigenschaft $P_n$. Dann gilt:
+Graph-Eigenschaft $P_n$. Dann gilt:
 $$C_R(P_n) \geq |E(H)|$$.
 \end{corollary}
 \begin{proof}
@@ -440,20 +443,26 @@ $ C_R(p_\mathcal{A}, H) =
 \sum_\mathcal{A} p_\mathcal{A}(\mathcal{A}) \cdot C(\mathcal{A}, H) $.
 Wegen Satz \ref{thm:minDetLowerBound} gilt $C(\mathcal{A}, H) \geq |E(H)|$
 für alle deterministischen Algorithmen $\mathcal{A}$. Einsetzen ergibt:
-$$ C_R(p_\mathcal{A}, H) =
-\sum_\mathcal{A} p_\mathcal{A}(\mathcal{A}) \cdot C(\mathcal{A}, H) \geq
+$$ C_R(p_\mathcal{A}, H) \overset{\textup{Def.} \ref{def:randComplInput}} {=}
+\sum_\mathcal{A} p_\mathcal{A}(\mathcal{A}) \cdot C(\mathcal{A}, H) 
+\overset{\textup{Satz } \ref{thm:minDetLowerBound}} {\geq}
 \sum_\mathcal{A} p_\mathcal{A}(\mathcal{A}) \cdot |E(H)| =
 |E(H)| $$
 Mit Definition \ref{def:randComplProp} erhalten wir dann
-$$ C_R(P_n) = \min_{p_\mathcal{A}}\ C(p_\mathcal{A}) \geq |E(H)|$$
+$$ C_R(P_n) \overset{\textup{Def. } \ref{def:randComplProp}} {=} 
+\min_{p_\mathcal{A}}\ C(p_\mathcal{A}) \geq |E(H)|$$
 \end{proof}
 
 Wie man sieht, kann mit minimalen Graphen einfach untere Schranken
 für die Abfragekomplexität zeigen. Die Anzahl an Kanten $|E(H)|$
 kann jedoch klein sein, sodass die untere Schranke nicht viel wert ist.
+Im folgenden Abschnitt betrachten wir daher ein anderes Konzept.
+
+\subsection{... anhand eines kantenmaximalen Graphen}
+
 Wir führen daher nun das Konzept des kantenmaximalen Graphen ein,
 welches gewissermaßen \emph{dual} zum Konzept des minimalen Graphen
-ist.
+ist. Wir wollen damit wieder eine untere Schranke zeigen.
 \begin{definition}[Kantenmaximaler Graph
 \footnote{vgl. \cite[S.12]{diestel}}]
 Ein Graph $G\in \mathcal{G}_n$ heißt \emph{kantenmaximaler Graph}
@@ -464,5 +473,60 @@ Kantenmaximale Graphen sind also Graphen, die die Eigenschaft
 nicht erfüllen, bei dem das Hinzufügen einer beliebigen
 Kante aber dafür sorgt, dass die Eigenschaft erfüllt wird.
 % Hier vielleicht Beispiel einfügen für kantenmaximalen Graphen ?
+
+Mithilfe von kantenmaximalen Graphen können wir auch untere
+Schranken beweisen, wie wir dies mit minimalen Graphen
+in Satz \ref{thm:minDetLowerBound} getan haben. Hier ist
+jedoch nicht die Anzahl der Kanten des Graphen ausschlaggebend,
+sondern die Anzahl der \emph{fehlenden} Kanten.
+
+\begin{Satz}[Kantenmaximaler Graph liefert untere Schranke]
+\label{thm:EdgeMaxGraphLowerBound}
+Sei $G\in \mathcal{G}_n$ ein kantenmaximaler Graph der monotonen
+Graph-Eigenschaft $P_n \subseteq \mathcal{G}_n$.
+Dann gilt für jeden deterministischen Algorithmus $\mathcal{A}$,
+der $P_n$ entscheidet: 
+$$ C(\mathcal{A}, G) \geq \binom{n}{2} - |E(G)| $$
+\end{Satz}
+\begin{proof}
+Der Beweis erfolgt analog zu dem von Satz \ref{thm:minDetLowerBound},
+wobei nun die Kanten, die nicht zum Graphen gehören, vom Algorithmus
+abgefragt werden müssen.
+\end{proof}
+Wir erhalten nun analog zum Fall der minimalen Graphen eine untere
+Schranke für die randomisierte Abfragekomplexität:
+\begin{corollary} [Kantenmaximaler Graph liefert untere Schranke
+für die randomisierte Abfragekomplexität]
+Sei $G\in\mathcal{G}_n$ ein kantenmaximaler Graph der monotonen
+Graph-Eigenschaft $P_n \subseteq \mathcal{G}_n$.
+Dann gilt
+$$ C_R(P_n) \geq \binom{n}{2} - |E(H)| $$
+\end{corollary}
+\begin{proof}
+Der Beweis erfolgt analog zum Beweis von Korollar \ref{cor:MinGraphRandCompl}
+unter Verwendung von Satz \ref{thm:EdgeMaxGraphLowerBound}.
+\end{proof}
+
+\subsection{... mit einem einfachen Kriterium}
+
+\chapter{Verallgemeinerung auf symmetrischen Eigenschaften}
+
+\section{Allgemeine symmetrische Eigenschaften}
+% Definition etc.
+
+\section{Untere Schranken für die Abfragekomplexität}
+% Verallgemeinerte AKR-Vermutung, Beweis von Rivest für
+% transitive Symmetriegruppen und Primzahlpotenzen
+% Zeige, dass Transitivität notwendiges Kriterium ist.
+
+\section{Algebraische Formulierungen}
+% Verschiedene Möglichkeiten, Algorithmen / Abfragekomplexität
+% algebraisch zu charakterisieren.
+
+
+\section{Algebraische Ansätze}
+% Gruppenoperationen etc.
+
+
 \printbibliography
 \end{document}
