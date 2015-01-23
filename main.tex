@@ -8,6 +8,7 @@
 \usepackage{tikz}
 \usepackage{amsfonts}
 \usepackage{blindtext}
+\usepackage{hyperref}
 \usepackage{geometry}
 \geometry{
 bottom=25mm,
@@ -25,9 +26,20 @@ right=20mm
 
 \addbibresource{literature.bib}
 
-\nocite{Groeger}
-
 \DeclareMathOperator\Min{Min}
+
+\newcommand{\Square}{
+\begin{tikzpicture}[main_node/.style={circle,fill=black},
+inner sep=1.5pt, baseline=2pt]
+
+    \node[main_node] (1) at (0,0) {};
+    \node[main_node] (2) at (0.35, 0)  {};
+    \node[main_node] (3) at (0.35, 0.35) {};
+    \node[main_node] (4) at (0, 0.35) {};
+
+    \draw (1) -- (2) -- (3) -- (4) -- (1);
+\end{tikzpicture}
+}
 
 \title{Untere Schranken für die Abfragekomplexität 
        monotoner symmetrischer Eigenschaften}
@@ -235,8 +247,15 @@ $\Min(P_n) = \Min(P'_n)$.
 \end{description}
 \end{proof}
 Der vorherige Satz ermöglicht uns, eine
-monotone Eigenschaft einfacher zu beschreiben. Dies
-wird sich in Beweisen später nützlich erweisen.\\
+monotone Eigenschaft einfacher zu beschreiben. 
+Für die monotone Graph-Eigenschaft $P_n\subseteq \mathcal{G}_n$
+mit der Menge an minimalen Graphen $\mathcal{H} = \Min(P_n)$
+schreiben wir $\operatorname{P}_n(\mathcal{H})$. Die Eindeutigkeit dieser
+Schreibweise folgt aus dem vorherigen Satz. \\
+Dies macht das Formulieren von Eigenschaften sehr viel einfacher:
+Die Eigenschaft aus Beispiel \ref{exmpl:Monotonie} lässt sich
+so schreiben als $\operatorname{P}_4(\{K_3\})$.
+
 
 \subsection{Abfragekomplexität}
 
@@ -474,6 +493,25 @@ nicht erfüllen, bei dem das Hinzufügen einer beliebigen
 Kante aber dafür sorgt, dass die Eigenschaft erfüllt wird.
 % Hier vielleicht Beispiel einfügen für kantenmaximalen Graphen ?
 
+\begin{example}[Kantenmaximaler Graph]
+Ein kantenmaximaler Graph der Eigenschaft $\operatorname{P}_4(\{K_3\})$
+aus Beispiel \ref{exmpl:Monotonie} ist folgender Graph:
+
+\begin{center}
+\begin{tikzpicture}[main_node/.style={circle,fill=black,minimum size=0.8em,inner sep=2pt]}]
+
+    \node[main_node] (1) at (0,0) {};
+    \node[main_node] (2) at (1, 0)  {};
+    \node[main_node] (3) at (1, 1) {};
+    \node[main_node] (4) at (0, 1) {};
+
+    \draw (1) -- (2) -- (3) -- (4) -- (1);
+\end{tikzpicture}
+\end{center}
+
+
+\end{example}
+
 Mithilfe von kantenmaximalen Graphen können wir auch untere
 Schranken beweisen, wie wir dies mit minimalen Graphen
 in Satz \ref{thm:minDetLowerBound} getan haben. Hier ist
@@ -497,6 +535,7 @@ Wir erhalten nun analog zum Fall der minimalen Graphen eine untere
 Schranke für die randomisierte Abfragekomplexität:
 \begin{corollary} [Kantenmaximaler Graph liefert untere Schranke
 für die randomisierte Abfragekomplexität]
+\label{thm:EdgeMaximalRandCompl}
 Sei $G\in\mathcal{G}_n$ ein kantenmaximaler Graph der monotonen
 Graph-Eigenschaft $P_n \subseteq \mathcal{G}_n$.
 Dann gilt
@@ -507,7 +546,36 @@ Der Beweis erfolgt analog zum Beweis von Korollar \ref{cor:MinGraphRandCompl}
 unter Verwendung von Satz \ref{thm:EdgeMaxGraphLowerBound}.
 \end{proof}
 
-\subsection{... mit einem einfachen Kriterium}
+\section{Konkrete Kriterien für untere Schranken}
+Die bisher gezeigten unteren Schranken sind schwer auf konkrete
+Fälle anzuwenden, da zuerst passende minimale Graphen oder kantenmaximale
+Graphen gefunden werden müssen, die zu der Eigenschaft gehören.
+In diesem Abschnitt entwickeln wir daher einige einfach zu überprüfende
+Kriterien für Graph-Eigenschaften, aus denen dann eine gute
+untere Schranke folgt. \\
+Wir beschränken uns hierfür auf Eigenschaften, bei denen einer
+der minimalen Graphen nur wenige Ecken mit positivem Grad hat
+im Vergleich zur gesamten Eckenanzahl. Ein Beispiel dafür wäre
+die Eigenschaft $\operatorname{P}_{100}(\{ \ \Square \ \})$,
+denn hier hat der minimale Graph nur $4$ Ecken mit positivem
+Grad, aber Eingaben haben $100$ Ecken. \\
+Wir gehen folgendermaßen vor: Wir konstruieren für Eigenschaften,
+die gewisse Kriterien erfüllen, kantenmaximale Graphen mit 
+relativ wenigen Kanten. Mithilfe von Korrollar 
+\ref{thm:EdgeMaximalRandCompl} erhalten wir so eine untere Schranke
+für die randomisierte Abfragekomplexität.
+
+\subsection{Konstruktion kantenmaximaler Graphen}
+Die Hauptidee: Wir nehmen einen minimalen Graphen (der eine
+relativ geringe Eckenanzahl hat) und wählen zwei benachbarte Ecken
+$u$ und $v$. Wir konstruieren nun einen Graphen, indem wir aus dem
+minimalen Graphen die Ecken $u$ und $v$ herauslöschen und dann eine große
+Anzahl von Kopien von $u$ und $v$ hinzufügen, jedoch ohne die Kante
+zwischen $u$ und $v$.
+
+
+\subsection{Kriterien für das Gelingen der Konstruktion}
+% z.B. minimaler Grad, maximale Clique, etc.
 
 \chapter{Verallgemeinerung auf symmetrischen Eigenschaften}
 
