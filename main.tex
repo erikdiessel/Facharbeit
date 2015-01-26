@@ -1,6 +1,6 @@
 \documentclass[a4paper]{scrreprt}
 \usepackage[utf8]{inputenc}
-\usepackage[german]{babel}
+\usepackage[ngerman]{babel}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage[backend=biber,style=authortitle]{biblatex}
@@ -405,7 +405,7 @@ Analog zum deterministischen Fall können wir nun die
 definieren:
 \begin{definition}[Randomisierte Abfragekomplexität einer Graph-Eigenschaft]
 \label{def:randComplProp}
-Die \emph{randomisierte Abfragekomplexität einer Graph-Eigenschaft}
+Die \emph{randomisierte Abfragekomplexität} einer Graph-Eigenschaft
 $P_n$ ist:
 $$ C_R(P_n) := \min_{\mathcal{A}_R}\ C(\mathcal{A}_R)$$
 wobei $\mathcal{A}_R$ aus allen randomisierten Algorithmen,
@@ -571,7 +571,103 @@ relativ geringe Eckenanzahl hat) und wählen zwei benachbarte Ecken
 $u$ und $v$. Wir konstruieren nun einen Graphen, indem wir aus dem
 minimalen Graphen die Ecken $u$ und $v$ herauslöschen und dann eine große
 Anzahl von Kopien von $u$ und $v$ hinzufügen, jedoch ohne die Kante
-zwischen $u$ und $v$.
+zwischen $u$ und $v$. \\
+Fügt man nun eine beliebige Kante zwischen einer Kopie von $u$ und einer
+Kopie von $v$ ein, dann entsteht ein minimaler Graph. Wenn der
+konstruierte Graph die Eigenschaft also nicht erfüllt, so sorgt 
+ein Hinzufügen einer Kante dafür, dass die Eigenschaft erfüllt wird.
+Folglich müssen alle diese entscheidenden Kanten abgefragt werden.
+Da die Anzahl der in Frage kommenden Kanten groß ist, erhalten
+wir eine gute untere Schranke für die Abfragekomplexität.
+Fügt man alle Kanten hinzu, deren Ergänzung die Eigenschaft
+nicht hervorruft, so erhält man sogar einen kantenmaximalen Graphen,
+mit dem man dann mithilfe von Korollar \ref{thm:EdgeMaximalRandCompl}
+direkt eine untere Schranke bekommt.
+Im folgendem Beispiel führen wir diese Konstruktion einmal
+exemplarisch durch.
+
+% Hier Beispiel einfügen für die Konstruktion
+\begin{example}[Konstruktion eines kantenmaximalen Graphen]
+Wir betrachten die Graph-Eigenschaft $P_6(\{\Square\})$: ob der
+Graph einen $4$-Kreis enthält.
+Wir wählen nun zwei benachbarte Ecken $u$ und $v$ des minimalen
+Graphen aus:
+\begin{center}
+\begin{tikzpicture}[main_node/.style={draw, circle, minimum size=0.8em,inner sep=2pt]}]
+
+    \node[main_node] (1) at (0,0) {};
+    \node[main_node] (2) at (1, 0)  {v};
+    \node[main_node] (3) at (1, 1) {u};
+    \node[main_node] (4) at (0, 1) {};
+
+    \draw (1) -- (2) -- (3) -- (4) -- (1);
+\end{tikzpicture}
+\end{center}
+Nun löschen wir die Kante zwischen $u$ und $v$ und fügen
+in diesem Fall eine Kopie der Ecke $u$ und eine Kopie
+der Ecke $v$ hinzu, sodass wir $6$ Ecken haben, da es 
+sich um eine Eigenschaft auf $6$ Ecken handelt:
+\begin{center}
+\begin{tikzpicture}[main_node/.style={draw, circle, minimum size=1.5em,inner sep=2pt]}]
+
+    \node[main_node] (1) at (0,0) {};
+    \node[main_node] (2) at (2, -1)  {v};
+    \node[main_node] (3) at (2, 3) {u};
+    \node[main_node] (4) at (0, 2) {};
+    
+    \node[main_node] (5) at (3.5, 2) {u'};
+    \node[main_node] (6) at (3.5, 0) {v'};
+
+    \draw (1) -- (2); 
+    \draw (3) -- (4) -- (1);
+    \draw (5) -- (4);
+    \draw (6) -- (1);
+    \draw[dotted] (2) -- (3);
+    \draw[dotted] (2) -- (5);
+    \draw[dotted] (5) -- (6);
+    \draw[dotted] (3) -- (6);
+\end{tikzpicture}
+\end{center}
+Die Kanten, deren Hinzufügen einen Subgraphen \Square entstehen
+lässt, werden hier gestrichelt dargestellt. Der konstruierte
+Graph selbst enthält keinen solchen Subgraphen (Wie wir später
+sehen werden, liegt dies daran, dass der minimale Graph regulär
+ist). Um aus diesem konstruierten Graphen einen kantenmaximalen
+Graphen zu machen, müssen nun noch Kanten hinzugefügt werden,
+bis das Hinzufügen einer beliebigen, nicht zum Graphen gehörenden
+Kante, einen Subgraphen entstehen lässt. Die Wahl der hinzugefügten
+Kanten ist jedoch nicht eindeutig. Eine Möglichkeit wäre
+die folgende:
+\begin{center}
+\begin{tikzpicture}[main_node/.style={draw, circle, minimum size=1.5em,inner sep=2pt]}]
+
+    \node[main_node] (1) at (0,0) {};
+    \node[main_node] (2) at (2, -1)  {v};
+    \node[main_node] (3) at (2, 3) {u};
+    \node[main_node] (4) at (0, 2) {};
+    
+    \node[main_node] (5) at (3.5, 2) {u'};
+    \node[main_node] (6) at (3.5, 0) {v'};
+
+    \draw (1) -- (2); 
+    \draw (3) -- (4) -- (1);
+    \draw (5) -- (4);
+    \draw (6) -- (1);
+    
+    \draw (2) -- (6);
+    \draw (3) -- (5);
+    
+    \draw[dotted] (2) -- (3);
+    \draw[dotted] (2) -- (5);
+    \draw[dotted] (5) -- (6);
+    \draw[dotted] (3) -- (6);
+    
+    % hinzugefügt gegenüber vorherigem Graphen.
+    \draw[dotted] (5) -- (1);
+    \draw[dotted] (6) -- (4);
+\end{tikzpicture}
+\end{center}
+\end{example}
 
 
 \subsection{Kriterien für das Gelingen der Konstruktion}
