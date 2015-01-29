@@ -696,6 +696,23 @@ für alle Werte von $n\in \mathbb{N}$, den Graphen
 $G$ nicht als Subgraphen enthält.
 \end{definition}
 
+Mithilfe dieses Kriteriums können wir nun eine
+untere Schranke für die randomsierte Abfragkomplexität
+einiger Subgraph-Isomorphie-Eigenschaften (also Eigenschaften,
+die nur einen minimalen Graphen haben) beweisen:
+\begin{Satz}
+[Untere Schranke für bestimmte Subgraph-Isomorphie-Eigenschaften]
+
+Sei $H\in \mathcal{G_n}$ ein duplizierungs-invarianter Graph
+mit genau $p$ Ecken, die einen positiven Grad haben.
+Dann gilt für die Subgraph-Isomorphie-Eigenschaft $P_n(\{H\})$:
+$$ C_R(P_n(\{H\})) \geq 
+\Big{(} \lfloor \frac{n-p}{2} \rfloor \Big{)}^{2} $$
+\end{Satz}
+\begin{proof}
+
+\end{proof}
+
 \subsection{Kriterien für das Gelingen der Konstruktion}
 % z.B. minimaler Grad, maximale Clique, etc.
 
@@ -712,7 +729,7 @@ eine Eigenschaft finden, die einen minimalen Graphen mit wenigen
 Kanten hat und dennoch nur kantenmaximale Graphen mit vielen Kanten. \\
 Dies ist folgende Familie von Eigenschaften:
 $$ P'_n := \{ \ G \in \mathcal{G}_n \ 
-| \ \exists u\in V(G) \textup{ mit} \deg(u) = n-1 \ \}$$
+| \ \exists u\in V(G) \textup{ mit } \deg(u) = n-1 \ \}$$
 In Worten: Die Eigenschaft, dass es eine Ecke gibt,
 die zu allen anderen Ecken eine Kante hat.
 Die Eigenschaft $P'_n$ hat einen minimalen Graphen mit
@@ -724,7 +741,7 @@ der kantenmaximalen Graphen keine gute untere Schranke.
 \begin{Satz}[Alle kantenmaximalen Graphen von $P'_n$ 
              haben eine hohe Kantenanzahl]
 Sei $G\in \mathcal{G}_n$ ein beliebiger kantenmaximaler Graph
-von $P'_n$. Dann gilt
+von $P'_n$ für ein $n\in \mathbb{N}$. Dann gilt
 $$ |E(G)| \geq \binom{n}{2} - n $$
 \end{Satz}
 \begin{proof}
@@ -750,7 +767,7 @@ Dies macht es schwierig, die entsprechenden Definitionen
 für mathematische Beweise zu verwenden.
 Dies wollen wir nun beheben, indem wir eine komplett algebraisch
 formulierte Definition für die Abfragekomplexität angeben.
-Dies ermöglicht es algebraische Methoden zu verwenden.
+Dadurch sind wir in der Lage, algebraische Methoden zu verwenden.
 % Verschiedene Möglichkeiten, Algorithmen / Abfragekomplexität
 % algebraisch zu charakterisieren.
 
