@@ -27,6 +27,7 @@ right=20mm
 \addbibresource{literature.bib}
 
 \DeclareMathOperator\Min{Min}
+\DeclareMathOperator\Dupl{Dupl}
 
 \newcommand{\Square}{
 \begin{tikzpicture}[main_node/.style={circle,fill=black},
@@ -670,19 +671,29 @@ die folgende:
 \end{center}
 \end{example}
 
+Die Konstruktion des Graphen formalisieren
+wir nun:
+\begin{definition}
+[Duplizierungs-Graph $\Dupl(G, u, v, n)$]
+Der Graph, der aus $G$ entsteht, indem man
+die Kante zwischen $u\in V(G)$ und $v\in V(G)$ löscht
+und dann $n\in \mathbb{N}$ Kopien von $u$ und $n$
+Kopien von $v$ hinzufügt$, bezeichnen wir mit
+$\Dupl(G, u, v, n)$.
+\end{definition}
+
 Damit wir einen kantenmaximalen Graphen erhalten, darf
-der konstruierte Graph keinen minimalen Graphen
+der konstruierte Duplizierungs-Graph keinen minimalen Graphen
 als Subgraphen enthalten. Also darf das Hinzufügen
 von Kopien von Ecken keinen neuen minimalen Graphen
 als Subgraphen erzeugen. Dies formalisieren wir 
 folgendermaßen:
 \begin{definition}[Duplizierungs-invarianter Graph]
 Ein Graph $G$ heißt \emph{duplizierungs-invariant},
-wenn es zwei benachbarte Ecken $u,v\in G$ gibt, sodass
-ein Graph $G'$, der aus $G$ entsteht, indem man die
-Kante $uv\in E(G)$ löscht und dann beliebig viele Kopien
-von $u$ und $v$ einfügt, nie den Graphen $G$ als
-Subgraphen enthält.
+wenn es zwei benachbarte Ecken $u,v\in G$ gibt, 
+sodass der Duplizierungsgraph $\Dupl(G, u, v, n)$
+für alle Werte von $n\in \mathbb{N}$, den Graphen
+$G$ nicht als Subgraphen enthält.
 \end{definition}
 
 \subsection{Kriterien für das Gelingen der Konstruktion}
@@ -700,14 +711,26 @@ Wir zeigen nun jedoch, dass dies nicht allgemein gilt, indem wir
 eine Eigenschaft finden, die einen minimalen Graphen mit wenigen
 Kanten hat und dennoch nur kantenmaximale Graphen mit vielen Kanten. \\
 Dies ist folgende Familie von Eigenschaften:
-$$ P_n := \{ \ G \in \mathcal{G}_n \ 
+$$ P'_n := \{ \ G \in \mathcal{G}_n \ 
 | \ \exists u\in V(G) \textup{ mit} \deg(u) = n-1 \ \}$$
 In Worten: Die Eigenschaft, dass es eine Ecke gibt,
-der zu allen Ecken eine Kante hat.
+die zu allen anderen Ecken eine Kante hat.
+Die Eigenschaft $P'_n$ hat einen minimalen Graphen mit
+$n-1$ Kanten. Die Anzahl der Kanten des minimalen Graphen
+liefert also keine gute untere Schranke für die Abfragekomplexität.
+Wir zeigen nun, dass alle kantenmaximalen Graphen von $P'_n$
+eine sehr hohe Kantenanzahl haben. Also folgt auch aus der Kantenanzahl
+der kantenmaximalen Graphen keine gute untere Schranke.
+\begin{Satz}[Alle kantenmaximalen Graphen von $P'_n$ 
+             haben eine hohe Kantenanzahl]
+Sei $G\in \mathcal{G}_n$ ein beliebiger kantenmaximaler Graph
+von $P'_n$. Dann gilt
+$$ |E(G)| \geq \binom{n}{2} - n $$
+\end{Satz}
+\begin{proof}
 
-% Zeige, dass der Ansatz Größe Minimaler / Kantenmaximaler Graph
-% nicht allgemeingültig funktionieren kann,
-% mit dem Beispiel: 
+\end{proof}
+
 
 \chapter{Verallgemeinerung auf symmetrischen Eigenschaften}
 
