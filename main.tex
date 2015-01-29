@@ -207,7 +207,7 @@ den Subgraphen $K_3$ zerstören würde.
 \begin{definition}[Minimale Graphenmenge $\Min(P_n)$]
 Die Menge der minimalen Graphen der monotonen Graph-Eigenschaft
 $P_n$ heißt:
-$$\Min(P_n) := \{ G\in P_n \ | \ G \textup{ ist minimal } \}$$
+$$\Min(P_n) := \{ G\in P_n \ | \ G \textup{ ist minimaler Graph von } P_n\}$$
 \end{definition}
 
 Die Menge $\Min(P_n)$ charakterisiert die
@@ -258,6 +258,7 @@ so schreiben als $\operatorname{P}_4(\{K_3\})$.
 
 
 \subsection{Abfragekomplexität}
+\label{sec:queryComplexity}
 
 Wir führen nun die ersten algorithmischen Begriffe ein. \\
 Da wir uns nur mit der Abfragekomplexität beschäftigen,
@@ -628,7 +629,7 @@ sich um eine Eigenschaft auf $6$ Ecken handelt:
     \draw[dotted] (3) -- (6);
 \end{tikzpicture}
 \end{center}
-Die Kanten, deren Hinzufügen einen Subgraphen \Square entstehen
+Die Kanten, deren Hinzufügen einen Subgraphen \Square \ entstehen
 lässt, werden hier gestrichelt dargestellt. Der konstruierte
 Graph selbst enthält keinen solchen Subgraphen (Wie wir später
 sehen werden, liegt dies daran, dass der minimale Graph regulär
@@ -636,7 +637,7 @@ ist). Um aus diesem konstruierten Graphen einen kantenmaximalen
 Graphen zu machen, müssen nun noch Kanten hinzugefügt werden,
 bis das Hinzufügen einer beliebigen, nicht zum Graphen gehörenden
 Kante, einen Subgraphen entstehen lässt. Die Wahl der hinzugefügten
-Kanten ist jedoch nicht eindeutig. Eine Möglichkeit wäre
+Kanten ist jedoch nicht eindeutig. Eine Möglichkeit ist
 die folgende:
 \begin{center}
 \begin{tikzpicture}[main_node/.style={draw, circle, minimum size=1.5em,inner sep=2pt]}]
@@ -669,9 +670,32 @@ die folgende:
 \end{center}
 \end{example}
 
+Damit wir einen kantenmaximalen Graphen erhalten, muss
+der Graph
 
 \subsection{Kriterien für das Gelingen der Konstruktion}
 % z.B. minimaler Grad, maximale Clique, etc.
+
+\subsection{Limitierungen dieses Ansatzes}
+Im vorherigen Abschnitt haben wir gezeigt, dass viele Eigenschaften,
+die einen  minimalen Graphen mit wenigen Ecken haben, einen kantenmaximalen
+Graphen mit wenigen Kanten haben. Es stellt sich nun die Frage,
+ob man dies so weit verallgemeinern kann, dass alle Eigenschaften
+mit minimalen Graphen mit wenigen Kanten auch einen kantenmaximalen
+Graphen mit wenigen Kanten haben. Daraus würde eine allgemeine
+untere Schranke für die randomisierte Abfragekomplexität folgen.
+Wir zeigen nun jedoch, dass dies nicht allgemein gilt, indem wir
+eine Eigenschaft finden, die einen minimalen Graphen mit wenigen
+Kanten hat und dennoch nur kantenmaximale Graphen mit vielen Kanten. \\
+Dies ist folgende Familie von Eigenschaften:
+$$ P_n := \{ \ G \in \mathcal{G}_n \ 
+| \ \exists u\in V(G) \textup{ mit} \deg(u) = n-1 \ \}$$
+In Worten: Die Eigenschaft, dass es eine Ecke gibt,
+der zu allen Ecken eine Kante hat.
+
+% Zeige, dass der Ansatz Größe Minimaler / Kantenmaximaler Graph
+% nicht allgemeingültig funktionieren kann,
+% mit dem Beispiel: 
 
 \chapter{Verallgemeinerung auf symmetrischen Eigenschaften}
 
@@ -684,6 +708,14 @@ die folgende:
 % Zeige, dass Transitivität notwendiges Kriterium ist.
 
 \section{Algebraische Formulierungen}
+Dem aufmerksamen Leser ist schon aufgefallen, dass die in 
+Abschnitt \ref{sec:queryComplexity} getroffenen Definitionen
+zur Abfragekomplexität relativ schwammig ausgefallen sind.
+Dies macht es schwierig, die entsprechenden Definitionen
+für mathematische Beweise zu verwenden.
+Dies wollen wir nun beheben, indem wir eine komplett algebraisch
+formulierte Definition für die Abfragekomplexität angeben.
+Dies ermöglicht es algebraische Methoden zu verwenden.
 % Verschiedene Möglichkeiten, Algorithmen / Abfragekomplexität
 % algebraisch zu charakterisieren.
 
