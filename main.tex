@@ -678,7 +678,7 @@ wir nun:
 Der Graph, der aus $G$ entsteht, indem man
 die Kante zwischen $u\in V(G)$ und $v\in V(G)$ löscht
 und dann $n\in \mathbb{N}$ Kopien von $u$ und $n$
-Kopien von $v$ hinzufügt$, bezeichnen wir mit
+Kopien von $v$ hinzufügt, bezeichnen wir mit
 $\Dupl(G, u, v, n)$.
 \end{definition}
 
@@ -745,7 +745,16 @@ von $P'_n$ für ein $n\in \mathbb{N}$. Dann gilt
 $$ |E(G)| \geq \binom{n}{2} - n $$
 \end{Satz}
 \begin{proof}
-
+Sei $E' := (V \times V) \backslash E(G)$ die Menge der Kanten, die nicht
+zu $G$ gehören. Da $G$ kantenmaximal ist, ruft das Hinzufügen
+einer dieser Kanten immer die Eigenschaft $P'_n$ hervor.
+Folglich muss jede Kante in $E'$ eine inzidente Ecke mit Grad
+$n-2$ haben. Diese Ecken sind für verschiedene Kanten in $E'$
+paarweise verschieden voneinander, denn ansonsten wäre der
+Grad der Ecke höchstens $n-3$. Da $G$ genau $n$ Ecken hat,
+erhalten wir durch Abzählen, dass $|E'| \leq n$ gilt.
+Wir erhalten somit:
+$$ E(G) = \binom{n}{2} - |E'| \geq \binom{n}{2} - n $$
 \end{proof}
 
 
