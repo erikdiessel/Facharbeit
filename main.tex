@@ -676,9 +676,14 @@ als Subgraphen enthalten. Also darf das Hinzufügen
 von Kopien von Ecken keinen neuen minimalen Graphen
 als Subgraphen erzeugen. Dies formalisieren wir 
 folgendermaßen:
-\begin{example}
-
-\end{example}
+\begin{definition}[Duplizierungs-invarianter Graph]
+Ein Graph $G$ heißt \emph{duplizierungs-invariant},
+wenn es zwei benachbarte Ecken $u,v\in G$ gibt, sodass
+ein Graph $G'$, der aus $G$ entsteht, indem man die
+Kante $uv\in E(G)$ löscht und dann beliebig viele Kopien
+von $u$ und $v$ einfügt, nie den Graphen $G$ als
+Subgraphen enthält.
+\end{definition}
 
 \subsection{Kriterien für das Gelingen der Konstruktion}
 % z.B. minimaler Grad, maximale Clique, etc.
