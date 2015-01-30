@@ -702,7 +702,7 @@ einiger Subgraph-Isomorphie-Eigenschaften (also Eigenschaften,
 die nur einen minimalen Graphen haben) beweisen:
 \begin{Satz}
 [Untere Schranke für bestimmte Subgraph-Isomorphie-Eigenschaften]
-
+\label{thm:SubgraphIsomorphismLowerBound}
 Sei $H\in \mathcal{G}_n$ ein duplizierungs-invarianter Graph
 mit genau $p$ Ecken, die einen positiven Grad haben.
 Dann gilt für die Subgraph-Isomorphie-Eigenschaft $P_n(\{H\})$:
@@ -731,15 +731,59 @@ $$ |E(G')| \leq \binom{n}{2} -
 \Big ( \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} $$
 da alle Kanten zwischen Kopien von $u$ und $v$ nicht zu dem
 kantenmaximalen Graphen gehören können. Wenden wir nun
-Satz \ref{thm:EdgeMaxGraphLowerBound} mit dem kantenmaximalen
+Korollor \ref{thm:EdgeMaximalRandCompl} mit dem kantenmaximalen
 Graphen $G'$ an, so erhalten wir unsere untere Schranke für
 die Abfragekomplexität:
 $$ C_R(P_n(\{H\})) \geq 
 \Big{ ( } \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} $$
 \end{proof}
 
+\begin{example}[Anwendung dieses Satzes]
+Der Graph $K_4 =$
+\begin{tikzpicture}[main_node/.style={circle,fill=black},
+inner sep=1.5pt, baseline=2pt]
+
+    \node[main_node] (1) at (0,0) {};
+    \node[main_node] (2) at (0.35, 0)  {};
+    \node[main_node] (3) at (0.35, 0.35) {};
+    \node[main_node] (4) at (0, 0.35) {};
+
+    \draw (1) -- (2) -- (3) -- (4) -- (1);
+    \draw (4) -- (2);
+    \draw (3) -- (1);
+\end{tikzpicture} ist duplizierungs-invariant, da die Kopien
+der Ecken jeweils nur Grad $2$ haben. Der Graph $K_4$
+hat $p=4$ Ecken mit positivem Grad. Für die Familie von
+Eigenschaften $P_n(\{K_4\})$ mit $ n\geq 4$ erhalten wir also
+mit Satz \ref{thm:SubgraphIsomorphismLowerBound} folgende
+untere Schranke für die randomisierte Abfragekomplexität:
+$$ C_R(P_n(\{K_4\})) \geq 
+\Big ( \Big \lfloor  \frac{n-4}{2} \Big \rfloor \Big ) ^2 \geq
+\Big ( \frac{n-5}{2} \Big ) ^2 = 
+\frac{1}{4} n^2 - \frac{5}{2} n + 25 
+$$
+Die gezeigte untere Schranke ist hier also nur um einen
+konstanten Faktor von dem theoretischen Maximum
+der randomisierten Abfragekomplexität
+$\binom{n}{2} = \frac{1}{2}n^2 - \frac{1}{2}n - \frac{1}{2}$
+entfernt.
+\end{example}
+
 \subsection{Kriterien für das Gelingen der Konstruktion}
-% z.B. minimaler Grad, maximale Clique, etc.
+Satz \ref{thm:SubgraphIsomorphismLowerBound}, der gute
+untere Schranken für die randomisierte Abfragekomplexität
+liefert, hat als Voraussetzung, dass der minimale Graph
+\emph{duplizierungs-invariant} ist. Damit man den 
+Satz möglichst direkt auf einen Fall anwenden kann, 
+zeigen wir nun einige Kriterien dafür, wann ein
+Graph duplizierungs-invariant ist.
+\begin{Satz}[Hinreichende Kriterien für Duplizierungs-Invarianz]
+Ein Graph $H$ ist duplizierungs-invariant, wenn eines
+der vorliegenden Kriterien erfüllt ist:
+\begin{description}
+\item[(a)] $H$ ist regulär 
+\end{description}
+\end{Satz}
 
 \subsection{Limitierungen dieses Ansatzes}
 Im vorherigen Abschnitt haben wir gezeigt, dass viele Eigenschaften,
@@ -793,7 +837,11 @@ In diesem Kapitel verallgemeinern wir das Konzept der
 Graph-Eigenschaft auf Eigenschaften von Bitfolgen, die
 symmetrisch sind, d.h. invariant gegenüber einer Symmetriegruppe.
 Danach beschäftigen wir uns mit der Abfragekomplexität
-solcher Eigenschaften.
+solcher Eigenschaften. \\
+Eine Bitfolge stellen wir hier als Element eines Vektorraums
+über den endlichen Körper $\mathbb{F}_2$ der Ordnung $2$ dar.
+Für die Bitfolge ``101`` würden wir also schreiben:
+$ (1,0,1) \in \mathbb{F}_2^3$
 
 \section{Allgemeine symmetrische Eigenschaften}
 Um die Symmetrie zu formalisieren, müssen wir zunächst
@@ -811,12 +859,12 @@ Vektors. Eine Eigenschaft ist nun symmetrisch, wenn sie invariant
 gegenüber dieser Gruppenoperation ist:
 
 \begin{definition}[Symmetrische Eigenschaft]
-Für $m\in \mathbb{N}$ eine natürliche Zahl und
+Sei $m\in \mathbb{N}$ eine natürliche Zahl und
 $S \leq \mathbb{S}_m$ eine Untergruppe der 
-symmetrischen Gruppe vom Grad $m$,
-heißt eine Teilmenge
+symmetrischen Gruppe vom Grad $m$. \\
+Eine Teilmenge
 $P_m \subseteq \mathbb{F}_2^m$ aller Bitfolgen der
-Länge $m$ \emph{$S$-symmetrische Eigenschaft}, wenn
+Länge $m$ heißt \emph{$S$-symmetrische Eigenschaft}, wenn
 für alle $\sigma \in S$ und alle $g\in \mathbb{F}_2^m$ gilt:
 $$ \sigma(g)\in P_m \iff g \in P_m $$ 
 \end{definition}
