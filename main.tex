@@ -691,7 +691,7 @@ folgendermaßen:
 \begin{definition}[Duplizierungs-invarianter Graph]
 Ein Graph $G$ heißt \emph{duplizierungs-invariant},
 wenn es zwei benachbarte Ecken $u,v\in G$ gibt, 
-sodass der Duplizierungsgraph $\Dupl(G, u, v, n)$
+sodass der Duplizierungsgraph $\Dupl(G, u, v, n)$,
 für alle Werte von $n\in \mathbb{N}$, den Graphen
 $G$ nicht als Subgraphen enthält.
 \end{definition}
@@ -703,14 +703,39 @@ die nur einen minimalen Graphen haben) beweisen:
 \begin{Satz}
 [Untere Schranke für bestimmte Subgraph-Isomorphie-Eigenschaften]
 
-Sei $H\in \mathcal{G_n}$ ein duplizierungs-invarianter Graph
+Sei $H\in \mathcal{G}_n$ ein duplizierungs-invarianter Graph
 mit genau $p$ Ecken, die einen positiven Grad haben.
 Dann gilt für die Subgraph-Isomorphie-Eigenschaft $P_n(\{H\})$:
 $$ C_R(P_n(\{H\})) \geq 
-\Big{(} \lfloor \frac{n-p}{2} \rfloor \Big{)}^{2} $$
+\Big{ ( } \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} $$
 \end{Satz}
 \begin{proof}
-
+Da $H$ nach Voraussetzung duplizierungs-invariant ist und die 
+Eigenschaft nur einen minimalen Graphen hat, gibt es
+$u,v \in H$, sodass der Graph 
+$G:= \Dupl(H, u, v, \big \lfloor \frac{n-p}{2} \big \rfloor)$
+die Eigenschaft $P_n(\{H\})$ nicht erfüllt. \\
+Ist $u'\in G$ eine Kopie von $u$ und $v' \in G$ eine Kopie von $v$,
+so wird durch das Hinzufügen der Kante $u'v'$ als Subgraph ein
+minimaler Graph erzeugt, da $H-u-v \subseteq G$ gilt und
+$H \subseteq H-u-v + u' + v' + u'v'$. Da $G$ nach Konstruktion
+jeweils $\big \lfloor \frac{n-p}{2} \big \rfloor$ Kopien von
+$u$ und von $v$ hat, gibt es mindestens
+$\Big{ ( } \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2}$
+Kanten, deren Hinzufügen die Eigenschaft $P_n(\{H\})$ hervorruft.
+Wir konstruieren nun also einen kantenmaximalen Graphen $G'$ aus
+$G$, indem wir nach und nach Kanten zu $G$ hinzufügen, die die
+Eigenschaft unerfüllt lassen, bis dies nicht mehr möglich ist.
+Dieser Graph $G'$ hat nun eine Kantenanzahl von:
+$$ |E(G')| \leq \binom{n}{2} - 
+\Big ( \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} $$
+da alle Kanten zwischen Kopien von $u$ und $v$ nicht zu dem
+kantenmaximalen Graphen gehören können. Wenden wir nun
+Satz \ref{thm:EdgeMaxGraphLowerBound} mit dem kantenmaximalen
+Graphen $G'$ an, so erhalten wir unsere untere Schranke für
+die Abfragekomplexität:
+$$ C_R(P_n(\{H\})) \geq 
+\Big{ ( } \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} $$
 \end{proof}
 
 \subsection{Kriterien für das Gelingen der Konstruktion}
@@ -760,12 +785,41 @@ $$ E(G) = \binom{n}{2} - |E'| \geq \binom{n}{2} - n $$
 Mithilfe von kantenmaximalen Graphen folgt also maximal
 eine untere Schranke von $C_R(P'_n) \geq n$. Somit können
 wir mit unseren bisherigen Methoden keine gute untere Schranke
-für diese Eigenschaft zeigen.
+für diese Eigenschaft zeigen. Dafür müssen andere Methoden
+entwickelt werden.
 
 \chapter{Verallgemeinerung auf symmetrischen Eigenschaften}
+In diesem Kapitel verallgemeinern wir das Konzept der
+Graph-Eigenschaft auf Eigenschaften von Bitfolgen, die
+symmetrisch sind, d.h. invariant gegenüber einer Symmetriegruppe.
+Danach beschäftigen wir uns mit der Abfragekomplexität
+solcher Eigenschaften.
 
 \section{Allgemeine symmetrische Eigenschaften}
-% Definition etc.
+Um die Symmetrie zu formalisieren, müssen wir zunächst
+eine spezielle Gruppenoperation definieren:
+
+\begin{definition}
+[Operation der symmetrischen Gruppe $\mathbb{S}_m$ auf $\mathbb{F}_2^m$]
+Die Gruppenoperation
+$$\mathbb{S}_m \times \mathbb{F}_2^m \to \mathbb{F}_2^m, \ (\sigma,g) \mapsto \sigma(g)$$
+ist so definiert, dass für alle Indizes $1\leq i \leq m$ gilt:
+$$ \sigma(g)_i = g_{\sigma(i)} $$
+\end{definition}
+Die symmetrische Gruppe permutiert also die Komponenten eines
+Vektors. Eine Eigenschaft ist nun symmetrisch, wenn sie invariant
+gegenüber dieser Gruppenoperation ist:
+
+\begin{definition}[Symmetrische Eigenschaft]
+Für $m\in \mathbb{N}$ eine natürliche Zahl und
+$S \leq \mathbb{S}_m$ eine Untergruppe der 
+symmetrischen Gruppe vom Grad $m$,
+heißt eine Teilmenge
+$P_m \subseteq \mathbb{F}_2^m$ aller Bitfolgen der
+Länge $m$ \emph{$S$-symmetrische Eigenschaft}, wenn
+für alle $\sigma \in S$ und alle $g\in \mathbb{F}_2^m$ gilt:
+$$ \sigma(g)\in P_m \iff g \in P_m $$ 
+\end{definition}
 
 \section{Untere Schranken für die Abfragekomplexität}
 % Verallgemeinerte AKR-Vermutung, Beweis von Rivest für
