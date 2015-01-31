@@ -565,7 +565,9 @@ Wir gehen folgendermaßen vor: Wir konstruieren für Eigenschaften,
 die gewisse Kriterien erfüllen, kantenmaximale Graphen mit 
 relativ wenigen Kanten. Mithilfe von Korrollar 
 \ref{thm:EdgeMaximalRandCompl} erhalten wir so eine untere Schranke
-für die randomisierte Abfragekomplexität.
+für die randomisierte Abfragekomplexität. \\
+Wir verwenden die Bezeichnung $V_{>0}(G)$ für die
+Menge der Ecken mit positivem Grad des Graphen $G$.
 
 \subsection{Konstruktion kantenmaximaler Graphen}
 Die Hauptidee: Wir nehmen einen minimalen Graphen (der eine
@@ -707,7 +709,10 @@ Sei $H\in \mathcal{G}_n$ ein duplizierungs-invarianter Graph
 mit genau $p$ Ecken, die einen positiven Grad haben.
 Dann gilt für die Subgraph-Isomorphie-Eigenschaft $P_n(\{H\})$:
 $$ C_R(P_n(\{H\})) \geq 
-\Big{ ( } \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} $$
+\Big{ ( } \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} \geq
+\Big ( \frac{n-p-1}{2} \Big ) ^2 =
+\frac{1}{4}n^2 - \frac{1}{2}n(p+1) + \frac{1}{4}(p+1)^2
+$$
 \end{Satz}
 \begin{proof}
 Da $H$ nach Voraussetzung duplizierungs-invariant ist und die 
@@ -735,7 +740,14 @@ Korollor \ref{thm:EdgeMaximalRandCompl} mit dem kantenmaximalen
 Graphen $G'$ an, so erhalten wir unsere untere Schranke für
 die Abfragekomplexität:
 $$ C_R(P_n(\{H\})) \geq 
-\Big{ ( } \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} $$
+\Big (  \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big )^2$$
+Da $\Big \lfloor  \frac{n-p}{2} \Big \rfloor \geq \frac{n-p-1}{2}$
+gilt, erhalten wir dann durch Umformen:
+$$ \Big ( \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} \geq
+\Big ( \frac{n-p-1}{2} \Big ) ^2 =
+\frac{1}{4}(n-p-1)^2 =
+\frac{1}{4}n^2 - \frac{1}{2}n(p+1) + \frac{1}{4}(p+1)^2
+$$
 \end{proof}
 
 \begin{example}[Anwendung dieses Satzes]
@@ -752,15 +764,15 @@ inner sep=1.5pt, baseline=2pt]
     \draw (4) -- (2);
     \draw (3) -- (1);
 \end{tikzpicture} ist duplizierungs-invariant, da die Kopien
-der Ecken jeweils nur Grad $2$ haben. Der Graph $K_4$
-hat $p=4$ Ecken mit positivem Grad. Für die Familie von
+der Ecken jeweils nur Grad $2$ haben. Zudem
+hat er $p=4$ Ecken mit positivem Grad. Für die Familie von
 Eigenschaften $P_n(\{K_4\})$ mit $ n\geq 4$ erhalten wir also
 mit Satz \ref{thm:SubgraphIsomorphismLowerBound} folgende
 untere Schranke für die randomisierte Abfragekomplexität:
 $$ C_R(P_n(\{K_4\})) \geq 
 \Big ( \Big \lfloor  \frac{n-4}{2} \Big \rfloor \Big ) ^2 \geq
 \Big ( \frac{n-5}{2} \Big ) ^2 = 
-\frac{1}{4} n^2 - \frac{5}{2} n + 25 
+\frac{1}{4} n^2 - \frac{5}{2} n + \frac{25}{4} 
 $$
 Die gezeigte untere Schranke ist hier also nur um einen
 konstanten Faktor von dem theoretischen Maximum
@@ -778,12 +790,62 @@ Satz möglichst direkt auf einen Fall anwenden kann,
 zeigen wir nun einige Kriterien dafür, wann ein
 Graph duplizierungs-invariant ist.
 \begin{Satz}[Hinreichende Kriterien für Duplizierungs-Invarianz]
+\label{thm:KriterienDuplizierungsInvariant}
 Ein Graph $H$ ist duplizierungs-invariant, wenn eines
 der vorliegenden Kriterien erfüllt ist:
 \begin{description}
-\item[(a)] $H$ ist regulär 
+\item[(a)] Es gibt eine Kante $uv\in H$, sodass sowohl
+           der Grad von $u$ als auch der Grad von $v$
+           minimal unter allen Ecken von $H$ mit positivem
+           Grad ist.
+\item[(b)] Es gibt eine Kante $uv \in H$ und eine Zahl
+           $k\in \mathbb{N}$, sodass $u$ Teil einer $k$-Clique
+           in $H$ aber nicht in $H-v$ ist.
+\item[(z)] $H$ ist regulär
 \end{description}
 \end{Satz}
+\begin{proof}
+\hfill
+\begin{description}
+\item[(a)] Wir betrachten den Graphen $\Dupl(H,u,v,n)$ für ein
+           beliebiges $n\in \mathbb{N}$ und
+           nehmen o.B.d.A. an, dass $\deg(u) \geq \deg(v)$ in $H$
+           gilt. \\
+           Da der Grad von $u$ und $v$ minimal unter allen
+           Ecken von $H$ mit positivem Grad ist, gibt es
+           mindestens $|V_{>0}(H)| - 1$ Ecken mit Grad $\geq \deg(u)$,
+           nämlich mindestens alle Ecken von $H$ mit positivem Grad
+           außer $v$.
+           Im Graph $\Dupl(H,u,v,n)$ gibt es jedoch nur 
+           $|V_{>0}(H)|-2$ Ecken mit Grad $\geq \deg(u)$, da alle
+           Kopien von $u$ und $v$ höchstens Grad $\deg(u)-1$ haben
+           und die Kante zwischen $u$ und $v$ gelöscht wurde.
+           Somit kann $H$ kein Subgraph von $\Dupl(H,u,v,n)$ sein.
+\end{description}
+\end{proof}
+
+Mithilfe dieser Kriterien erhalten wir nun
+eine direkte untere Schranke für die randomisierte Abfragekomplexität:
+\begin{corollary}[Konkrete untere Schranken für Subgraph-Isomorphie-Eigenschaften]
+Sei $H$ ein Graph mit $p=|V_{>0}(H)|$ Ecken mit positivem Grad
+und $n\in \mathbb{N}$. \\
+Erfüllt $H$ eines der folgenden Kriterien:
+\begin{description}
+\item[(a)]
+\end{description}
+so gilt für die randomisierte Abfragekomplexität der Eigenschaft 
+$P_n(\{H\})$:
+$$ C_R(P_n(\{H\})) \geq
+\Big{ ( } \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} \geq
+\frac{1}{4}n^2 - \frac{1}{2}n(p+1) + \frac{1}{4}(p+1)^2
+$$
+\end{corollary}
+\begin{proof}
+Der Graph $H$ ist nach Satz \ref{thm:KriterienDuplizierungsInvariant}
+duplizierungs-invariant. Es folgt somit mit 
+Satz \ref{thm:SubgraphIsomorphismLowerBound} die entsprechende
+untere Schranke für die randomisierte Abfragekomplexität.
+\end{proof}
 
 \subsection{Limitierungen dieses Ansatzes}
 Im vorherigen Abschnitt haben wir gezeigt, dass viele Eigenschaften,
@@ -826,7 +888,7 @@ Wir erhalten somit:
 $$ E(G) = \binom{n}{2} - |E'| \geq \binom{n}{2} - n $$
 \end{proof}
 
-Mithilfe von kantenmaximalen Graphen folgt also maximal
+Mitttels Korollar \ref{thm:EdgeMaximalRandCompl} folgt also bestenfalls
 eine untere Schranke von $C_R(P'_n) \geq n$. Somit können
 wir mit unseren bisherigen Methoden keine gute untere Schranke
 für diese Eigenschaft zeigen. Dafür müssen andere Methoden
