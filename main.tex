@@ -301,7 +301,8 @@ dann mit ''ja'' beschriftet ist, wenn $G \in P_n$ gilt.
 \begin{tikzpicture} [
     level 1/.style = {sibling distance=7cm},
     level 2/.style = {sibling distance=3cm}, 
-    level 3/.style = {sibling distance=2cm}, 
+    level 3/.style = {sibling distance=2cm},
+    font=\sffamily
 ]
 \tikzstyle{every node}=[draw]
 
@@ -336,7 +337,7 @@ dem Input abhängt.
 
 Wir können nun unseren zentralen Begriff definieren.
 
-\begin{definition}[Abfragekomplexität]
+\begin{definition}[Deterministische Abfragekomplexität]
 Die \emph{Abfragekomplexität} $C(\mathcal{A},G)$ eines
 Algorithmus $\mathcal{A}$ für den Input $G$ ist
 die Länge des zu $G$ gehörenden Pfades des
@@ -903,7 +904,7 @@ wir mit unseren bisherigen Methoden keine gute untere Schranke
 für diese Eigenschaft zeigen. Dafür müssen andere Methoden
 entwickelt werden.
 
-\chapter{Verallgemeinerung auf symmetrischen Eigenschaften}
+\chapter{Verallgemeinerung auf symmetrische Eigenschaften}
 In diesem Kapitel verallgemeinern wir das Konzept der
 Graph-Eigenschaft auf Eigenschaften von Bitfolgen, die
 symmetrisch sind, d.h. invariant gegenüber einer Symmetriegruppe.
@@ -912,7 +913,7 @@ solcher Eigenschaften. \\
 Eine Bitfolge stellen wir hier als Element eines Vektorraums
 über den endlichen Körper $\mathbb{F}_2$ der Ordnung $2$ dar.
 Für die Bitfolge ``101`` würden wir also schreiben:
-$ (1,0,1) \in \mathbb{F}_2^3$
+$ (1,0,1) \in \mathbb{F}_2^3$.
 
 \section{Allgemeine symmetrische Eigenschaften}
 Um die Symmetrie zu formalisieren, müssen wir zunächst
@@ -928,6 +929,7 @@ $$ \sigma(g)_i = g_{\sigma(i)} $$
 Die symmetrische Gruppe permutiert also die Komponenten eines
 Vektors. Eine Eigenschaft ist nun symmetrisch, wenn sie invariant
 gegenüber dieser Gruppenoperation ist:
+\footnote{vgl. \cite[S.7]{Rivest}}
 
 \begin{definition}[Symmetrische Eigenschaft]
 Sei $m\in \mathbb{N}$ eine natürliche Zahl und
@@ -940,10 +942,26 @@ für alle $\sigma \in S$ und alle $g\in \mathbb{F}_2^m$ gilt:
 $$ \sigma(g)\in P_m \iff g \in P_m $$ 
 \end{definition}
 
+Eine Graph-Eigenschaft kann man als symmetrische
+Eigenschaft auffassen. Hierbei ist $S$ die Gruppe
+der Graph-Isomorphismen.
+Analog zu Graph-Eigenschaften definiert man
+\emph{monotone} symmetrische Eigenschaften.
+
 \section{Untere Schranken für die Abfragekomplexität}
-% Verallgemeinerte AKR-Vermutung, Beweis von Rivest für
-% transitive Symmetriegruppen und Primzahlpotenzen
-% Zeige, dass Transitivität notwendiges Kriterium ist.
+Wir betrachten nun einige Fälle für die Symmetriegruppe
+$S$.
+\begin{example}[$S$ ist die symmetrische Gruppe]
+Sei $m\in \mathbb{N}$ beliebig.
+Wir betrachten den Fall, dass $S=\mathbb{S}_m$
+die symmetrische Gruppe ist. Ist nun 
+$P_m\subseteq \mathbb{F}_2^m$ eine monotone 
+$S$-symmetrische Eigenschaft, so muss 
+$P_n$ von der Form 
+$$ P_n = \{ g\in \mathbb{F}_2^m \ |
+\ g \textup{ hat mindestens } k\textup{-mal die Komponente } 1 \ \}$$
+sein, denn
+\end{example}
 
 \section{Algebraische Formulierungen}
 Dem aufmerksamen Leser ist schon aufgefallen, dass die in 
