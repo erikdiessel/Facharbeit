@@ -70,54 +70,68 @@ Fragestellungen der theoretischen Informatik.
 Der bekannteste Fall ist hier die Frage, ob die beiden
 Komplexitätsklassen $P$ und $NP$ identisch sind. Diese
 Frage dreht sich um die Zeitkomplexität, die bestimmte
-Probleme benötigen. Obwohl dies seit mehr als 40 Jahren
-mit großem Aufwand untersucht wird, hat man noch
-immer keine Lösung gefunden und es wird vermutet, dass
-man auch nicht mit einer Lösung in der nahen Zukunft
-rechnen kann \footnote{\cite{PvsNP}}.
-Obwohl diese Fragestellung ursprünglich aus der
-Informatik stammt, gilt sie inzwischen als eines der
-größten ungelösten Probleme der Mathematik. Das Clay
-Mathematics Institute stufte es als ein ``Millenium Problem``
-der Mathematik ein und hat einen Preis von
-1 Million Dollar für seine Lösung ausgelobt
+Probleme benötigen. Die Komplexität eines Problems zu ermitteln hat
+große Relevanz für die Praxis, da sie die theoretischen
+Grenzen für die Performance eines Algorithmus aufzeigen. \\
+Die Wichtigkeit dieser ursprünglich aus der Informatik
+stammenden Fragestellung zeigt sich darin, dass das Clay
+Mathematics Institute es als ein "`Millenium Problem"'
+der Mathematik eingestuft und einen Preis von
+1 Million Dollar für seine Lösung ausgelobt hat.
 \footnote{vgl. die offizielle Problembeschreibung:
 \cite{PvsNPOfficial}}. \\
-Die Komplexität eines Problems zu ermitteln hat
-große Relevanz für die Praxis, da so die Entwickler
-von Algorithmen wissen, wie effizient ein Algorithmus
-theoretisch überhaupt sein kann. \\
-Es wird vermutet, dass $P\neq NP$ gilt. Um dies zu beweisen
-müsste man eine untere Schranke für die Zeitkomplexität
-gewisser Probleme finden. Bis heute sind jedoch
-keine adäquaten Methoden bekannt. \\
+Um die vermutete Ungleichheit $P\neq NP$ zu zeigen,
+muss eine untere Schranke für die Komplexität einiger
+Probleme gezeigt werden. Bis heute scheint dies jedoch
+in weiter Ferne.\footnote{\cite{PvsNP}}
 In dieser Facharbeit beschäftigen wir uns daher mit
 der  Abfragekomplexität von Eigenschaften. Im Gegensatz
 zur Zeitkomplexität ist es hier möglich gute
 untere Schranken zu beweisen. Die Entwicklung
-neuer Methoden für diesen ''einfachen'' Fall ermöglicht
-es vielleicht später, diese, in angepaster Form, auf
-die Zeitkomplexität anzuwenden.\\
+neuer Methoden für untere Schranken bei diesem "`einfachen"' Fall,
+führt dann eventuell zu neuen Impulsen für untere
+Schranken bei der Zeitkomplexität. \\
 Im Kontext von ungerichteten Graphen
 ist die Abfragekomplexität die Anzahl
-an Abfragen der Form ''Besteht eine Kante zwischen
-der Ecke $u$ und der Ecke $v$ ?'', die ein Algorithmus
+an Abfragen der Form "`Besteht eine Kante zwischen
+der Ecke $u$ und der Ecke $v$ ?"', die ein Algorithmus
 benötigt, um zu entscheiden, ob ein gegebener Graph
 eine Eigenschaft erfüllt. Eine Graph-Eigenschaft ist
-dabei unabhängig von der konkreten Benennung der Knoten.
+dabei unabhängig von der konkreten Benennung der Knoten. \\
 Von Rivest und Vuillemin wurde gezeigt,
 dass die Abfragekomplexität
 im Fall von monotonen Graph-Eigenschaften, die beim 
 Hinzufügen von Kanten erhalten bleiben, asymptotisch
 quadratisch in der Anzahl der Knoten
-ist \footnote{\cite{Rivest}}. Für die von
-ihnen gezeigte untere Schranke für die Komplexität
-$C(P_n) \geq \frac{1}{16}n^2$ wird bis heute noch
-versucht, den konstanten Faktor zu erhöhen. Die bisher beste
-untere allgemeine Schranke wurde von Scheidweiler
-und Triesch 2013 gezeigt\footnote{\cite{Scheidweiler}}:
-$C(P_n) \geq \frac{2}{3}n^2 - o(n^2)$.
+ist\footnote{\cite{Rivest}}: $C(P_n) \geq \frac{1}{16}n^2$.
+Die Aanderaa-Karp-Rosenberg-Vermutung, dass im Worst-Case
+zum Entscheiden einer monotonen Graph-Eigenschaft
+alle Kanten abgefragt werden müssen, d.h. dass
+$C(P_n)=\binom{n}{2}$ gilt, ist jedoch schon
+seit Jahrzehnten offen. Mit dieser Facharbeit
+wollen wir nun an einer Weiterentwicklung der
+Methoden mitwirken, damit ein Beweis dieser Vermutung
+weiter in die Nähe rückt.
 
+Diese Arbeit ist folgendermaßen aufgebaut:
+Wir definieren zunächst die Abfragekomplexität
+von Graph-Eigenschaften im deterministischem und
+randomisiertem Fall. Nachdem wir die Konzepte
+"`minimaler Graph"' und kantenmaximaler Graph
+eingeführt haben, zeigen wir einige untere Schranken
+für die Abfragekomplexität, die auf diesen Begriffen
+basieren. Im nächsten Kapitel zeigen wir dann einige
+konkretere untere Schranken für eine Vielzahl von
+Graph-Eigenschaften. Nachdem wir die Grenzen 
+dieses Ansatzes ausgeleuchtet haben, verallgemeinern
+wir das Konzept der Graph-Eigenschaften auf 
+symmetrische Eigenschaften von Bitfolgen. Für
+diese Fälle zeigen wir einige untere Schranken.
+Danach formulieren wir die Begriffe "`Algorithmus"'
+und "`Abfragekomplexität"' nocheinmal algebraisch, um
+in einem letzten Abschnitt
+einige algebraische Ansätze für Methoden vorstellen zu
+können, die noch bessere untere Schranken ermöglichen könnten.
 
 \chapter{Die Abfragekomplexität von monotonen Graph-Eigenschaften}
 \section{Grundlegende Definitionen}
@@ -188,7 +202,7 @@ wenn $G \in P_n$ gilt, aber jeder echte Subgraph
 $G' \subset G$ die Eigenschaft $P_n$ nicht erfüllt.
 \end{definition}
 
-In Beispiel \ref{exmpl:Monotonie} wäre 
+In Beispiel \ref{exmpl:Monotonie} ist
 \begin{center}
 \begin{tikzpicture}[main_node/.style={circle,fill=black,minimum size=0.8em,inner sep=2pt]}]
 
@@ -261,7 +275,8 @@ so schreiben als $\operatorname{P}_4(\{K_3\})$.
 \subsection{Abfragekomplexität}
 \label{sec:queryComplexity}
 
-Wir führen nun die ersten algorithmischen Begriffe ein. \\
+Wir führen nun die ersten algorithmischen Begriffe ein.
+\footnote{vgl. \cite[S.7]{Rivest}}\\
 Da wir uns nur mit der Abfragekomplexität beschäftigen,
 vereinfachen wir unser Berechnungsmodell: \\
 Einen Algorithmus stellen wir als Entscheidungsbaum dar.
@@ -284,29 +299,29 @@ dann mit ''ja'' beschriftet ist, wenn $G \in P_n$ gilt.
 \label{exmpl:decisionTree}
 \begin{center}
 \begin{tikzpicture} [
-    level 1/.style = {sibling distance=6cm},
-    level 2/.style = {sibling distance=2cm}, 
+    level 1/.style = {sibling distance=7cm},
+    level 2/.style = {sibling distance=3cm}, 
     level 3/.style = {sibling distance=2cm}, 
 ]
-\tikzstyle{every node}=[circle,draw]
+\tikzstyle{every node}=[draw]
 
-\node [circle, draw] {$(1,2)$}
-  child {  node {$(1,3)$} 
-    child { node {Ja} edge from parent node[left,draw=none] {ja} }
-    child { node {$(2,3)$}
-      child { node {Ja} edge from parent node[left,draw=none] {ja} }
-      child { node {Nein} edge from parent node[right,draw=none] {nein} }
+\node [draw] {$(1,2)\in G?$}
+  child {  node {$(1,3)\in G?$} 
+    child { node {$G \in P_3$} edge from parent node[left,draw=none] {ja} }
+    child { node {$(2,3)\in G?$}
+      child { node {$G \in P_3$} edge from parent node[left,draw=none] {ja} }
+      child { node {$G \notin P_3$} edge from parent node[right,draw=none] {nein} }
       edge from parent node[right,draw=none] {nein} 
     }
     edge from parent node[left,draw=none] {ja}
   }
-  child { node {$(2,3)$}
-    child { node {$(1,3)$}
-      child { node{Ja} edge from parent node[left,draw=none] {ja} }
-      child { node{Nein} edge from parent node[right,draw=none] {nein} }
+  child { node {$(2,3)\in G?$}
+    child { node {$(1,3)\in G?$}
+      child { node{$G \in P_3$} edge from parent node[left,draw=none] {ja} }
+      child { node{$G \notin P_3$} edge from parent node[right,draw=none] {nein} }
       edge from parent node[left,draw=none] {ja}
     }
-    child { node {Nein} edge from parent node[right,draw=none] {nein} }
+    child { node {$G \notin P_3$} edge from parent node[right,draw=none] {nein} }
     edge from parent node[right,draw=none] {nein} 
   };
 \end{tikzpicture}
@@ -320,33 +335,25 @@ dem Input abhängt.
 \end{example}
 
 Wir können nun unseren zentralen Begriff definieren.
-\begin{definition}[Abfragekomplexität für einen Input]
+
+\begin{definition}[Abfragekomplexität]
 Die \emph{Abfragekomplexität} $C(\mathcal{A},G)$ eines
 Algorithmus $\mathcal{A}$ für den Input $G$ ist
 die Länge des zu $G$ gehörenden Pfades des
-Entscheidungsbaumes.
-\end{definition}
-Die Abfragekomplexität eines Algorithmus definieren
-wir nun als Worst-Case-~Komplexität.
-\begin{definition}[Abfragekomplexität eines Algorithmus]
+Entscheidungsbaumes. \\
 Die \emph{Abfragekomplexität} $C(\mathcal{A})$ eines
-Algorithmus $\mathcal{A}$ ist
+Algorithmus $\mathcal{A}$ ist dann
 $$ C(\mathcal{A}) := \max_{G \in \mathcal{G}_n} C(\mathcal{A},G)$$
-\end{definition}
-Der in Beispiel \ref{exmpl:decisionTree} dargestellte
-Algorithmus hat eine Abfragekomplexität von $3$, da
-der längste Pfad die Länge $3$ hat. \\
-Nun können wir die Abfragekomplexität unabhängig
-von einem bestimmten Algorithmus definieren.
-\begin{definition}
 Die \emph{Abfragekomplexität} $C(P_n)$ einer Graph-Eigenschaft
-$P_n$ ist
+$P_n\subseteq \mathcal{G}_n$ ist nun
 $$ C(P_n) := \min_{\mathcal{A} \ {\rm entscheidet}\  P_n} C(\mathcal{A})$$
 \end{definition}
 
-Wir sind nun in der Lage, die Aanderaa-Karp-Rosenberg-Vermutung
-exakt zu formulieren:
-\footnote{vgl. \cite{Lovasz}}
+Der in Beispiel \ref{exmpl:decisionTree} dargestellte
+Algorithmus hat eine Abfragekomplexität von $3$, da
+der längste Pfad die Länge $3$ hat. \\
+Die Aanderaa-Karp-Rosenberg lautet nun:
+\footnote{vgl. \cite[S.9]{Lovasz}}
 \begin{conjecture}[Aanderaa-Karp-Rosenberg]
 Jede monotone nichttriviale Graph-Eigenschaft $P_n$
 hat eine Abfragekomplexität von
@@ -355,7 +362,7 @@ $$C(P_n) = \frac{n(n-1)}{2}$$
 Die Aanderaa-Karp-Rosenberg-Vermutung sagt also aus,
 das bei allen monotonen Graph-Eigenschaften im Worst-Case
 alle Kanten abgefragt werden müssen (denn ein Graph mit
-$n$ Ecken hat genau $\frac{n(n-1)}{2}$ Kanten).
+$n$ Ecken hat genau ${\binom{n}{2}=\frac{n(n-1)}{2}}$ Kanten).
 
 \subsection{Randomisierte Abfragekomplexität}
 
@@ -370,7 +377,7 @@ die Abfragekomplexität untersuchen.
 % überlegen sind.
 Wir definieren hierfür zunächst einen randomisierten
 Algorithmus, um dann dessen Komplexität zu definieren
-\footnote{vgl. \cite{Groeger}}.
+\footnote{vgl. \cite[S.120]{Groeger}}.
 \begin{definition}[Randomisierter Algorithmus]
 Ein \emph{randomisierter Algorithmus}, der eine
 Eigenschaft $P_n$ entscheidet, ist eine
@@ -575,7 +582,9 @@ relativ geringe Eckenanzahl hat) und wählen zwei benachbarte Ecken
 $u$ und $v$. Wir konstruieren nun einen Graphen, indem wir aus dem
 minimalen Graphen die Ecken $u$ und $v$ herauslöschen und dann eine große
 Anzahl von Kopien von $u$ und $v$ hinzufügen, jedoch ohne die Kante
-zwischen $u$ und $v$. \\
+zwischen $u$ und $v$. Eine \emph{Kopie} einer Ecke $u$ ist hier
+eine Ecke $u'$, die die gleiche Nachbarmenge wie $u$ hat, für
+die also $N(u)=N(u')$ gilt.\\
 Fügt man nun eine beliebige Kante zwischen einer Kopie von $u$ und einer
 Kopie von $v$ ein, dann entsteht ein minimaler Graph. Wenn der
 konstruierte Graph die Eigenschaft also nicht erfüllt, so sorgt 
