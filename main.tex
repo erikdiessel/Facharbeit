@@ -574,7 +574,7 @@ die gewisse Kriterien erfüllen, kantenmaximale Graphen mit
 relativ wenigen Kanten. Mithilfe von Korrollar 
 \ref{thm:EdgeMaximalRandCompl} erhalten wir so eine untere Schranke
 für die randomisierte Abfragekomplexität. \\
-Wir verwenden die Bezeichnung $V_{>0}(G)$ für die
+Die Bezeichnung $V_{>0}(G)$ verwenden wir für die
 Menge der Ecken mit positivem Grad des Graphen $G$.
 
 \subsection{Konstruktion kantenmaximaler Graphen}
@@ -809,9 +809,9 @@ der vorliegenden Kriterien erfüllt ist:
            minimal unter allen Ecken von $H$ mit positivem
            Grad ist.
 \item[(b)] Es gibt eine Kante $uv \in H$ und eine Zahl
-           $k\in \mathbb{N}$, sodass $u$ Teil einer $k$-Clique
-           in $H$ aber nicht in $H-v$ ist.
-\item[(z)] $H$ ist regulär
+           $k\in \mathbb{N}$, sodass $u$ und $v$
+           Teil einer $k$-Clique in $H$ sind, aber nicht
+           in $H-uv$.
 \end{description}
 \end{Satz}
 \begin{proof}
@@ -831,6 +831,18 @@ der vorliegenden Kriterien erfüllt ist:
            Kopien von $u$ und $v$ höchstens Grad $\deg(u)-1$ haben
            und die Kante zwischen $u$ und $v$ gelöscht wurde.
            Somit kann $H$ kein Subgraph von $\Dupl(H,u,v,n)$ sein.
+\item[(b)] Wir betrachten wieder den Graphen $\Dupl(H,u,v,n)$ für
+           ein beliebiges $n\in \mathbb{N}$. Sei nun $m\in \mathbb{N}$
+           die Anzahl der $k$-Cliquen in $H$. Da $u$ und $v$ nicht
+           Teil einer $k$-Clique in $H-u-v$ sind, sind auch alle
+           Kopien von $u$ und $v$ nicht Teil einer $k$-Clique in
+           $\Dupl(H,u,v,n)$. Somit gibt es in $\Dupl(H,u,v,n)$ 
+           genau so viele $k$-Cliquen wie in $H-u-v$. Da $u$ und
+           $v$ Teil einer $k$-Clique in $H$ sind, aber 
+           nicht in $H-u-v$, ist die Anzahl der $k$-Cliquen in
+           $H-u-v$ und damit in $\Dupl(H,u,v,n)$ höchstens $m-1$
+           und daher kleiner als $m$. Folglich enthält $\Dupl(H,u,v,n)$
+           nicht den Subgraphen $H$.
 \end{description}
 \end{proof}
 
@@ -856,6 +868,18 @@ duplizierungs-invariant. Es folgt somit mit
 Satz \ref{thm:SubgraphIsomorphismLowerBound} die entsprechende
 untere Schranke für die randomisierte Abfragekomplexität.
 \end{proof}
+
+\begin{example}[Anwendungen des vorherigen Korollars]
+Ist der Graph $H\in\mathcal{G}_n$ regulär, so haben
+alle Ecken minimalen Grad. $H$ erfüllt also Kriterium (a)
+von Satz \ref{thm:KriterienDuplizierungsInvariant}.
+Die Eigenschaft $P_n(\{H\})$ hat also eine randomisierte
+Abfragekomplexität von 
+$$ C_R(P_n(\{H\})) \geq
+\frac{1}{4}n^2 - \frac{1}{2}n(p+1) + \frac{1}{4}(p+1)^2$$
+wobei $p=|V_{>0}(H)|$ die Anzahl der Ecken von $H$ mit
+positivem Grad ist.
+\end{example}
 
 \subsection{Limitierungen dieses Ansatzes}
 Im vorherigen Abschnitt haben wir gezeigt, dass viele Eigenschaften,
@@ -948,7 +972,7 @@ der Graph-Isomorphismen.
 Analog zu Graph-Eigenschaften definiert man
 \emph{monotone} symmetrische Eigenschaften.
 
-\section{Untere Schranken für die Abfragekomplexität}
+\section{Abfragekomplexität symmetrischer Eigenschaften}
 Wir betrachten nun einige Fälle für die Symmetriegruppe
 $S$.
 \begin{example}[$S$ ist die symmetrische Gruppe]
@@ -957,10 +981,28 @@ Wir betrachten den Fall, dass $S=\mathbb{S}_m$
 die symmetrische Gruppe ist. Ist nun 
 $P_m\subseteq \mathbb{F}_2^m$ eine monotone 
 $S$-symmetrische Eigenschaft, so muss 
-$P_n$ von der Form 
-$$ P_n = \{ g\in \mathbb{F}_2^m \ |
+$P_m$ von der Form 
+$$ P_m= \{ g\in \mathbb{F}_2^m \ |
 \ g \textup{ hat mindestens } k\textup{-mal die Komponente } 1 \ \}$$
-sein, denn
+sein, denn erfüllt $g\in \mathbb{F}_2^m$ die Eigenschaft
+$P_,$, so muss dies auch für alle $g'=\sigma(g)\in\mathbb{F}_2^m$
+mit $\sigma\in S$ gelten. Da $S=\mathbb{S}_m$ alle Permutationen
+umfasst, sind für $g'\in P_m$ alle Vektoren mit
+genau so vielen Komponenten mit Wert $1$ wie $g$ möglich. Aus der
+Monotonie von $P_m$ folgt dann, dass alle Vektoren mit
+mindestens dieser Anzahl an Komponenten mit Wert $1$ zu
+$P_m$ gehören. \\
+Alle $S$-symmetrischen Eigenschaften 
+$P_m \subseteq \mathbb{F}_2^m$haben eine Abfragekomplexität
+von $C_R(P_m) = m$.
+\begin{proof}
+Wie oben gezeigt, ist $P_m$ von der Form
+$$ P_m= \{ g\in \mathbb{F}_2^m \ |
+\ g \textup{ hat mindestens } k\textup{-mal die Komponente } 1 \ \}$$
+für ein $k\in \mathbb{N}$
+Wir betrachten für $m\in\mathbb{N}$ den Input (in String-Schreibweise)
+$g=1^{k-1}0^{m-k+1}\in \mathbb{F}_2^m$. 
+\end{proof}
 \end{example}
 
 \section{Algebraische Formulierungen}
