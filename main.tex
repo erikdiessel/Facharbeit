@@ -56,15 +56,6 @@ inner sep=1.5pt, baseline=2pt]
 
 \maketitle
 
-\begin{abstract}
-\begin{center}
-\bf{Kurzfassung}
-\end{center}
-Diese Facharbeit beschäftigt sich mit unteren Schranken
-für die Abfragekomplexität von monotonen symmetrischen
-Eigenschaften von Bitfolgen, besonders für Graph-Eigenschaften.
-\end{abstract}
-
 \tableofcontents
 \thispagestyle{empty}
 
@@ -83,9 +74,9 @@ Die Wichtigkeit dieser ursprünglich aus der Informatik
 stammenden Fragestellung zeigt sich darin, dass das Clay
 Mathematics Institute es als ein "`Millenium Problem"'
 der Mathematik eingestuft und einen Preis von
-1 Million Dollar für seine Lösung ausgelobt hat.
-\footnote{vgl. die offizielle Problembeschreibung:
-\cite{PvsNPOfficial}}. \\
+1 Million Dollar für seine Lösung ausgelobt hat.\footnote{
+vgl. die offizielle Problembeschreibung:
+\cite{PvsNPOfficial}} \\
 Um die vermutete Ungleichheit $P\neq NP$ zu zeigen,
 muss eine untere Schranke für die Komplexität einiger
 Probleme gezeigt werden. Bis heute scheint dies jedoch
@@ -123,7 +114,7 @@ Diese Arbeit ist folgendermaßen aufgebaut:
 Wir definieren zunächst die Abfragekomplexität
 von Graph-Eigenschaften im deterministischem und
 randomisiertem Fall. Nachdem wir die Konzepte
-"`minimaler Graph"' und kantenmaximaler Graph
+"`minimaler Graph"' und "`kantenmaximaler Graph"'
 eingeführt haben, zeigen wir einige untere Schranken
 für die Abfragekomplexität, die auf diesen Begriffen
 basieren. Im nächsten Kapitel zeigen wir dann einige
@@ -149,7 +140,7 @@ Mit $\mathcal{G}_n$ bezeichnen wir die Menge aller
 Den vollständigen Graphen auf $n$ Ecken bezeichnen wir
 mit $K_n$. \\
 Ist $G \in \mathcal{G}_n$ ein Subgraph von $G' \in \mathcal{G}_n$,
-so schreiben wir $G \subseteq G$ oder $G' \supseteq G$. Ist $G$ ein
+so schreiben wir $G \subseteq G'$ oder $G' \supseteq G$. Ist $G$ ein
 echter Subgraph von $G'$ (d.h. $E(G) \neq E(G')$), dann schreiben
 wir $G \subset G'$ bzw. $G' \subset G$.
 Für $G' = (V, E \cup \{e\})$ schreiben wir vereinfachend
@@ -286,7 +277,7 @@ Da wir uns nur mit der Abfragekomplexität beschäftigen,
 vereinfachen wir unser Berechnungsmodell: \\
 Einen Algorithmus stellen wir als Entscheidungsbaum dar.
 Die Knoten sind hierbei mit einer Kante bezeichnet, die
-abgefragt wird. Jeder Knoten hat zwei Kante, die mit
+abgefragt wird. Jeder Knoten hat zwei Kanten, die mit
 "`ja"' und "`nein"' beschriftet sind, dies steht für
 die Antwort auf die Abfrage. Die Blatt-Knoten sind
 zusätzlich mit "`ja"' und "`nein"' beschriftet,
@@ -388,10 +379,12 @@ Algorithmus, um dann dessen Komplexität zu definieren
 Ein \emph{randomisierter Algorithmus}, der eine
 Eigenschaft $P_n$ entscheidet, ist eine
 Wahrscheinlichkeitsverteilung von deterministischen
-Algorithmen, die $P_n$ entscheiden. Formal: eine Abbildung
+Algorithmen, die $P_n$ entscheiden. \\
+Formal: eine Abbildung
 $$ p_\textup{Alg}: \{ \mathcal{A} \ \textup {deterministisch} \ | \
          \mathcal{A} \ {\rm entscheidet} \ P_n \} \to \mathbb{R} $$
-mit $\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) = 1$.
+mit 
+$$\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) = 1$$
 \end{definition}
 
 Das Ausführen eines randomisierten Algorithmus findet
@@ -422,7 +415,7 @@ definieren:
 \label{def:randComplProp}
 Die \emph{randomisierte Abfragekomplexität} einer Graph-Eigenschaft
 $P_n$ ist:
-$$ C_R(P_n) := \min_{p_\textup{Alg}}\ C(p_\textup{Alg})$$
+$$ C_R(P_n) := \min_{p_\textup{Alg}}\ C(p_\textup{Alg})\,,$$
 wobei $p_\textup{Alg}$ aus allen randomisierten Algorithmen,
 die $P_n$ entscheiden, gewählt wird.
 \end{definition}
@@ -436,7 +429,7 @@ für die Abfragekomplexität, die auf minimalen
 Graphen basieren. Diese Aussagen ermöglichen uns
 später, konkretere untere Schranken zu beweisen.\footnote{
 Ein ähnlicher Ansatz wird verfolgt von: \cite{Groeger}}
-\begin{Satz}[Größe des minimalen Graphen ist untere Schranken]
+\begin{Satz}[Größe des minimalen Graphen ist untere Schranke]
 \label{thm:minDetLowerBound}
 Sei $H\in \mathcal{G}_n$ ein minimaler Graph der monotonen
 Graph-Eigenschaft $P_n$. Dann gilt für jeden deterministischen
@@ -467,14 +460,14 @@ auch diese Anzahl an Abfragen benötigt:
 \label{cor:MinGraphRandCompl}
 Sei $H\in \mathcal{G}_n$ ein minimaler Graph der monotonen
 Graph-Eigenschaft $P_n$. Dann gilt:
-$$C_R(P_n) \geq |E(H)|$$
+$$C_R(P_n) \geq |E(H)|\,.$$
 \end{corollary}
 \begin{proof}
 Sei $p_\textup{Alg}$ ein beliebiger randomisierter Algorithmus,
 der $P_n$ entscheidet.
 Nach Definition \ref{def:randComplInput} gilt: 
-$ C_R(p_\textup{Alg}, H) = 
-\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) \cdot C(\mathcal{A}, H) $.
+$$ C_R(p_\textup{Alg}, H) = 
+\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) \cdot C(\mathcal{A}, H)\,.$$
 Wegen Satz \ref{thm:minDetLowerBound} gilt $C(\mathcal{A}, H) \geq |E(H)|$
 für alle deterministischen Algorithmen $\mathcal{A}$. Einsetzen ergibt:
 $$ C_R(p_\textup{Alg}, H) \overset{\textup{Def.} \ref{def:randComplInput}} {=}
@@ -791,7 +784,7 @@ $$
 Die gezeigte untere Schranke ist hier also nur um einen
 konstanten Faktor von dem theoretischen Maximum
 der randomisierten Abfragekomplexität
-$\binom{n}{2} = \frac{1}{2}n^2 - \frac{1}{2}n - \frac{1}{2}$
+$\binom{n}{2} = \frac{1}{2}n^2 - \frac{1}{2}n$
 entfernt.
 \end{example}
 
