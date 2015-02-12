@@ -12,12 +12,15 @@
 \usepackage{geometry}
 \usepackage{framed}
 \usepackage{needspace}
+\usepackage{enumitem}
 \geometry{
 bottom=25mm,
 top=20mm,
 left=20mm,
 right=20mm
 }
+
+\setlist[description]{labelindent=\parindent}
 
 \newtheorem{definition}{Definition}
 \newtheorem{Satz}[definition]{Satz}
@@ -37,6 +40,8 @@ right=20mm
   \hrule width \textwidth height 1pt
   \kern 2pt
 }
+
+\renewcommand*{\chapterheadstartvskip}{\vspace*{-\baselineskip}}
 
 \DeclareMathOperator\Min{Min}
 \DeclareMathOperator\Dupl{Dupl}
@@ -261,7 +266,7 @@ wie gefordert.
 Wegen $P_n = P'_n$ ist $G \in \mathcal{G}_n$ offensichtlich
 genau dann ein minimaler Graph von $P_n$, wenn $G$ ein 
 minimaler Graph von $P'_n$ ist. Daraus folgt 
-$\Min(P_n) = \Min(P'_n)$.
+$\Min(P_n) = \Min(P'_n)$. \qedhere
 \end{description}
 \end{proof}
 Der vorherige Satz ermöglicht uns, eine
@@ -405,14 +410,14 @@ Erwartungswert für die benötigte Anzahl an Abfragen.
 Die \emph{randomisierte Abfragekomplexität} $C_R(P_n)$ eines randomisierten
 Algorithmus $p_\textup{Alg}$, für den Input $G\in \mathcal{G}_n$, ist:
 $$ C_R(p_\textup{Alg}, G) := 
-\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) \cdot C(\mathcal{A}, G) $$
+\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) \cdot C(\mathcal{A}, G)\,.$$
 \end{definition}
 Analog definieren wir nun die randomisierte Abfragekomplexität
 eines Algorithmus:
 \begin{definition}[Randomisierte Abfragekomplexität eines Algorithmus]
 Die \emph{randomisierte Abfragekomplexität} eines randomisierten
 Algorithmus $p_\textup{Alg}$ ist:
-$$ C_R(p_\textup{Alg}) := \max_{G\in\mathcal{G}_n} C_R(p_\textup{Alg}, G) $$
+$$ C_R(p_\textup{Alg}) := \max_{G\in\mathcal{G}_n} C_R(p_\textup{Alg}, G)\,.$$
 \end{definition}
 Analog zum deterministischen Fall können wir nun die
 \emph{randomisierte} Abfragekomplexität einer Graph-Eigenschaft
@@ -482,8 +487,10 @@ $$ C_R(p_\textup{Alg}, H) \overset{\textup{Def.} \ref{def:randComplInput}} {=}
 \sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) \cdot |E(H)| =
 |E(H)| $$
 Mit Definition \ref{def:randComplProp} erhalten wir dann
-$$ C_R(P_n) \overset{\textup{Def. } \ref{def:randComplProp}} {=} 
-\min_{p_\textup{Alg}}\ C(p_\textup{Alg}) \geq |E(H)|\,.$$
+\begin{equation*}
+C_R(P_n) \overset{\textup{Def. } \ref{def:randComplProp}} {=} 
+\min_{p_\textup{Alg}}\ C(p_\textup{Alg}) \geq |E(H)|\,. \qedhere
+\end{equation*}
 \end{proof}
 
 Wie man sieht, kann man mit minimalen Graphen einfach untere Schranken
@@ -756,11 +763,12 @@ $$ C_R(P_n(\{H\})) \geq
 \Big (  \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big )^2$$
 Da $\Big \lfloor  \frac{n-p}{2} \Big \rfloor \geq \frac{n-p-1}{2}$
 gilt, erhalten wir dann durch Umformen:
-$$ \Big ( \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} \geq
+\begin{equation*}
+\Big ( \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} \geq
 \Big ( \frac{n-p-1}{2} \Big ) ^2 =
 \frac{1}{4}(n-p-1)^2 =
-\frac{1}{4}n^2 - \frac{1}{2}n(p+1) + \frac{1}{4}(p+1)^2\,.
-$$
+\frac{1}{4}n^2 - \frac{1}{2}n(p+1) + \frac{1}{4}(p+1)^2\,. \qedhere
+\end{equation*}
 \end{proof}
 
 \begin{example}[Anwendung dieses Satzes]
@@ -845,7 +853,7 @@ der vorliegenden Kriterien erfüllt ist:
            nicht in $H-u-v$, ist die Anzahl der $k$-Cliquen in
            $H-u-v$ und damit in $\Dupl(H,u,v,n)$ höchstens $m-1$
            und daher kleiner als $m$. Folglich enthält $\Dupl(H,u,v,n)$
-           nicht den Subgraphen $H$.
+           nicht den Subgraphen $H$. \qedhere
 \end{description}
 \end{proof}
 
@@ -932,7 +940,9 @@ paarweise verschieden voneinander, denn ansonsten wäre der
 Grad der Ecke höchstens $n-3$. Da $G$ genau $n$ Ecken hat,
 erhalten wir durch Abzählen, dass $|E'| \leq n$ gilt.
 Wir erhalten somit:
-$$ E(G) = \binom{n}{2} - |E'| \geq \binom{n}{2} - n\,.$$
+\begin{equation*}
+E(G) = \binom{n}{2} - |E'| \geq \binom{n}{2} - n\,. \qedhere
+\end{equation*}
 \end{proof}
 
 Mitttels Korollar \ref{thm:EdgeMaximalRandCompl} folgt also bestenfalls
