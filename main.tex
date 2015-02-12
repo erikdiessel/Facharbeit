@@ -1,4 +1,4 @@
-\documentclass[a4paper]{scrreprt}
+\documentclass[10pt,a4paper]{scrreprt}
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
@@ -10,7 +10,8 @@
 \usepackage{blindtext}
 \usepackage{hyperref}
 \usepackage{geometry}
-\usepackage{framed} % TEST
+\usepackage{framed}
+\usepackage{needspace}
 \geometry{
 bottom=25mm,
 top=20mm,
@@ -159,7 +160,7 @@ $G' = G - e$.
 \begin{definition}[Graph-Eigenschaft]
 Eine Teilmenge $P_n \subseteq \mathcal{G}_n$ der Graphen mit
 $n$ Ecken heißt \emph{Graph-Eigenschaft auf $n$ Ecken},
-wenn sie invariant unter Isomorphie ist,
+wenn sie invariant unter Graph-Isomorphie ist,
 d.h. wenn für zwei isomorphe Graphen $G, G'$ gilt:
 $G \in P \iff G' \in P$.
 \end{definition}
@@ -280,16 +281,15 @@ so schreiben als $\operatorname{P}_4(\{K_3\})$.
 \subsection{Abfragekomplexität}
 \label{sec:queryComplexity}
 
-Wir führen nun die ersten algorithmischen Begriffe ein.
-\footnote{vgl. \cite[S.7]{Rivest}}\\
+Wir führen nun die ersten algorithmischen Begriffe ein.\footnote{vgl. \cite[S.7]{Rivest}}\\
 Da wir uns nur mit der Abfragekomplexität beschäftigen,
 vereinfachen wir unser Berechnungsmodell: \\
 Einen Algorithmus stellen wir als Entscheidungsbaum dar.
 Die Knoten sind hierbei mit einer Kante bezeichnet, die
 abgefragt wird. Jeder Knoten hat zwei Kante, die mit
-''ja'' und ''nein'' beschriftet sind, dies steht für
+"`ja"' und "`nein"' beschriftet sind, dies steht für
 die Antwort auf die Abfrage. Die Blatt-Knoten sind
-zusätzlich mit ''ja'' und ''nein'' beschriftet,
+zusätzlich mit "`ja"' und "`nein"' beschriftet,
 dies steht für den Rückgabewert des Algorithmus.
 Zu beachten ist, dass der Algorithmus nur für eine
 Eingabegröße, das heißt für eine Eckenanzahl $n$,
@@ -298,9 +298,9 @@ Wir sagen nun, dass ein Algorithmus $\mathcal{A}$
 die Graph-Eigenschaft $P_n$ \emph{entscheidet}, wenn
 für jeden Input $G \in \mathcal{G}_n$ der Blatt-Knoten
 des zugehörigen Pfades des Entscheidungsbaums genau
-dann mit ''ja'' beschriftet ist, wenn $G \in P_n$ gilt.
+dann mit "`ja"' beschriftet ist, wenn $G \in P_n$ gilt.
 
-\begin{example}[Entscheidungsbaum] \ \\*
+\begin{example}[Entscheidungsbaum] \needspace{3 \baselineskip} \
 \label{exmpl:decisionTree}
 \begin{center}
 \begin{tikzpicture} [
@@ -389,9 +389,9 @@ Ein \emph{randomisierter Algorithmus}, der eine
 Eigenschaft $P_n$ entscheidet, ist eine
 Wahrscheinlichkeitsverteilung von deterministischen
 Algorithmen, die $P_n$ entscheiden. Formal: eine Abbildung
-$$ p_\mathcal{A}: \{ \mathcal{A} \ \textup {deterministisch} \ | \
+$$ p_\textup{Alg}: \{ \mathcal{A} \ \textup {deterministisch} \ | \
          \mathcal{A} \ {\rm entscheidet} \ P_n \} \to \mathbb{R} $$
-mit $\sum_\mathcal{A} p_\mathcal{A}(\mathcal{A}) = 1$.
+mit $\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) = 1$.
 \end{definition}
 
 Das Ausführen eines randomisierten Algorithmus findet
@@ -404,16 +404,16 @@ Erwartungswert für die benötigte Anzahl an Abfragen.
 \begin{definition}[Randomisierte Abfragekomplexität für einen Input]
 \label{def:randComplInput}
 Die \emph{randomisierte Abfragekomplexität} $C_R(P_n)$ eines randomisierten
-Algorithmus $p_\mathcal{A}$, für den Input $G\in \mathcal{G}_n$, ist:
-$$ C_R(p_\mathcal{A}, G) := 
-\sum_\mathcal{A} p_\mathcal{A}(\mathcal{A}) \cdot C(\mathcal{A}, G) $$
+Algorithmus $p_\textup{Alg}$, für den Input $G\in \mathcal{G}_n$, ist:
+$$ C_R(p_\textup{Alg}, G) := 
+\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) \cdot C(\mathcal{A}, G) $$
 \end{definition}
 Analog definieren wir nun die randomisierte Abfragekomplexität
 eines Algorithmus:
 \begin{definition}[Randomisierte Abfragekomplexität eines Algorithmus]
 Die \emph{randomisierte Abfragekomplexität} eines randomisierten
-Algorithmus $\mathcal{A}$ ist:
-$$ C_R(\mathcal{A}) := \max_{G\in\mathcal{G}_n} C_R(\mathcal{A}, G) $$
+Algorithmus $p_\textup{Alg}$ ist:
+$$ C_R(p_\textup{Alg}) := \max_{G\in\mathcal{G}_n} C_R(p_\textup{Alg}, G) $$
 \end{definition}
 Analog zum deterministischen Fall können wir nun die
 \emph{randomisierte} Abfragekomplexität einer Graph-Eigenschaft
@@ -422,8 +422,8 @@ definieren:
 \label{def:randComplProp}
 Die \emph{randomisierte Abfragekomplexität} einer Graph-Eigenschaft
 $P_n$ ist:
-$$ C_R(P_n) := \min_{\mathcal{A}_R}\ C(\mathcal{A}_R)$$
-wobei $\mathcal{A}_R$ aus allen randomisierten Algorithmen,
+$$ C_R(P_n) := \min_{p_\textup{Alg}}\ C(p_\textup{Alg})$$
+wobei $p_\textup{Alg}$ aus allen randomisierten Algorithmen,
 die $P_n$ entscheiden, gewählt wird.
 \end{definition}
 
@@ -434,14 +434,14 @@ die $P_n$ entscheiden, gewählt wird.
 Wir zeigen nun einige einfache untere Schranken
 für die Abfragekomplexität, die auf minimalen
 Graphen basieren. Diese Aussagen ermöglichen uns
-später, konkretere untere Schranken zu beweisen.
-\footnote{Ein ähnlicher Ansatz wird verfolgt von: \cite{Groeger}}
+später, konkretere untere Schranken zu beweisen.\footnote{
+Ein ähnlicher Ansatz wird verfolgt von: \cite{Groeger}}
 \begin{Satz}[Größe des minimalen Graphen ist untere Schranken]
 \label{thm:minDetLowerBound}
 Sei $H\in \mathcal{G}_n$ ein minimaler Graph der monotonen
 Graph-Eigenschaft $P_n$. Dann gilt für jeden deterministischen
 Algorithmus $\mathcal{A}$, der $P_n$ entscheidet:
-$$ C(\mathcal{A,H}) \geq |E(H)| $$.
+$$ C(\mathcal{A},H) \geq |E(H)| $$
 \end{Satz}
 \begin{proof}
 Wir führen einen Widerspruchsbeweis. \\
@@ -450,7 +450,7 @@ Dann gibt es eine Kante $e\in H$,
 die von $\mathcal{A}$ nicht abgefragt wird. Entfernen wir
 diese Kante, so erhalten wir den Graphen $H' = H - e$, der,
 da $H$ ein minimaler Graph ist, die Eigenschaft $P$ nicht
-erfüllt. $\mathcal{A}$ gibt jedoch für $H$ und $H'$ das gleiche
+erfüllt. Der Algorithmus $\mathcal{A}$ gibt jedoch für $H$ und $H'$ das gleiche
 Ergebnis zurück, da die sie unterscheidende Kante von $\mathcal{A}$
 nicht abgefragt wird. Folglich entscheidet $\mathcal{A}$ die
 Eigenschaft $P_n$ nicht korrekt. Dies ist ein Widerspruch zur
@@ -467,27 +467,27 @@ auch diese Anzahl an Abfragen benötigt:
 \label{cor:MinGraphRandCompl}
 Sei $H\in \mathcal{G}_n$ ein minimaler Graph der monotonen
 Graph-Eigenschaft $P_n$. Dann gilt:
-$$C_R(P_n) \geq |E(H)|$$.
+$$C_R(P_n) \geq |E(H)|$$
 \end{corollary}
 \begin{proof}
-Sei $p_\mathcal{A}$ ein beliebiger randomisierter Algorithmus,
+Sei $p_\textup{Alg}$ ein beliebiger randomisierter Algorithmus,
 der $P_n$ entscheidet.
 Nach Definition \ref{def:randComplInput} gilt: 
-$ C_R(p_\mathcal{A}, H) = 
-\sum_\mathcal{A} p_\mathcal{A}(\mathcal{A}) \cdot C(\mathcal{A}, H) $.
+$ C_R(p_\textup{Alg}, H) = 
+\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) \cdot C(\mathcal{A}, H) $.
 Wegen Satz \ref{thm:minDetLowerBound} gilt $C(\mathcal{A}, H) \geq |E(H)|$
 für alle deterministischen Algorithmen $\mathcal{A}$. Einsetzen ergibt:
-$$ C_R(p_\mathcal{A}, H) \overset{\textup{Def.} \ref{def:randComplInput}} {=}
-\sum_\mathcal{A} p_\mathcal{A}(\mathcal{A}) \cdot C(\mathcal{A}, H) 
+$$ C_R(p_\textup{Alg}, H) \overset{\textup{Def.} \ref{def:randComplInput}} {=}
+\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) \cdot C(\mathcal{A}, H) 
 \overset{\textup{Satz } \ref{thm:minDetLowerBound}} {\geq}
-\sum_\mathcal{A} p_\mathcal{A}(\mathcal{A}) \cdot |E(H)| =
+\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) \cdot |E(H)| =
 |E(H)| $$
 Mit Definition \ref{def:randComplProp} erhalten wir dann
 $$ C_R(P_n) \overset{\textup{Def. } \ref{def:randComplProp}} {=} 
-\min_{p_\mathcal{A}}\ C(p_\mathcal{A}) \geq |E(H)|$$
+\min_{p_\textup{Alg}}\ C(p_\textup{Alg}) \geq |E(H)|$$
 \end{proof}
 
-Wie man sieht, kann mit minimalen Graphen einfach untere Schranken
+Wie man sieht, kann man mit minimalen Graphen einfach untere Schranken
 für die Abfragekomplexität zeigen. Die Anzahl an Kanten $|E(H)|$
 kann jedoch klein sein, sodass die untere Schranke nicht viel wert ist.
 Im folgenden Abschnitt betrachten wir daher ein anderes Konzept.
@@ -497,8 +497,8 @@ Im folgenden Abschnitt betrachten wir daher ein anderes Konzept.
 Wir führen daher nun das Konzept des kantenmaximalen Graphen ein,
 welches gewissermaßen \emph{dual} zum Konzept des minimalen Graphen
 ist. Wir wollen damit wieder eine untere Schranke zeigen.
-\begin{definition}[Kantenmaximaler Graph
-\footnote{vgl. \cite[S.12]{diestel}}]
+\begin{definition}[Kantenmaximaler Graph\footnote{
+vgl. \cite[S.12]{diestel}}]
 Ein Graph $G\in \mathcal{G}_n$ heißt \emph{kantenmaximaler Graph}
 der monotonen Graph-Eigenschaft $P_n$, wenn $G\notin P_n$ gilt,
 aber für alle Kanten $e\notin G$ gilt: $G + e \in P_n$.
@@ -720,7 +720,7 @@ die nur einen minimalen Graphen haben) beweisen:
 [Untere Schranke für bestimmte Subgraph-Isomorphie-Eigenschaften]
 \label{thm:SubgraphIsomorphismLowerBound}
 Sei $H\in \mathcal{G}_n$ ein duplizierungs-invarianter Graph
-mit genau $p$ Ecken, die einen positiven Grad haben.
+mit genau $p\leq p$ Ecken, die einen positiven Grad haben.
 Dann gilt für die Subgraph-Isomorphie-Eigenschaft $P_n(\{H\})$:
 $$ C_R(P_n(\{H\})) \geq 
 \Big{ ( } \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} \geq
@@ -854,8 +854,8 @@ Mithilfe dieser Kriterien erhalten wir nun
 eine direkte untere Schranke für die randomisierte Abfragekomplexität:
 \begin{corollary}[Konkrete untere Schranken für Subgraph-Isomorphie-Eigenschaften]
 Sei $H$ ein Graph mit $p=|V_{>0}(H)|$ Ecken mit positivem Grad
-und $n\in \mathbb{N}$. \\
-Erfüllt $H$ eines der folgenden Kriterien:
+und $n \geq p$. \\
+Erfüllt dann t $H$ eines der folgenden Kriterien:
 \begin{description}
 \item[(a)] Es gibt eine Kante $uv\in H$, sodass sowohl
            der Grad von $u$ als auch der Grad von $v$
@@ -882,7 +882,7 @@ untere Schranke für die randomisierte Abfragekomplexität.
 
 \begin{example}[Anwendungen des vorherigen Korollars]
 Ist der Graph $H\in\mathcal{G}_n$ regulär, so haben
-alle Ecken minimalen Grad. $H$ erfüllt also Kriterium (a)
+alle Ecken minimalen Grad. Der Graph $H$ erfüllt also Kriterium (a)
 von Satz \ref{thm:KriterienDuplizierungsInvariant}.
 Die Eigenschaft $P_n(\{H\})$ hat also eine randomisierte
 Abfragekomplexität von 
@@ -1006,8 +1006,8 @@ genau so vielen Komponenten mit Wert $1$ wie $g$ möglich. Aus der
 Monotonie von $P_m$ folgt dann, dass alle Vektoren mit
 mindestens dieser Anzahl an Komponenten mit Wert $1$ zu
 $P_m$ gehören. \\
-Alle $S$-symmetrischen Eigenschaften 
-$P_m \subseteq \mathbb{F}_2^m$haben eine Abfragekomplexität
+Alle $\mathbb{S}_m$-symmetrischen Eigenschaften 
+$P_m \subseteq \mathbb{F}_2^m$ haben eine Abfragekomplexität
 von $C_R(P_m) = m$.
 \begin{proof}
 Wie oben gezeigt, ist $P_m$ von der Form
