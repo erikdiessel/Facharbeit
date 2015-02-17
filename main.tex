@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper]{scrreprt}
+\documentclass[10pt,a4paper, footheight=1mm]{scrreprt}
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
@@ -14,7 +14,7 @@
 \usepackage{needspace}
 \usepackage{enumitem}
 \geometry{
-bottom=25mm,
+bottom=20mm,
 top=20mm,
 left=20mm,
 right=20mm
@@ -26,6 +26,7 @@ right=20mm
 \newtheorem{Satz}[definition]{Satz}
 \newtheorem{conjecture}[definition]{Vermutung}
 \newtheorem{corollary}[definition]{Korollar}
+\newtheorem*{proposition*}{Proposition}
 \theoremstyle{definition}
 \newtheorem{examplex}{Beispiel}
 
@@ -45,6 +46,7 @@ right=20mm
 
 \DeclareMathOperator\Min{Min}
 \DeclareMathOperator\Dupl{Dupl}
+\DeclareMathOperator*\argmin{arg\,min}
 
 \newcommand{\Square}{
 \begin{tikzpicture}[main_node/.style={circle,fill=black},
@@ -59,13 +61,18 @@ inner sep=1.5pt, baseline=2pt]
 \end{tikzpicture}
 }
 
-\title{Untere Schranken für die Abfragekomplexität 
-       monotoner symmetrischer Eigenschaften}
-\subtitle{Facharbeit}
-\author{Erik Diessel}
+% \title{Untere Schranken für die Abfragekomplexität 
+%       monotoner symmetrischer Eigenschaften}
+% \subtitle{Facharbeit im Fach Informatik}
+% \author{Autor: Erik Diessel}
+
+% \date{Abgabetermin: 20. April 2015}
+
 \begin{document}
 
-\maketitle
+% \maketitle
+
+\input{titlepage}
 
 \tableofcontents
 \thispagestyle{empty}
@@ -242,6 +249,7 @@ Graph-Eigenschaften, so gilt
 $\Min(P_n) = \Min(P'_n)$ genau dann, wenn $P_n = P'_n$.
 \end{Satz}
 \begin{proof} \hfill
+\vspace*{-3mm}
 \begin{description}
 \item[$\boldsymbol{\Min(P_n) = \Min(P'_n) \implies P_n = P'_n}$]
 \hfill \\
@@ -261,6 +269,7 @@ Voraussetzung $\Min(P_n) = \Min(P'_n)$ gilt auch
 $G_i \in \Min(P'_n)$. Da die Eigenschaft $P'_n$ monoton ist,
 und $G_i \subseteq G$, gilt dann auch $G_i \in P'_n$,
 wie gefordert.
+\vspace*{-2mm}
 \item[$\boldsymbol{P_n = P'_n \implies \Min(P_n) = \Min(P'_n)}$]
 \hfill \\
 Wegen $P_n = P'_n$ ist $G \in \mathcal{G}_n$ offensichtlich
@@ -321,7 +330,7 @@ dann mit "`ja"' beschriftet ist, wenn $G \in P_n$ gilt.
       child { node {$G \notin P_3$} edge from parent node[right,draw=none] {nein} }
       edge from parent node[right,draw=none] {nein} 
     }
-    edge from parent node[left,draw=none] {ja}
+    edge from parent node[left,draw=none,align=center] {ja\\}
   }
   child { node {$(2,3)\in G\,?$}
     child { node {$(1,3)\in G\,?$}
@@ -330,7 +339,7 @@ dann mit "`ja"' beschriftet ist, wenn $G \in P_n$ gilt.
       edge from parent node[left,draw=none] {ja}
     }
     child { node {$G \notin P_3$} edge from parent node[right,draw=none] {nein} }
-    edge from parent node[right,draw=none] {nein} 
+    edge from parent node[right,draw=none,align=center] {nein\\} 
   };
 \end{tikzpicture}
 \end{center}
@@ -591,9 +600,10 @@ Menge der Ecken mit positivem Grad des Graphen $G$.
 Die Hauptidee: Wir nehmen einen minimalen Graphen (der eine
 relativ geringe Eckenanzahl hat) und wählen zwei benachbarte Ecken
 $u$ und $v$. Wir konstruieren nun einen Graphen, indem wir aus dem
-minimalen Graphen die Ecken $u$ und $v$ herauslöschen und dann eine große
-Anzahl von Kopien von $u$ und $v$ hinzufügen, jedoch ohne die Kante
-zwischen $u$ und $v$. Eine \emph{Kopie} einer Ecke $u$ ist hier
+minimalen Graphen die Kante $uv$ herauslöschen und dann eine große
+Anzahl von Kopien von $u$ und $v$ hinzufügen, ohne Kanten zwischen
+Kopien von $u$ und Kopien von $v$.
+Eine \emph{Kopie} einer Ecke $u$ ist hier
 eine Ecke $u'$, die die gleiche Nachbarmenge wie $u$ hat, für
 die also $N(u)=N(u')$ gilt.\\
 Fügt man nun eine beliebige Kante zwischen einer Kopie von $u$ und einer
@@ -628,7 +638,7 @@ Graphen aus:
 \end{tikzpicture}
 \end{center}
 Nun löschen wir die Kante zwischen $u$ und $v$ und fügen
-in diesem Fall eine Kopie der Ecke $u$ und eine Kopie
+in diesem Fall genau eine Kopie der Ecke $u$ und eine Kopie
 der Ecke $v$ hinzu, sodass wir $6$ Ecken haben, da es 
 sich um eine Eigenschaft auf $6$ Ecken handelt:
 \begin{center}
@@ -699,9 +709,9 @@ wir nun:
 [Duplizierungs-Graph $\Dupl(G, u, v, n)$]
 Der Graph, der aus $G$ entsteht, indem man
 die Kante zwischen $u\in V(G)$ und $v\in V(G)$ löscht
-und dann $n\in \mathbb{N}$ Kopien von $u$ und $n$
-Kopien von $v$ hinzufügt, bezeichnen wir mit
-$\Dupl(G, u, v, n)$.
+und dann $n$ Kopien von $u$ und $n$
+Kopien von $v$ hinzufügt, wobei $n\in\mathbb{N}$,
+bezeichnen wir mit $\Dupl(G, u, v, n)$.
 \end{definition}
 
 Damit wir einen kantenmaximalen Graphen erhalten, darf
@@ -726,12 +736,12 @@ die nur einen minimalen Graphen haben) beweisen:
 [Untere Schranke für bestimmte Subgraph-Isomorphie-Eigenschaften]
 \label{thm:SubgraphIsomorphismLowerBound}
 Sei $H\in \mathcal{G}_n$ ein duplizierungs-invarianter Graph
-mit genau $p\leq p$ Ecken, die einen positiven Grad haben.
+mit genau $p\leq n$ Ecken, die einen positiven Grad haben.
 Dann gilt für die Subgraph-Isomorphie-Eigenschaft $P_n(\{H\})$:
 $$ C_R(P_n(\{H\})) \geq 
-\Big{ ( } \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} \geq
-\Big ( \frac{n-p-1}{2} \Big ) ^2 =
-\frac{1}{4}n^2 - \frac{1}{2}n(p+1) + \frac{1}{4}(p+1)^2\,.
+\Big ( \Big \lfloor  \frac{n-p}{2} \Big \rfloor + 1 \Big)^{2} \geq
+\frac{1}{4}(n-p+1)^2 =
+\frac{1}{4}n^2 - \frac{1}{2}n(p-1) + \frac{1}{4}(p-1)^2\,.
 $$
 \end{Satz}
 \begin{proof}
@@ -744,30 +754,30 @@ Ist $u'\in G$ eine Kopie von $u$ und $v' \in G$ eine Kopie von $v$,
 so wird durch das Hinzufügen der Kante $u'v'$ als Subgraph ein
 minimaler Graph erzeugt, da $H-u-v \subseteq G$ gilt und
 $H \subseteq H-u-v + u' + v' + u'v'$. Da $G$ nach Konstruktion
-jeweils $\big \lfloor \frac{n-p}{2} \big \rfloor$ Kopien von
-$u$ und von $v$ hat, gibt es mindestens
-$\Big{ ( } \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2}$
+jeweils $\big \lfloor \frac{n-p}{2} \big \rfloor+1$ Kopien von
+$u$  und von $v$ hat (einschließlich $u$ und $v$), gibt es mindestens
+$\Big( \Big \lfloor  \frac{n-p}{2} \Big \rfloor + 1 \Big)^{2}$
 Kanten, deren Hinzufügen die Eigenschaft $P_n(\{H\})$ hervorruft.
 Wir konstruieren nun also einen kantenmaximalen Graphen $G'$ aus
 $G$, indem wir nach und nach Kanten zu $G$ hinzufügen, die die
 Eigenschaft unerfüllt lassen, bis dies nicht mehr möglich ist.
 Dieser Graph $G'$ hat nun eine Kantenanzahl von:
 $$ |E(G')| \leq \binom{n}{2} - 
-\Big ( \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2}\,,$$
+\Big ( \Big \lfloor  \frac{n-p}{2} \Big \rfloor + 1 \Big)^{2}\,,$$
 da alle Kanten zwischen Kopien von $u$ und $v$ nicht zu dem
 kantenmaximalen Graphen gehören können. Wenden wir nun
 Korollor \ref{thm:EdgeMaximalRandCompl} mit dem kantenmaximalen
 Graphen $G'$ an, so erhalten wir unsere untere Schranke für
 die Abfragekomplexität:
 $$ C_R(P_n(\{H\})) \geq 
-\Big (  \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big )^2$$
+\Big (  \Big \lfloor  \frac{n-p}{2} \Big \rfloor + 1 \Big )^2$$
 Da $\Big \lfloor  \frac{n-p}{2} \Big \rfloor \geq \frac{n-p-1}{2}$
 gilt, erhalten wir dann durch Umformen:
 \begin{equation*}
-\Big ( \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} \geq
-\Big ( \frac{n-p-1}{2} \Big ) ^2 =
-\frac{1}{4}(n-p-1)^2 =
-\frac{1}{4}n^2 - \frac{1}{2}n(p+1) + \frac{1}{4}(p+1)^2\,. \qedhere
+\Big ( \Big \lfloor  \frac{n-p}{2} \Big \rfloor + 1 \Big)^{2} \geq
+\Big ( \frac{n-p+1}{2} \Big ) ^2 =
+\frac{1}{4}(n-p+1)^2 =
+\frac{1}{4}n^2 - \frac{1}{2}n(p-1) + \frac{1}{4}(p-1)^2\,. \qedhere
 \end{equation*}
 \end{proof}
 
@@ -791,9 +801,9 @@ Eigenschaften $P_n(\{K_4\})$ mit $ n\geq 4$ erhalten wir also
 mit Satz \ref{thm:SubgraphIsomorphismLowerBound} folgende
 untere Schranke für die randomisierte Abfragekomplexität:
 $$ C_R(P_n(\{K_4\})) \geq 
-\Big ( \Big \lfloor  \frac{n-4}{2} \Big \rfloor \Big ) ^2 \geq
-\Big ( \frac{n-5}{2} \Big ) ^2 = 
-\frac{1}{4} n^2 - \frac{5}{2} n + \frac{25}{4} 
+\Big ( \Big \lfloor  \frac{n-4}{2} \Big \rfloor + 1 \Big ) ^2 \geq
+\Big ( \frac{n-3}{2} \Big ) ^2 = 
+\frac{1}{4} n^2 - \frac{3}{2} n + \frac{9}{4} 
 $$
 Die gezeigte untere Schranke ist hier also nur um einen
 konstanten Faktor von dem theoretischen Maximum
@@ -862,7 +872,7 @@ eine direkte untere Schranke für die randomisierte Abfragekomplexität:
 \begin{corollary}[Konkrete untere Schranken für Subgraph-Isomorphie-Eigenschaften]
 Sei $H$ ein Graph mit $p=|V_{>0}(H)|$ Ecken mit positivem Grad
 und $n \geq p$. \\
-Erfüllt dann t $H$ eines der folgenden Kriterien:
+Erfüllt dann $H$ eines der folgenden Kriterien:
 \begin{description}
 \item[(a)] Es gibt eine Kante $uv\in H$, sodass sowohl
            der Grad von $u$ als auch der Grad von $v$
@@ -877,7 +887,7 @@ so gilt für die randomisierte Abfragekomplexität der Eigenschaft
 $P_n(\{H\})$:
 $$ C_R(P_n(\{H\})) \geq
 \Big{ ( } \Big \lfloor  \frac{n-p}{2} \Big \rfloor \Big{)}^{2} \geq
-\frac{1}{4}n^2 - \frac{1}{2}n(p+1) + \frac{1}{4}(p+1)^2
+\frac{1}{4}n^2 - \frac{1}{2}n(p-1) + \frac{1}{4}(p-1)^2
 $$
 \end{corollary}
 \begin{proof}
@@ -894,12 +904,12 @@ von Satz \ref{thm:KriterienDuplizierungsInvariant}.
 Die Eigenschaft $P_n(\{H\})$ hat also eine randomisierte
 Abfragekomplexität von 
 $$ C_R(P_n(\{H\})) \geq
-\frac{1}{4}n^2 - \frac{1}{2}n(p+1) + \frac{1}{4}(p+1)^2$$
+\frac{1}{4}n^2 - \frac{1}{2}n(p-1) + \frac{1}{4}(p-1)^2$$
 wobei $p=|V_{>0}(H)|$ die Anzahl der Ecken von $H$ mit
 positivem Grad ist. \\
 Ist nun $H=\Square$, so gilt für $n\geq 4$:
 $$ C_R(P_n(\{\ \Square \ \})) \geq
-\frac{1}{4}n^2 - \frac{5}{2}n + \frac{25}{4}$$
+\frac{1}{4}n^2 - \frac{3}{2}n + \frac{9}{4}$$
 \end{example}
 
 \subsection{Limitierungen dieses Ansatzes}
@@ -994,7 +1004,13 @@ Eine Graph-Eigenschaft kann man als symmetrische
 Eigenschaft auffassen. Hierbei ist $S$ die Gruppe
 der Graph-Isomorphismen.
 Analog zu Graph-Eigenschaften definiert man
-\emph{monotone} symmetrische Eigenschaften.
+\emph{monotone} symmetrische Eigenschaften. 
+Ebenso kann man, analog zu den minimalen Graphen bei
+Graph-Eigenschaften, \emph{minimale Muster} definieren.
+Auch im allgemeinen Fall können wir dann die Notation
+$P_m(\mathcal{H})$ für die monotone Eigenschaft
+von Bitfolgen der Länge $m$ mit der Menge an minimalen
+Mustern $\mathcal{H}\subseteq \mathbb{F}_2^m$.
 
 \section{Abfragekomplexität symmetrischer Eigenschaften}
 Wir betrachten nun einige Fälle für die Symmetriegruppe
@@ -1015,10 +1031,12 @@ umfasst, sind für $g'\in P_m$ alle Vektoren mit
 genau so vielen Komponenten mit Wert $1$ wie $g$ möglich. Aus der
 Monotonie von $P_m$ folgt dann, dass alle Vektoren mit
 mindestens dieser Anzahl an Komponenten mit Wert $1$ zu
-$P_m$ gehören. \\
+$P_m$ gehören.
+\begin{proposition*}
 Alle $\mathbb{S}_m$-symmetrischen Eigenschaften 
 $P_m \subseteq \mathbb{F}_2^m$ haben eine Abfragekomplexität
 von $C_R(P_m) = m$.
+\end{proposition*}
 \begin{proof}
 Wie oben gezeigt, ist $P_m$ von der Form
 $$ P_m= \{ g\in \mathbb{F}_2^m \ |
@@ -1041,10 +1059,146 @@ Dadurch sind wir in der Lage, algebraische Methoden zu verwenden.
 % Verschiedene Möglichkeiten, Algorithmen / Abfragekomplexität
 % algebraisch zu charakterisieren.
 
+\subsection{Erste Formulierung}
+Ein Algorithmus wird bezüglich der Abfragekomplexität vollständig
+durch die Abfragereihenfolge der Bits festgelegt.
+Der Algorithmus kann jedoch die Reihenfolge der nächsten
+abgefragten Bits an die bisher erhaltene Information anpassen.
+Ein Algorithmus $\mathcal{A}$ für eine Eigenschaft
+auf $m$ Bits lässt sich also als Abbildung der Menge aller
+Bitfolgen auf die Menge aller Permutationen darstellen:
+$$ \varphi_\mathcal{A}: \mathbb{F}_2^m \to \mathbb{S}_m,
+   ~g \mapsto \varphi_\mathcal{A}(g)$$
+Hierbei gibt $\sigma = \varphi_\mathcal{A}(g)$ an, welche
+Kante an der jeweiligen Stelle abgefragt wird,
+d.h. $\sigma(k)=i$ bedeutet, dass an $k$-ter
+Stelle die Kante $i$ abgefragt wird.
+
+Ein Algorithmus kann jedoch die Reihenfolge der 
+abgefragten Bits jedoch nicht nachträglich ändern. Deswegen
+korrespondieren nur die Abbildungen $\varphi_\mathcal{A}$,
+zu einem richtigen Algorithmus, bei denen die Reihenfolge
+der bisher abgefragten Kanten konstant bleibt.
+Algebraisch ausgedrückt: Es muss für alle Eingaben
+$g\in \mathbb{F}_2^m$ und Kantenindizes $1\leq i \leq m$
+mit Abfrageposition $k=(\varphi_\mathcal{A}(g))^{-1}(i)$
+gelten:
+\begin{equation}
+\label{eq:NichtNachtraeglichAendern}
+\varphi(g)|_{[k]} = \varphi(g+e_i)|_{[k]}.
+\end{equation}
+Hierbei ist $e_i$ der $i$-te kanonische Einheitsvektor
+und wir verwenden die Notation $[k]=\{1,2, \dots, k\}$.
+Erfüllt eine Abbildung $\varphi_\mathcal{A}$ diese
+Bedingung, so korrespondiert sie eindeutig
+zu einem Algorithmus. Somit können wir nun
+einen Algorithmus als solch eine Abbildung darstellen.
+Dies ermöglicht es uns, auch die Abfragekomplexität
+einer solchen Abbildung zu definieren.
+
+Sei dafür $\mathcal{H}$ die Menge an minimalen
+Mustern einer Eigenschaft $P_m(\mathcal{H})$.
+Sei nun $g\in P_m(\mathcal{H})$ ein Input, der die
+Eigenschaft $P_m(\mathcal{H})$ erfüllt.
+Die Abfragekomplexität für diesen Input $g$
+ist dann definiert als Anzahl an abgefragten Kanten
+bis ein minimales Muster "`entdeckt"' wurde.
+Formal ausgedrückt:
+$$ C(\varphi_\mathcal{A}, g) :=
+\argmin_{k\in\mathbb{N}} \Big(\exists H\in\mathcal{H}:
+H \leq \sum_{i=1}^k g_{\varphi(g)(i)} \Big).
+$$
+Die Notation $A\leq B$ bedeutet hier, dass
+für $A=(a_1, a_2, \dots, a_m)\in \mathbb{F}_2^m$
+und $B=(b_1, b_2, \dots, b_m)\in \mathbb{F}_2^m$
+die komponentenweise Ungleichung $a_i \leq b_i$
+für alle $1\leq i\leq m$ gilt und $g_j$ steht für
+die $j$-te Komponente von $g$, ausgedrückt als
+Vektor.
+
+Erfüllt $g\in\mathbb{F}_2^m$ hingegen nicht die
+Eigenschaft $P_m(\mathcal{H})$, so wird ein Algorithmus
+natürlich nie ein minimales Muster finden. Deswegen
+muss die Abfragekomplexität für einen solchen
+Input anders definiert werden.
+
+\subsection{Eine elegantere Formulierung}
+Damit eine Abbildung auch zu einem Algorithmus
+korrespondiert, muss sie die relativ komplizierte
+Bedingung (\ref{eq:NichtNachtraeglichAendern})
+erfüllen. Wir wollen nun eine Abbildung
+auf eine andere, natürlichere
+Weise charakterisieren, sodass keine komplexe Bedingung
+erforderlich ist, damit diese auch zu einem
+Algorithmus gehört.
+
+Ein Algorithmus kann so verstanden werden, dass die
+Abfragereihenfolge so lange konstant bleibt, bis er
+eine "`1"' erhält. Dann wird die zukünftige Abfragereihenfolge
+permutiert. Dies führt zu folgender Charakterisierung:
+
+\emph{Eine Familie von Abbildungen 
+$\psi_k:\mathbb{F}_2^k \to \mathbb{S}_{m-k-1}$
+mit $0 \leq k \leq m-3$ einschließlich einer Startreihenfolge
+$\psi_{-1}\in\mathbb{S}_m$ legt eindeutig einen Algorithmus fest.}
+Hierbei kann man $k$ als die Anzahl bisher erfolgter Abfragen
+auffassen. Der Wert $\psi_k(g)$ ist hier zu interpretieren
+als Permutation der zukünftigen Abfragereihenfolge, wenn
+der Algorithmus als nächstes eine "`1"' zurückgeliefert bekommt.
+Wird dem Algorithmus hingegen eine "`0"' zurückgeliefert, so
+bleibt die Abfragereihenfolge unverändert.
+Da jeweils nur die zukünftige Abfragereihenfolge permutiert 
+wird, ist keine zusätzliche Bedingung wie 
+(\ref{eq:NichtNachtraeglichAendern}) notwendig, um zu garantieren,
+dass die Familie von Abbildungen einem Algorithmus entspricht.
+Jedoch ist die Abfragekomplexität mit dieser Charakterisierung
+nur sehr umständlich zu definieren.
+
+Da eine solche Familie von Abbildungen eindeutig
+einem Algorithmus entspricht, können wir als "`kleinen Bonus"'
+die Anzahl aller Algorithmen für Eigenschaften auf $m$ Bits
+berechnen. Da $|\mathbb{S}_{m-k-1}|=(m-k-1)!$ und
+$|\mathbb{F}_2^k| = 2^k$ gilt, gibt es
+insgesamt $\big((m-k-1)!\big)^{2^k}$ Abbildungen der Form
+$\psi_k:\mathbb{F}_2^k \to \mathbb{S}_{m-k-1}$.
+Für die Startabbildung $\psi_{-1}\in\mathbb{S}_m$ gibt
+es $|\mathbb{S}_m| = m!$ Möglichkeiten.
+Es gibt somit
+$$m!\cdot \prod_{k=0}^{m-3} \big((m-k-1)!\big)^{2^k} $$
+Familien von Abbildungen und ebenso viele Algorithmen
+für Bitfolgeneigenschaften mit $m$ Bits.
+Mit $m=5$ erhalten wir bereits 
+$$5!\cdot \prod_{k=0}^2 \big((5-k-1)!\big)^{2^k}
+= 5!\cdot 4! \cdot 3!^2 \cdot 2!^4
+= 120 \cdot 24 \cdot 36 \cdot 16 = 1658880
+$$
+verschiedene Algorithmen.
+Dies erklärt eventuell, warum es so schwierig ist, untere
+Schranken für die Abfragekomplexität zu beweisen. Denn
+es kommt eine extrem große Anzahl möglicher Algorithmen
+in Betracht.
 
 \section{Algebraische Ansätze}
-% Gruppenoperationen etc.
+In diesem letzten Abschnitt wollen wir einige algebraische
+Ansätze aufzeigen, die eventuell für Beweise von unteren
+Schranken für die Abfragekomplexität nützlich sein können.
+
+\chapter{Fazit und Ausblick}
 
 
-\printbibliography
+\printbibliography[title={\ Literatur}]
+
+\chapter*{Erklärung über die selbstständige Anfertigung der Arbeit}
+
+Hiermit erkläre ich, dass ich die vorliegende Facharbeit
+selbstständig verfasst und keine anderen als die im Literaturverzeichnis
+angegebenen Hilfsmittel verwendet habe. \\ \\
+
+Mainz, der \today \\ \\
+
+\rule{7cm}{0.4mm}
+\vspace*{0.2cm}
+
+Erik Diessel
+
 \end{document}
