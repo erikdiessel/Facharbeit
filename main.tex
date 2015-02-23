@@ -13,11 +13,12 @@
 \usepackage{framed}
 \usepackage{needspace}
 \usepackage{enumitem}
+\usepackage{microtype}
 \geometry{
 bottom=20mm,
 top=20mm,
-left=20mm,
-right=20mm
+left=22mm,
+right=22mm
 }
 
 \setlist[description]{labelindent=\parindent}
@@ -47,6 +48,7 @@ right=20mm
 \DeclareMathOperator\Min{Min}
 \DeclareMathOperator\Dupl{Dupl}
 \DeclareMathOperator*\argmin{arg\,min}
+\DeclareMathOperator\Hom{Hom}
 
 \newcommand{\Square}{
 \begin{tikzpicture}[main_node/.style={circle,fill=black},
@@ -87,14 +89,16 @@ Komplexitätsklassen $P$ und $NP$ identisch sind. Diese
 Frage dreht sich um die Zeitkomplexität, die bestimmte
 Probleme benötigen. Die Komplexität eines Problems zu ermitteln hat
 große Relevanz für die Praxis, da sie die theoretischen
-Grenzen für die Performance eines Algorithmus aufzeigen. \\
+Grenzen für die Performance eines Algorithmus aufzeigen.
+
 Die Wichtigkeit dieser ursprünglich aus der Informatik
 stammenden Fragestellung zeigt sich darin, dass das Clay
 Mathematics Institute es als ein "`Millenium Problem"'
 der Mathematik eingestuft und einen Preis von
-1 Million Dollar für seine Lösung ausgelobt hat.\footnote{
+1~Million Dollar für seine Lösung ausgelobt hat.\footnote{
 vgl. die offizielle Problembeschreibung:
-\cite{PvsNPOfficial}} \\
+\cite{PvsNPOfficial}} 
+
 Um die vermutete Ungleichheit $P\neq NP$ zu zeigen,
 muss eine untere Schranke für die Komplexität einiger
 Probleme gezeigt werden. Bis heute scheint dies jedoch
@@ -105,14 +109,16 @@ zur Zeitkomplexität ist es hier möglich gute
 untere Schranken zu beweisen. Die Entwicklung
 neuer Methoden für untere Schranken bei diesem "`einfachen"' Fall,
 führt dann eventuell zu neuen Impulsen für untere
-Schranken bei der Zeitkomplexität. \\
+Schranken bei der Zeitkomplexität.
+
 Im Kontext von ungerichteten Graphen
 ist die Abfragekomplexität die Anzahl
 an Abfragen der Form "`Besteht eine Kante zwischen
 der Ecke $u$ und der Ecke $v$ ?"', die ein Algorithmus
 benötigt, um zu entscheiden, ob ein gegebener Graph
 eine Eigenschaft erfüllt. Eine Graph-Eigenschaft ist
-dabei unabhängig von der konkreten Benennung der Knoten. \\
+dabei unabhängig von der konkreten Benennung der Ecken.
+
 Von Rivest und Vuillemin wurde gezeigt,
 dass die Abfragekomplexität
 im Fall von monotonen Graph-Eigenschaften, die beim 
@@ -152,11 +158,12 @@ können, die noch bessere untere Schranken ermöglichen könnten.
 \section{Grundlegende Definitionen}
 \subsection{Graph-Eigenschaften}
 Im graphentheoretischen Teil folgen wir größtenteils
-der Notation eines Standardwerkes der Graphentheorie \footnote{\cite{diestel}}. \\
+der Notation eines Standardwerkes der Graphentheorie\footnote{\cite{diestel}}.
+
 Mit $\mathcal{G}_n$ bezeichnen wir die Menge aller
-(ungerichteten) Graphen mit $n$ Ecken. \\
+(ungerichteten) Graphen mit $n$ Ecken.
 Den vollständigen Graphen auf $n$ Ecken bezeichnen wir
-mit $K_n$. \\
+mit $K_n$.
 Ist $G \in \mathcal{G}_n$ ein Subgraph von $G' \in \mathcal{G}_n$,
 so schreiben wir $G \subseteq G'$ oder $G' \supseteq G$. Ist $G$ ein
 echter Subgraph von $G'$ (d.h. $E(G) \neq E(G')$), dann schreiben
@@ -254,12 +261,13 @@ $\Min(P_n) = \Min(P'_n)$ genau dann, wenn $P_n = P'_n$.
 \item[$\boldsymbol{\Min(P_n) = \Min(P'_n) \implies P_n = P'_n}$]
 \hfill \\
 Sei $G \in P_n$ beliebig. Wir zeigen dann, dass auch $G \in P'_n$
-gilt. Aus Symmetriegründen folgt dann, dass für ein beliebiges 
-$G' \in P'_n$ gilt: $G' \in P_n$, woraus die Gleichheit der
-Eigenschaften $P_n = P'_n$ folgt. \\
+gilt. Aus Symmetriegründen folgt dann, dass für einen  beliebigen
+Graphen $G' \in P'_n$ gilt: $G' \in P_n$, woraus die Gleichheit der
+Eigenschaften $P_n = P'_n$ folgt.
+
 Wir setzen $G_0 := G$. Solange es möglich ist, wählen wir nun
 eine Kante $e \in E(G_i)$, sodass für $G_{i+1} := G_i - e$  
-weiterhin $G_{i+1} \in P_n$ gilt. \\
+weiterhin $G_{i+1} \in P_n$ gilt.
 Es gibt nun ein $i$, für das es nicht mehr möglich ist,
 aus $G_i$ eine Kante zu entfernen und dabei die Eigenschaft
 zu erhalten (spätestens, wenn $G_i$ leer ist).
@@ -385,16 +393,16 @@ $n$ Ecken hat genau ${\binom{n}{2}=\frac{n(n-1)}{2}}$ Kanten).
 
 Bisher haben wir uns nur mit \emph{deterministischer}
 Abfragekomplexität beschäftigt, d.h. die betrachteten
-Algorithmus hatten keinen Zufall zur Verfügung.
+Algorithmen hatten keinen Zufall zur Verfügung.
 Da randomisierte Algorithmen deterministischen Algorithmen
-oft überlegen sind, müssen wir dies auch für
-die Abfragekomplexität untersuchen.
+oft überlegen sind, müssen wir diese auch auf
+die Abfragekomplexität hin untersuchen.
 % Vielleicht Zitat einfügen für
 % Problem, bei dem randomisierte Algorithmen klar
 % überlegen sind.
-Wir definieren hierfür zunächst einen randomisierten
-Algorithmus, um dann dessen Komplexität zu definieren
-\footnote{vgl. \cite[S.120]{Groeger}}.
+Wir definieren hierfür zunächst randomisierte Algorithmen,
+um dann deren Komplexität zu definieren\footnote{vgl.
+\cite[S.120]{Groeger}}.
 \begin{definition}[Randomisierter Algorithmus]
 Ein \emph{randomisierter Algorithmus}, der eine
 Eigenschaft $P_n$ entscheidet, ist eine
@@ -404,7 +412,7 @@ Formal: eine Abbildung
 $$ p_\textup{Alg}: \{ \mathcal{A} \ \textup {deterministisch} \ | \
          \mathcal{A} \ {\rm entscheidet} \ P_n \} \to \mathbb{R} $$
 mit 
-$$\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) = 1$$
+$$\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) = 1.$$
 \end{definition}
 
 Das Ausführen eines randomisierten Algorithmus findet
@@ -457,7 +465,8 @@ Algorithmus $\mathcal{A}$, der $P_n$ entscheidet:
 $$ C(\mathcal{A},H) \geq |E(H)|\,.$$
 \end{Satz}
 \begin{proof}
-Wir führen einen Widerspruchsbeweis. \\
+Wir führen einen Widerspruchsbeweis.
+
 Angenommen $ C(\mathcal{A},H) < |E(H)| $.
 Dann gibt es eine Kante $e\in H$,
 die von $\mathcal{A}$ nicht abgefragt wird. Entfernen wir
@@ -490,7 +499,7 @@ $$ C_R(p_\textup{Alg}, H) =
 \sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) \cdot C(\mathcal{A}, H)\,.$$
 Wegen Satz \ref{thm:minDetLowerBound} gilt $C(\mathcal{A}, H) \geq |E(H)|$
 für alle deterministischen Algorithmen $\mathcal{A}$. Einsetzen ergibt:
-$$ C_R(p_\textup{Alg}, H) \overset{\textup{Def.} \ref{def:randComplInput}} {=}
+$$ C_R(p_\textup{Alg}, H) \overset{\textup{Def. } \ref{def:randComplInput}} {=}
 \sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) \cdot C(\mathcal{A}, H) 
 \overset{\textup{Satz } \ref{thm:minDetLowerBound}} {\geq}
 \sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) \cdot |E(H)| =
@@ -568,7 +577,7 @@ für die randomisierte Abfragekomplexität]
 Sei $G\in\mathcal{G}_n$ ein kantenmaximaler Graph der monotonen
 Graph-Eigenschaft $P_n \subseteq \mathcal{G}_n$.
 Dann gilt
-$$ C_R(P_n) \geq \binom{n}{2} - |E(H)|\,.$$
+$$ C_R(P_n) \geq \binom{n}{2} - |E(G)|\,.$$
 \end{corollary}
 \begin{proof}
 Der Beweis erfolgt analog zum Beweis von Korollar \ref{cor:MinGraphRandCompl}
@@ -583,7 +592,7 @@ In diesem Abschnitt entwickeln wir daher einige einfach zu überprüfende
 Kriterien für Graph-Eigenschaften, aus denen dann eine gute
 untere Schranke folgt. \\
 Wir beschränken uns hierfür auf Eigenschaften, bei denen einer
-der minimalen Graphen nur wenige Ecken mit positivem Grad hat
+der minimalen Graphen nur wenige Ecken mit positivem Grad hat,
 im Vergleich zur gesamten Eckenanzahl. Ein Beispiel dafür wäre
 die Eigenschaft $\operatorname{P}_{100}(\{ \ \Square \ \})$,
 denn hier hat der minimale Graph nur $4$ Ecken mit positivem
@@ -597,8 +606,8 @@ Die Bezeichnung $V_{>0}(G)$ verwenden wir für die
 Menge der Ecken mit positivem Grad des Graphen $G$.
 
 \subsection{Konstruktion kantenmaximaler Graphen}
-Die Hauptidee: Wir nehmen einen minimalen Graphen (der eine
-relativ geringe Eckenanzahl hat) und wählen zwei benachbarte Ecken
+Die Hauptidee: Wir nehmen einen minimalen Graphen mit einer
+relativ geringen Eckenanzahl und wählen zwei benachbarte Ecken
 $u$ und $v$. Wir konstruieren nun einen Graphen, indem wir aus dem
 minimalen Graphen die Kante $uv$ herauslöschen und dann eine große
 Anzahl von Kopien von $u$ und $v$ hinzufügen, ohne Kanten zwischen
@@ -758,7 +767,7 @@ jeweils $\big \lfloor \frac{n-p}{2} \big \rfloor+1$ Kopien von
 $u$  und von $v$ hat (einschließlich $u$ und $v$), gibt es mindestens
 $\Big( \Big \lfloor  \frac{n-p}{2} \Big \rfloor + 1 \Big)^{2}$
 Kanten, deren Hinzufügen die Eigenschaft $P_n(\{H\})$ hervorruft.
-Wir konstruieren nun also einen kantenmaximalen Graphen $G'$ aus
+Wir konstruieren nun einen kantenmaximalen Graphen $G'$ aus
 $G$, indem wir nach und nach Kanten zu $G$ hinzufügen, die die
 Eigenschaft unerfüllt lassen, bis dies nicht mehr möglich ist.
 Dieser Graph $G'$ hat nun eine Kantenanzahl von:
@@ -766,7 +775,7 @@ $$ |E(G')| \leq \binom{n}{2} -
 \Big ( \Big \lfloor  \frac{n-p}{2} \Big \rfloor + 1 \Big)^{2}\,,$$
 da alle Kanten zwischen Kopien von $u$ und $v$ nicht zu dem
 kantenmaximalen Graphen gehören können. Wenden wir nun
-Korollor \ref{thm:EdgeMaximalRandCompl} mit dem kantenmaximalen
+Korollar \ref{thm:EdgeMaximalRandCompl} mit dem kantenmaximalen
 Graphen $G'$ an, so erhalten wir unsere untere Schranke für
 die Abfragekomplexität:
 $$ C_R(P_n(\{H\})) \geq 
@@ -901,7 +910,7 @@ untere Schranke für die randomisierte Abfragekomplexität.
 Ist der Graph $H\in\mathcal{G}_n$ regulär, so haben
 alle Ecken minimalen Grad. Der Graph $H$ erfüllt also Kriterium (a)
 von Satz \ref{thm:KriterienDuplizierungsInvariant}.
-Die Eigenschaft $P_n(\{H\})$ hat also eine randomisierte
+Die Eigenschaft $P_n(\{H\})$ hat somit eine randomisierte
 Abfragekomplexität von 
 $$ C_R(P_n(\{H\})) \geq
 \frac{1}{4}n^2 - \frac{1}{2}n(p-1) + \frac{1}{4}(p-1)^2$$
@@ -1034,16 +1043,27 @@ mindestens dieser Anzahl an Komponenten mit Wert $1$ zu
 $P_m$ gehören.
 \begin{proposition*}
 Alle $\mathbb{S}_m$-symmetrischen Eigenschaften 
-$P_m \subseteq \mathbb{F}_2^m$ haben eine Abfragekomplexität
-von $C_R(P_m) = m$.
+$P_m \subseteq \mathbb{F}_2^m$ haben eine
+deterministische Abfragekomplexität
+von $C(P_m) = m$.
 \end{proposition*}
 \begin{proof}
 Wie oben gezeigt, ist $P_m$ von der Form
 $$ P_m= \{ g\in \mathbb{F}_2^m \ |
 \ g \textup{ hat mindestens } k\textup{-mal die Komponente } 1 \ \}\,,$$
 für ein $k\in \mathbb{N}$.
-Wir betrachten für $m\in\mathbb{N}$ den Input (in String-Schreibweise)
-$g=1^{k-1}0^{m-k+1}\in \mathbb{F}_2^m$. 
+Aus dem Verhalten eines beliebigen deterministischen Algorithmus
+$\mathcal{A}$ konstruieren wir nun einen Input $g$,
+sodass $C(\mathcal{A},g)=m$ gilt. Auf die ersten $m-k$
+Abfragen von $\mathcal{A}$ antworten wir mit "`0"'.
+Der Input erfüllt nun genau die Eigenschaft $P_m$, wenn
+nun alle restlichen $k$ Bits den Wert "`1"' haben.
+Antworten wir also von nun an mit "`1"', so muss der 
+Algorithmus $\mathcal{A}$
+den entsprechenden Input $g$ bis auf das letzte Bit abfragen,
+um zu entscheiden, ob $g\in P_m$ gilt. Daraus folgt
+$C(\mathcal{A}) \geq C(\mathcal{A}, g) = m$ und da unsere
+Wahl von $\mathcal{A}$ beliebig war: $C(P_m)=m$.
 \end{proof}
 \end{example}
 
@@ -1060,6 +1080,7 @@ Dadurch sind wir in der Lage, algebraische Methoden zu verwenden.
 % algebraisch zu charakterisieren.
 
 \subsection{Erste Formulierung}
+\label{sec:AlgebraischeCharakterisierung}
 Ein Algorithmus wird bezüglich der Abfragekomplexität vollständig
 durch die Abfragereihenfolge der Bits festgelegt.
 Der Algorithmus kann jedoch die Reihenfolge der nächsten
@@ -1069,10 +1090,10 @@ auf $m$ Bits lässt sich also als Abbildung der Menge aller
 Bitfolgen auf die Menge aller Permutationen darstellen:
 $$ \varphi_\mathcal{A}: \mathbb{F}_2^m \to \mathbb{S}_m,
    ~g \mapsto \varphi_\mathcal{A}(g)$$
-Hierbei gibt $\sigma = \varphi_\mathcal{A}(g)$ an, welche
-Kante an der jeweiligen Stelle abgefragt wird,
+Hierbei gibt $\sigma = \varphi_\mathcal{A}(g)$ an, welches
+Bit an der jeweiligen Stelle abgefragt wird,
 d.h. $\sigma(k)=i$ bedeutet, dass an $k$-ter
-Stelle die Kante $i$ abgefragt wird.
+Stelle das Bit mit Index $i$ abgefragt wird.
 
 Ein Algorithmus kann jedoch die Reihenfolge der 
 abgefragten Bits jedoch nicht nachträglich ändern. Deswegen
@@ -1080,14 +1101,15 @@ korrespondieren nur die Abbildungen $\varphi_\mathcal{A}$,
 zu einem richtigen Algorithmus, bei denen die Reihenfolge
 der bisher abgefragten Kanten konstant bleibt.
 Algebraisch ausgedrückt: Es muss für alle Eingaben
-$g\in \mathbb{F}_2^m$ und Kantenindizes $1\leq i \leq m$
+$g\in \mathbb{F}_2^m$ und Bitindizes $1\leq i \leq m$
 mit Abfrageposition $k=(\varphi_\mathcal{A}(g))^{-1}(i)$
 gelten:
 \begin{equation}
 \label{eq:NichtNachtraeglichAendern}
 \varphi(g)|_{[k]} = \varphi(g+e_i)|_{[k]}.
 \end{equation}
-Hierbei ist $e_i$ der $i$-te kanonische Einheitsvektor
+Hierbei ist $e_i\in \mathbb{F}_2^m$
+der $i$-te kanonische Einheitsvektor
 und wir verwenden die Notation $[k]=\{1,2, \dots, k\}$.
 Erfüllt eine Abbildung $\varphi_\mathcal{A}$ diese
 Bedingung, so korrespondiert sie eindeutig
@@ -1172,7 +1194,12 @@ $$5!\cdot \prod_{k=0}^2 \big((5-k-1)!\big)^{2^k}
 = 5!\cdot 4! \cdot 3!^2 \cdot 2!^4
 = 120 \cdot 24 \cdot 36 \cdot 16 = 1658880
 $$
-verschiedene Algorithmen.
+verschiedene Algorithmen. Für $m=8$ erhalten wir sogar
+über $2,9 \cdot 10^{55}$ verschiedene Algorithmen. Diese
+Zahl ist weit größer als die Anzahl möglicher 
+Spielsituationen beim Schach, die kleiner als $5\cdot 10^{52}$
+ist.\footnote{Diese obere Schranke wird gegeben in:
+\cite{Allis}.}.
 Dies erklärt eventuell, warum es so schwierig ist, untere
 Schranken für die Abfragekomplexität zu beweisen. Denn
 es kommt eine extrem große Anzahl möglicher Algorithmen
@@ -1182,9 +1209,183 @@ in Betracht.
 In diesem letzten Abschnitt wollen wir einige algebraische
 Ansätze aufzeigen, die eventuell für Beweise von unteren
 Schranken für die Abfragekomplexität nützlich sein können.
+Wir verwenden hierfür die Charakterisierung von Algorithmen
+aus Abschnitt \ref{sec:AlgebraischeCharakterisierung}.
 
+Mit $\Hom(\mathbb{F}_2^m, \mathbb{S}_m)$ bezeichnen wir die
+Menge aller Abbildungen der Form 
+$\varphi: \mathbb{F}_2^m \to \mathbb{S}_m$.
+Auf dieser Menge definieren wir nun eine Gruppenoperation,
+die beschreibt, wie sich $\varphi$ verändert, wenn die
+Eingaben unter einem Element aus der Symmetriegruppe $S$
+permutiert werden.
+
+\begin{definition}
+[Symmetrieverknüpfung]
+\ \\
+Die äußere Verknüpfung
+\begin{align*} 
+\circ: S \times \Hom(\mathbb{F}_2^m, \mathbb{S}_m) &\to 
+\Hom(\mathbb{F}_2^m, \mathbb{S}_m) \\
+(\sigma, \varphi) &\mapsto \varphi',
+\end{align*}
+wobei $\varphi'$ definiert ist durch 
+$$\varphi'(g)=\sigma^{-1} \cdot \varphi(\sigma(g)),$$
+bezeichnen wir als \emph{Symmetrieverknüpfung} von
+$S$ auf  $\Hom(\mathbb{F}_2^m, \mathbb{S}_m)$.
+\end{definition}
+
+Die Smmetrieverknüpfung hat die interessante Eigenschaft,
+dass die Abfragekomplexität eines Algorithmus invariant unter
+ihr ist.
+
+\begin{Satz}[Invarianz der Abfragekomplexität unter der Symmetrieverknüpfung]
+Sei $S\leq \mathbb{S}_m$ eine Untergruppe der symmetrischen Gruppe vom
+Grad $m$ und $P_m \subseteq\mathbb{F}_2^m$ eine $S$-symmetrische
+Eigenschaft. Ist dann $\sigma \in S$ und
+$\varphi_\mathcal{A}:\mathbb{F}_2^m \to \mathbb{S}_m$ ein Algorithmus,
+so gilt für die Abfragekomplexität des Algorithmus $\varphi$
+und des von der Symmetrieverknüpfung induzierten Algorithmus
+$\sigma \circ \varphi_\mathcal{A}$:
+$$C(\varphi_\mathcal{A}) = C(\sigma \circ \varphi_\mathcal{A}).$$
+\end{Satz}
+\begin{proof}
+Wir zeigen zunächst, dass 
+$C(\sigma \circ \varphi_\mathcal{A}) \geq C(\varphi_\mathcal{A})$ gilt. 
+Sei $g\in\mathbb{F}_2^m$ der Worst-Case Input für $\varphi_\mathcal{A}$,
+der $C(\varphi_\mathcal{A}, g) = C(\varphi_\mathcal{A})$ erfüllt.
+Wir betrachten nun die Komplexität des Inputs $g' = \sigma^{-1}(g)$
+für den Algorithmus $\sigma \circ \varphi_\mathcal{A}$.
+Es folgt nun aus der Definition der Symmetrieverknüpfung:
+$$ \sigma \circ \varphi (g')
+= \sigma \circ \varphi (\sigma^{-1}(g)) 
+= \sigma^{-1} \varphi(\sigma \cdot \sigma^{-1} (g))
+= \sigma^{-1} \cdot \varphi(g).$$
+
+Für eine Abfrageposition $k$ erhalten wir daraus 
+$\sigma \circ \varphi(g')(k) = \sigma^{-1} \cdot \varphi(g)(k)$.
+
+Wir können o.B.d.A. annehmen, dass der Worst-Case Input $g$ die
+Eigenschaft $P_m$ erfüllt, denn erfüllt $g$ die Eigenschaft
+$P_m$ nicht, so können wir einen Input  mit gleicher
+Abfragekomplexität bilden, indem wir das letzte abgefragte
+Bit von $g$ auf den Wert "`1"' setzen, denn das letzte
+abgefragte Bit muss entscheidend für $g\in P_m$ sein.
+
+Weiterhin können wir o.B.d.A. annehmen, dass $g$ nur 
+einen einziges minimales Muster enthält, denn setzen wir
+alle nicht abgefragten Bits auf den Wert "`0"', so hat
+der entstehende Input die gleiche Abfragekomplexität
+und enthält nur ein einziges minimales Muster.
+Wir nennen dieses minimale Muster $h\in \mathbb{F}_2^m$.
+
+Da die Eigenschaft $P_m$ $S$-symmetrisch ist und 
+$\sigma\in S$ gilt, enthalten $g$ und $g'=\sigma^{-1}(g)$
+unter der Symmetriegruppe $S$ identische minimalen Muster von $P_m$.
+Folglich enthält $g'=\sigma^{-1}(g)$ auch nur einziges minimales Muster,
+nämlich das Bild $\sigma^{-1}(h)$ des minimalen Musters von $h$ unter
+$\sigma^{-1}$.
+
+Im Folgenden bezeichnen wir für eine einfache Lesbarkeit die
+$i$-te Komponente des Vektors $a\in\mathbb{F}_2^m$ mit
+$a[i]$ anstatt $a_i$.
+Da $g$ die Abfragekomplexität $C(\varphi_\mathcal{A}, g)$
+hat und nach Annahme $g$ die Eigenschaft $P_m$ erfüllt,
+muss das letzte abgefragte Bit von $g$ zu dem
+minimalen Muster $h$ gehören. Es gilt also 
+$h[\varphi_\mathcal{A}(g)(C(\varphi_\mathcal{A}, g))]= \text{"`1"'}$.
+Wir erhalten nun für den Input $g'$ zu dem
+Algorithmus $\sigma \circ \varphi_\mathcal{A}$ mit der 
+Gleichung $\sigma \circ \varphi(g')(k) = \sigma^{-1} \cdot \varphi_\mathcal{A}(g)(k)$
+$$\sigma^{-1}(h)[\sigma \circ \varphi_\mathcal{A}(g')(C(\varphi_\mathcal{A}, g))]
+= \sigma^{-1}(h)[\sigma^{-1} \cdot \varphi_\mathcal{A}(g)(C(\varphi_\mathcal{A}, g))]
+= h[\varphi(g)(C(\varphi_\mathcal{A}, g))]
+= \text{"`1"'}$$
+Dies bedeutet das der Algorithmus $\sigma \circ \varphi_\mathcal{A}$ an Position
+$C(\varphi_\mathcal{A}, g)$ ein Bit des minimalen Musters abfragt.
+Der Algorithmus $\sigma \circ \varphi_\mathcal{A}$ braucht für den
+Input $g'=\sigma^{-1}(g)$ also mindestens eine Abfragekomplexität
+von $C(\varphi_\mathcal{A}, g)$. Da $g$ als Worst-Case Input für
+$\varphi_\mathcal{A}$ gewählt wurde, gilt somit
+$$ C(\sigma \circ \varphi_\mathcal{A}) \geq C(\varphi_\mathcal{A}).$$
+
+Es gilt zudem 
+$\sigma^{-1}\circ \sigma \circ \varphi_\mathcal{A} = \varphi_\mathcal{A}$,
+da für alle Inputs $g\in\mathbb{F}_2^m$:
+$$\sigma^{-1}\circ \sigma \circ \varphi_\mathcal{A}(g)
+= \sigma^{-1} \cdot \sigma^{-1}(\varphi_\mathcal{A}(\sigma(g)))
+= \sigma \cdot \sigma^{-1} \varphi_\mathcal{A}(\sigma^{-1}\cdot \sigma(g))
+= \varphi_\mathcal{A}(g)
+$$
+Wir erhalten also als zweite Ungleichung
+$C(\varphi_\mathcal{A}) = C(\sigma^{-1}\circ \sigma \circ \varphi_\mathcal{A})
+\geq C(\sigma \circ \varphi_\mathcal{A})$.
+Und wenn wir beide Ungleichung kombinieren die Gleichung
+\begin{equation*}
+C(\sigma \circ \varphi_\mathcal{A}) = C(\varphi_\mathcal{A})
+\qedhere
+\end{equation*}
+\end{proof}
+Die Symmetrieverknüpfung erlaubt uns, Algorithmen
+in eine Normalform zu überführen ohne deren Abfragekomplexität
+zu beeinflussen. 
+Ist die Symmetriegruppe $S$ \emph{transitiv},
+so kann man für einen $S$-symmetrischen
+Algorithmus $\varphi_\mathcal{A}$, der 
+zuerst das Bit mit Index $k$ abfragt,
+ein $\sigma \in S$ wählen mit $\sigma(1)=k$
+und somit $\sigma^{-1}(k) = 1$.
+Der Algorithmus
+$\sigma \circ \varphi_\mathcal{A}$ fragt dann zuerst
+die Kante mit Index $1$ ab.
+Man kann in Beweisen für untere Schranken also z.B. annehmen,
+dass alle betrachteten Algorithmen zuerst die Kante
+mit Index $1$ abfragen.
+
+\vspace*{1cm}
+
+\begingroup
+\let\clearpage\relax
 \chapter{Fazit und Ausblick}
+\endgroup
+Thema dieser Facharbeit waren untere Schranken für die
+Abfragekomplexität monotoner symmetrischer Eigenschaften.
+Wir haben uns zuerst mit Graph-Eigenschaften beschäftigt 
+und quadratische untere Schranken für Subgraph-Isomorphie-
+Eigenschaften gezeigt, bei denen der einzige minimale
+Graph wenige Ecken mit positivem Grad hat und die
+Eigenschaft der Duplizierungs-Invarianz besitzt.
+Diese untere Schranken können noch verallgemeinert werden
+auf Graph-Eigenschaften, bei denen es mehr als einen
+minimimalen Graphen gibt. Hierfür kann die Konstruktion
+der kantenmaximalen Graphen beibehalten werden, es muss
+jedoch eine weitere Bedingung an die Menge der minimalen
+Graphen gestellt werden. Desweiteren kann die untere
+Schranke für die Abfragekomplexität von Subgraph-Isomorphie-
+Eigenschaften in einigen Fällen auf asymptomisch $\frac{1}{2}n^2$
+verschärft werden, indem man eine strengere Bedingung
+an den minimalen Graphen stellt.
+Zugleich haben wir die Grenzen unseres Ansatzes
+aufgezeigt, was noch einmal verdeutlicht, dass 
+weiterhin neue Methoden entwickelt werden sollten.
 
+Im zweiten Teil beschäftigten wir uns mit der
+Theorie allgemeiner symmetrischer Eigenschaften.
+Hierfür haben wir eine optimale untere Schranke für
+den Spezialfall, dass die Symmetriegruppe die gesamte
+symmetrische Gruppe ist, gezeigt. Danach wurden
+einge algebraische Charakterisierungen von Algorithmen
+und der Abfragekomplexität vorgestellt. Diese Formulierungen
+können genutzt werden, um mit algebraischen Methoden
+die Abfragekomplexität zu untersuchen, ohne auf 
+Entscheidungsbäume und ähnliche schwierig formal zu 
+definierende Begriffe zurückzugreifen. In einem letzten
+Abschnitt haben wir gezeigt, dass eine Normalform
+für Algorithmen existiert, die die Abfragekomplexität
+unverändert lässt. Dies vereinfacht Beweise
+in zukünftigen Untersuchungen, da untere Schranken
+für die Abfragekomplexität nun nur noch für Algorithmen
+in Normalform geführt werden müssen.
 
 \printbibliography[title={\ Literatur}]
 
