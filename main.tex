@@ -170,10 +170,10 @@ mit $K_n$.
 Ist $G \in \mathcal{G}_n$ ein Subgraph von $G' \in \mathcal{G}_n$,
 so schreiben wir $G \subseteq G'$. Wenn $G$ ein
 echter Subgraph von $G'$ ist, d.h. wenn auch $E(G) \neq E(G')$ gilt, schreiben
-wir $G \subset G'$.
+wir $G \subset G'$ oder $G' \supset G$.
 Für $G' = (V, E \cup \{e\})$ schreiben wir vereinfachend
 $G' = G + e$ und für 
-$G' = (V \backslash \{v\}, E_{|(V \backslash \{v\})\times (V \backslash \{v\})})$ vereinfachend $G' = G - v$.
+$G' = (V \backslash \{v\}, E\big|_{(V \backslash \{v\})\times (V \backslash \{v\})})$ vereinfachend $G' = G - v$.
 
 
 \begin{definition}[Graph-Eigenschaft]
@@ -271,14 +271,14 @@ Eigenschaften $P_n = P'_n$ folgt.
 Wir setzen $G_0 := G$. Solange es möglich ist, wählen wir nun
 eine Kante $e \in E(G_i)$, sodass für $G_{i+1} := G_i - e$  
 weiterhin $G_{i+1} \in P_n$ gilt.
-Es gibt nun ein $i$, für das es nicht mehr möglich ist,
-aus $G_i$ eine Kante zu entfernen und dabei die Eigenschaft
-zu erhalten (spätestens, wenn $G_i$ leer ist).
-Der Graph $G_i$ ist dann per Konstruktion ein minimaler
-Graph, folglich gilt $G_i \in \Min(P_n)$. Aufgrund der
+Es gibt nun ein $k$, für das es nicht mehr möglich ist,
+aus $G_k$ eine Kante zu entfernen und dabei die Eigenschaft
+zu erhalten (spätestens, wenn $G_k$ leer ist).
+Der Graph $G_k$ ist dann per Konstruktion ein minimaler
+Graph, folglich gilt $G_k \in \Min(P_n)$. Aufgrund der
 Voraussetzung $\Min(P_n) = \Min(P'_n)$ gilt auch 
-$G_i \in \Min(P'_n)$. Da die Eigenschaft $P'_n$ monoton ist,
-und $G_i \subseteq G$, gilt dann auch $G_i \in P'_n$,
+$G_k \in \Min(P'_n)$. Da die Eigenschaft $P'_n$ monoton ist,
+und $G_j \subseteq G$, gilt dann auch $G_k \in P'_n$,
 wie gefordert.
 \vspace*{-2mm}
 \item[$\boldsymbol{P_n = P'_n \implies \Min(P_n) = \Min(P'_n)}$]
@@ -366,22 +366,21 @@ Wir können nun unseren zentralen Begriff definieren.
 
 \begin{definition}[Deterministische Abfragekomplexität]
 Die \emph{Abfragekomplexität} $C(\mathcal{A},G)$ eines
-Algorithmus $\mathcal{A}$ für den Input $G$ ist
+Algorithmus $\mathcal{A}$ für den Input $G\in \mathcal{G}_n$ ist
 die Länge des zu $G$ gehörenden Pfades des
 Entscheidungsbaumes. \\
 Die \emph{Abfragekomplexität} $C(\mathcal{A})$ eines
 Algorithmus $\mathcal{A}$ ist dann
-$$ C(\mathcal{A}) := \max_{G \in \mathcal{G}_n} C(\mathcal{A},G)$$
+$$ C(\mathcal{A}) := \max_{G \in \mathcal{G}_n} C(\mathcal{A},G).$$
 Die \emph{Abfragekomplexität} $C(P_n)$ einer Graph-Eigenschaft
 $P_n\subseteq \mathcal{G}_n$ ist nun
-$$ C(P_n) := \min_{\mathcal{A} \ {\rm entscheidet}\  P_n} C(\mathcal{A})$$
+$$ C(P_n) := \min_{\mathcal{A} \ {\rm entscheidet}\  P_n} C(\mathcal{A}).$$
 \end{definition}
 
 Der in Beispiel \ref{exmpl:decisionTree} dargestellte
 Algorithmus hat eine Abfragekomplexität von $3$, da
 der längste Pfad die Länge $3$ hat. \\
-Die Aanderaa-Karp-Rosenberg lautet nun:
-\footnote{vgl. \cite[S.9]{Lovasz}}
+Die Aanderaa-Karp-Rosenberg lautet nun:\footnote{vgl. \cite[S.9]{Lovasz}}
 \begin{conjecture}[Aanderaa-Karp-Rosenberg]
 Jede monotone nichttriviale Graph-Eigenschaft $P_n$
 hat eine Abfragekomplexität von
@@ -917,10 +916,10 @@ von Satz \ref{thm:KriterienDuplizierungsInvariant}.
 Die Eigenschaft $P_n(\{H\})$ hat somit eine randomisierte
 Abfragekomplexität von 
 $$ C_R(P_n(\{H\})) \geq
-\frac{1}{4}n^2 - \frac{1}{2}n(p-1) + \frac{1}{4}(p-1)^2$$
+\frac{1}{4}n^2 - \frac{1}{2}n(p-1) + \frac{1}{4}(p-1)^2,$$
 wobei $p=|V_{>0}(H)|$ die Anzahl der Ecken von $H$ mit
 positivem Grad ist. \\
-Ist nun $H=\Square$, so gilt für $n\geq 4$:
+Ist nun beispielsweise $H=\Square$, so gilt für $n\geq 4$:
 $$ C_R(P_n(\{\ \Square \ \})) \geq
 \frac{1}{4}n^2 - \frac{3}{2}n + \frac{9}{4}$$
 \end{example}
@@ -994,7 +993,9 @@ eine spezielle Gruppenoperation definieren:
 Die Gruppenoperation
 $$\mathbb{S}_m \times \mathbb{F}_2^m \to \mathbb{F}_2^m, 
   \ (\sigma,g) \mapsto \sigma(g)$$
-ist so definiert, dass für alle Indizes $1\leq i \leq m$ gilt:
+der symmetrischen Gruppe $\mathbb{S}_m$ auf dem
+Vektorraum $\mathbb{F}_2^m$ ist so definiert,
+dass für alle Indizes $1\leq i \leq m$ gilt:
 $$ \sigma(g)_i = g_{\sigma(i)} $$
 \end{definition}
 Die symmetrische Gruppe permutiert also die Komponenten eines
@@ -1027,7 +1028,7 @@ Mustern $\mathcal{H}\subseteq \mathbb{F}_2^m$.
 \section{Abfragekomplexität vollständig symmetrischer Eigenschaften}
 In diesem Abschnitt betrachten wir exemplarisch
 den Fall, dass $S=\mathbb{S}_m$ die gesamte Symmetriegruppe
-ist, was einer vollständige Symmetrie der Eigenschaften entspricht.
+ist, was einer vollständigen Symmetrie der Eigenschaften entspricht.
 Ist dann $P_m\subseteq \mathbb{F}_2^m$ für ein $m\in\mathbb{N}$ eine monotone 
 $S$-symmetrische Eigenschaft, so muss 
 $P_m$ von der Form 
@@ -1090,7 +1091,7 @@ Ein Algorithmus $\mathcal{A}$ für eine Eigenschaft
 auf $m$ Bits lässt sich also als Abbildung der Menge aller
 Bitfolgen auf die Menge aller Permutationen darstellen:
 $$ \varphi_\mathcal{A}: \mathbb{F}_2^m \to \mathbb{S}_m,
-   ~g \mapsto \varphi_\mathcal{A}(g)$$
+   ~g \mapsto \varphi_\mathcal{A}(g).$$
 Hierbei gibt $\sigma = \varphi_\mathcal{A}(g)$ an, welches
 Bit an der jeweiligen Stelle abgefragt wird,
 d.h. $\sigma(k)=i$ bedeutet, dass an $k$-ter
@@ -1158,7 +1159,8 @@ dafür erforderlich ist.
 
 Ein Algorithmus kann so verstanden werden, dass die
 Abfragereihenfolge so lange konstant bleibt, bis er
-eine"`1"' erhält. Dann wird die zukünftige Abfragereihenfolge
+eine "`1"' als Antwort auf eine Abfrage erhält.
+Dann wird die zukünftige Abfragereihenfolge
 permutiert. Dies führt zu folgender Charakterisierung:
 
 \emph{Eine Familie von Abbildungen 
@@ -1201,7 +1203,7 @@ verschiedene Algorithmen. Für $m=8$ erhalten wir sogar
 Zahl ist weit größer als die Anzahl möglicher 
 Spielsituationen beim Schach, die kleiner als $5\cdot 10^{52}$
 ist.\footnote{Diese obere Schranke wird gegeben in:
-\cite{Allis}.}.
+\cite{Allis}.}
 Dies erklärt eventuell, warum es so schwierig ist, untere
 Schranken für die Abfragekomplexität zu beweisen. Denn
 es kommt eine extrem große Anzahl möglicher Algorithmen
@@ -1219,7 +1221,7 @@ Mit $\Hom(\mathbb{F}_2^m, \mathbb{S}_m)$ bezeichnen wir die
 Menge aller Abbildungen der Form 
 $\varphi: \mathbb{F}_2^m \to \mathbb{S}_m$.
 Auf dieser Menge definieren wir nun eine Verknüpfung
-der Symmetriegruppe $S$:
+mit der Symmetriegruppe $S$:
 
 \begin{definition}
 \label{def:Symmetrieverknuepfung}
@@ -1288,7 +1290,7 @@ Wir nennen dieses minimale Muster $h\in \mathbb{F}_2^m$.
 
 Da die Eigenschaft $P_m$ $S$-symmetrisch ist und 
 $\sigma\in S$ gilt, enthalten $g$ und $g'=\sigma^{-1}(g)$
-unter der Symmetriegruppe $S$ identische minimalen Muster von $P_m$.
+unter der Symmetriegruppe $S$ identische minimale Muster von $P_m$.
 Folglich enthält $g'=\sigma^{-1}(g)$ auch nur einziges minimales Muster,
 nämlich das Bild $\sigma^{-1}(h)$ des minimalen Musters von $h$ unter
 $\sigma^{-1}$.
