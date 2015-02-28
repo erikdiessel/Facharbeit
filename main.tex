@@ -90,7 +90,7 @@ Fragestellungen der theoretischen Informatik.
 Der bekannteste Fall ist hier die Frage, ob die beiden
 Komplexitätsklassen $P$ und $NP$ identisch sind. Diese
 Frage dreht sich um die Zeitkomplexität, die bestimmte
-Probleme benötigen. Die Komplexität eines Problems zu ermitteln hat
+Probleme benötigen. Die Komplexität eines Problems zu ermitteln, hat
 große Relevanz für die Praxis, da dies die theoretischen
 Grenzen für die Performance eines Algorithmus aufzeigt.
 
@@ -152,7 +152,7 @@ wir das Konzept der Graph-Eigenschaften auf
 symmetrische Eigenschaften von Bitfolgen. Für
 diese Fälle zeigen wir einige untere Schranken.
 Danach formulieren wir die Begriffe "`Algorithmus"'
-und "`Abfragekomplexität"' nocheinmal algebraisch, um
+und "`Abfragekomplexität"' noch einmal algebraisch, um
 in einem letzten Abschnitt
 einige algebraische Ansätze für Methoden vorstellen zu
 können, die noch bessere untere Schranken ermöglichen könnten.
@@ -216,7 +216,7 @@ $P_n\neq \emptyset$ gilt.
 \end{definition}
 Die Bedingung $E_n \notin P_n$ bedeutet, dass $P_n$ nicht
 alle Graphen auf $n$ Ecken beinhaltet. In diesem Fall würde
-es keinen Sinn machen, einen Algorithmus berechnen zu lassen,
+es keinen Sinn machen, mit einem Algorithmus zu berechnen,
 ob ein gegebener Graph die Eigenschaft erfüllt, da das Ergebnis
 unabhängig vom Graphen wäre.
 
@@ -380,7 +380,7 @@ $$ C(P_n) := \min_{\mathcal{A} \ {\rm entscheidet}\  P_n} C(\mathcal{A}).$$
 Der in Beispiel \ref{exmpl:decisionTree} dargestellte
 Algorithmus hat eine Abfragekomplexität von $3$, da
 der längste Pfad die Länge $3$ hat. \\
-Die Aanderaa-Karp-Rosenberg lautet nun:\footnote{vgl. \cite[S.9]{Lovasz}}
+Die Aanderaa-Karp-Rosenberg-Vermutung lautet nun:\footnote{vgl. \cite[S.9]{Lovasz}}
 \begin{conjecture}[Aanderaa-Karp-Rosenberg]
 Jede monotone nichttriviale Graph-Eigenschaft $P_n$
 hat eine Abfragekomplexität von
@@ -967,7 +967,7 @@ E(G) = \binom{n}{2} - |E'| \geq \binom{n}{2} - n\,. \qedhere
 \end{equation*}
 \end{proof}
 
-Mitttels Korollar \ref{thm:EdgeMaximalRandCompl} folgt also bestenfalls
+Mittels Korollar \ref{thm:EdgeMaximalRandCompl} folgt also bestenfalls
 eine untere Schranke von $C_R(P'_n) \geq n$. Somit können
 wir mit unseren bisherigen Methoden keine gute untere Schranke
 für diese Eigenschaft zeigen. Dafür müssen andere Methoden
@@ -1240,7 +1240,7 @@ bezeichnen wir als \emph{Symmetrieverknüpfung} von
 $S$ auf  $\Hom(\mathbb{F}_2^m, \mathbb{S}_m)$.
 \end{definition}
 
-Die Smmetrieverknüpfung hat die interessante Eigenschaft,
+Die Symmetrieverknüpfung hat die interessante Eigenschaft,
 dass die Abfragekomplexität eines Algorithmus invariant unter
 ihr ist.
 
@@ -1282,7 +1282,7 @@ Bit von $g$ auf den Wert "`1"' setzen, denn das letzte
 abgefragte Bit muss entscheidend für $g\in P_m$ sein.
 
 Weiterhin können wir o.B.d.A. annehmen, dass $g$ nur 
-einen einziges minimales Muster enthält, denn setzen wir
+ein einziges minimales Muster enthält, denn setzen wir
 alle nicht abgefragten Bits auf den Wert "`0"', so hat
 der entstehende Input die gleiche Abfragekomplexität
 und enthält nur ein einziges minimales Muster.
@@ -1312,7 +1312,7 @@ $$\sigma^{-1}(h)[\sigma \circ \varphi_\mathcal{A}(g')(C(\varphi_\mathcal{A}, g))
 \overset{(\ref{eq:Symmetrie})}{=}
 h[\varphi(g)(C(\varphi_\mathcal{A}, g))]
 = 1 \in \mathbb{F}_2.$$
-Dies bedeutet das der Algorithmus $\sigma \circ \varphi_\mathcal{A}$ an Position
+Dies bedeutet, dass der Algorithmus $\sigma \circ \varphi_\mathcal{A}$ an Position
 $C(\varphi_\mathcal{A}, g)$ ein Bit des minimalen Musters abfragt.
 Der Algorithmus $\sigma \circ \varphi_\mathcal{A}$ braucht für den
 Input $g'=\sigma^{-1}(g)$ also mindestens eine Abfragekomplexität
@@ -1331,7 +1331,7 @@ $$
 Wir erhalten also als zweite Ungleichung
 $C(\varphi_\mathcal{A}) = C(\sigma^{-1}\circ \sigma \circ \varphi_\mathcal{A})
 \geq C(\sigma \circ \varphi_\mathcal{A})$
-und wenn wir beide Ungleichungen kombinieren unsere Aussage
+und wenn wir beide Ungleichungen kombinieren, unsere Aussage
 \begin{equation*}
 C(\sigma \circ \varphi_\mathcal{A}) = C(\varphi_\mathcal{A}).
 \qedhere
@@ -1386,7 +1386,7 @@ Graph wenige Ecken mit positivem Grad hat und die
 Eigenschaft der Duplizierungs-Invarianz besitzt.
 Diese untere Schranken können noch verallgemeinert werden
 auf Graph-Eigenschaften, bei denen es mehr als einen
-minimimalen Graphen gibt. Hierfür kann die Konstruktion
+minimalen Graphen gibt. Hierfür kann die Konstruktion
 der kantenmaximalen Graphen beibehalten werden, es muss
 jedoch eine weitere Bedingung an die Menge der minimalen
 Graphen gestellt werden. Desweiteren kann die untere
@@ -1403,7 +1403,7 @@ Theorie allgemeiner symmetrischer Eigenschaften.
 Hierfür haben wir eine optimale untere Schranke für
 den Spezialfall, dass die Symmetriegruppe die gesamte
 symmetrische Gruppe ist, gezeigt. Danach wurden
-einge algebraische Charakterisierungen von Algorithmen
+einige algebraische Charakterisierungen von Algorithmen
 und der Abfragekomplexität vorgestellt. Diese Formulierungen
 können genutzt werden, um mit algebraischen Methoden
 die Abfragekomplexität zu untersuchen, ohne auf 
