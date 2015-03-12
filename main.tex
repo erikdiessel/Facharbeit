@@ -14,6 +14,8 @@
 \usepackage{enumitem}
 \usepackage{microtype}
 \usepackage{etoolbox}
+\usepackage{enumitem}
+\usepackage{titlesec}
 \geometry{
 bottom=20mm,
 top=20mm,
@@ -22,7 +24,8 @@ right=22mm
 }
 
 \newtoggle{book}
-\toggletrue{book}
+%\toggletrue{book}
+\togglefalse{book}
 
 \setlist[description]{labelindent=\parindent}
 
@@ -47,7 +50,13 @@ right=22mm
   \kern 2pt
 }
 
+% Freiraum vor Kapitelanfang entfernen
 \renewcommand*{\chapterheadstartvskip}{\vspace*{-\baselineskip}}
+
+% Mehr Freiraum vor Abschnitts-Überschriften
+\titlespacing{\section}{0pt}{0.8cm}{0.25cm}
+%\titlespacing{\chapter}{0pt}{0.8cm}{-0.2cm}
+
 
 \DeclareMathOperator\Min{Min}
 \DeclareMathOperator\Dupl{Dupl}
@@ -75,6 +84,7 @@ inner sep=1.5pt, baseline=2pt]
 % \date{Abgabetermin: 20. April 2015}
 
 \begin{document}
+
 
 \iftoggle{book}
 { 
@@ -112,7 +122,7 @@ inner sep=1.5pt, baseline=2pt]
 
 \chapter{Einleitung}
 Die Frage, welche Komplexität ein Problem hat, d.h.
-wie viele Ressourcen ein Algorithmus aufbringen muss,
+wie viele Ressourcen ein Algorithmus benötigt,
 um ein Problem zu lösen, ist eine der dominierenden
 Fragestellungen der theoretischen Informatik.
 Der bekannteste Fall ist hier die Frage, ob die beiden
@@ -122,20 +132,17 @@ Probleme benötigen. Die Komplexität eines Problems zu ermitteln, hat
 große Relevanz für die Praxis, da dies die theoretischen
 Grenzen für die Performance eines Algorithmus aufzeigt.
 
-Die Wichtigkeit dieser ursprünglich aus der Informatik
-stammenden Fragestellung zeigt sich darin, dass das Clay
-Mathematics Institute es als ein "`Millenium Problem"'
-der Mathematik eingestuft und einen Preis von
-1~Million Dollar für seine Lösung ausgelobt hat.\footnote{
-vgl. die offizielle Problembeschreibung:
-\cite{PvsNPOfficial}} 
-
 Um die vermutete Ungleichheit $P\neq NP$ zu zeigen,
 muss eine untere Schranke für die Komplexität einiger
 Probleme gezeigt werden. Bis heute scheint dies jedoch
 in weiter Ferne.\footnote{vgl. \cite{PvsNP}}
 In dieser Facharbeit beschäftigen wir uns daher mit
-der  Abfragekomplexität von Eigenschaften. Im Gegensatz
+der  Abfragekomplexität von Eigenschaften. 
+Dies ist die Anzahl an Abfragen, die bezüglich 
+einzelner Kanten bzw. einzelner Bits gestellt werden
+müssen, um zu entscheiden, ob ein Graph bzw. eine
+Bitfolge eine gegebene Eigenschaft erfüllt.
+Im Gegensatz
 zur Zeitkomplexität ist es hier möglich, gute
 untere Schranken zu beweisen. Die Entwicklung
 neuer Methoden für untere Schranken bei diesem "`einfachen"' Fall
@@ -161,8 +168,10 @@ zum Entscheiden einer monotonen Graph-Eigenschaft
 alle Kanten abgefragt werden müssen, d.h. dass
 $C(P_n)=\binom{n}{2}$ gilt, ist jedoch schon
 seit Jahrzehnten offen. Mit dieser Facharbeit
-wollen wir nun an einer Weiterentwicklung der
-Methoden mitwirken, damit ein Beweis dieser Vermutung
+wollen wir nun an der Weiterentwicklung von Methoden
+für das Beweisen unterer
+Schranken für die Abfragekomplexität
+von Eigenschaften mitwirken, damit ein Beweis dieser Vermutung
 weiter in die Nähe rückt.
 
 Diese Arbeit ist folgendermaßen aufgebaut:
@@ -234,7 +243,7 @@ enthält, woraus folgt, dass auch jeder Supergraph $G'\supseteq G$
 den Subgraphen $K_3$ enthält. 
 \end{example}
 
-Im folgenden werden wir uns auf monotone Graph-Eigenschaften beschränken.
+Im Folgenden werden wir uns auf monotone Graph-Eigenschaften beschränken.
 Um einige degenerierte Fälle auszuschließen, beschränken
 wir uns auch auf \emph{nichttriviale} Eigenschaften.
 \begin{definition}[Nichttriviale Graph-Eigenschaft]
@@ -543,7 +552,8 @@ C_R(P_n) \overset{\textup{Def. } \ref{def:randComplProp}} {=}
 
 Wie man sieht, kann man mit minimalen Graphen einfach untere Schranken
 für die Abfragekomplexität zeigen. Die Anzahl an Kanten $|E(H)|$
-kann jedoch klein sein, sodass die untere Schranke nicht viel wert ist.
+kann jedoch klein sein, sodass die untere Schranke weit vom tatsächlichen
+Wert der Abfragekomplexität entfernt ist.
 Im folgenden Abschnitt betrachten wir daher ein anderes Konzept.
 
 \subsection{... anhand eines kantenmaximalen Graphen}
@@ -558,7 +568,7 @@ der monotonen Graph-Eigenschaft $P_n$, wenn $G\notin P_n$ gilt,
 aber für alle Kanten $e\notin G$ gilt: $G + e \in P_n$.
 \end{definition}
 Kantenmaximale Graphen sind also Graphen, die die Eigenschaft
-nicht erfüllen, bei dem das Hinzufügen einer beliebigen
+nicht erfüllen, bei denen das Hinzufügen einer beliebigen
 Kante aber dafür sorgt, dass die Eigenschaft erfüllt wird.
 % Hier vielleicht Beispiel einfügen für kantenmaximalen Graphen ?
 
@@ -619,21 +629,22 @@ Die bisher gezeigten unteren Schranken sind schwer auf konkrete
 Fälle anzuwenden, da zuerst passende minimale Graphen oder kantenmaximale
 Graphen gefunden werden müssen, die zu der Eigenschaft gehören.
 In diesem Abschnitt entwickeln wir daher einige einfach zu überprüfende
-Kriterien für Graph-Eigenschaften, aus denen dann eine gute
-untere Schranke folgt. \\
+Kriterien für Graph-Eigenschaften, sodass Eigenschaften, die diese
+Kriterien erfüllen, eine hohe Abfragekomplexität haben.\\
 Wir beschränken uns hierfür auf Eigenschaften, bei denen einer
-der minimalen Graphen nur wenige Ecken mit positivem Grad hat,
+der minimalen Graphen nur wenige nichtisolierte Ecken hat,
 im Vergleich zur gesamten Eckenanzahl. Ein Beispiel dafür wäre
 die Eigenschaft $\operatorname{P}_{100}(\{ \ \Square \ \})$,
-denn hier hat der minimale Graph nur $4$ Ecken mit positivem
-Grad, aber Eingaben haben $100$~Ecken. \\
+denn hier hat der minimale Graph nur $4$ nichtisolierte Ecken,
+aber Eingaben haben $100$~Ecken. \\
 Wir gehen folgendermaßen vor: Wir konstruieren für Eigenschaften,
 die gewisse Kriterien erfüllen, kantenmaximale Graphen mit 
 relativ wenigen Kanten. Mithilfe von Korrollar 
 \ref{thm:EdgeMaximalRandCompl} erhalten wir so eine untere Schranke
 für die randomisierte Abfragekomplexität. \\
 Die Bezeichnung $V_{>0}(G)$ verwenden wir für die
-Menge der Ecken mit positivem Grad des Graphen $G$.
+Menge der nichtisolierten Ecken des Graphen $G$,
+d.h. die Menge aller Ecken mit mindestens einem Nachbar.
 
 \subsection{Konstruktion kantenmaximaler Graphen}
 Die Hauptidee: Wir nehmen einen minimalen Graphen mit einer
@@ -775,7 +786,7 @@ die nur einen minimalen Graphen haben) beweisen:
 [Untere Schranke für bestimmte Subgraph-Isomorphie-Eigenschaften]
 \label{thm:SubgraphIsomorphismLowerBound}
 Sei $H\in \mathcal{G}_n$ ein duplizierungs-invarianter Graph
-mit genau $p = \big|V_{>0}(G)\big|$ Ecken, die einen positiven Grad haben.
+mit genau $p = \big|V_{>0}(G)\big|$ nichtisolierten Ecken.
 Dann gilt für die Subgraph-Isomorphie-Eigenschaft $P_n(\{H\})$:
 $$ C_R(P_n(\{H\})) \geq 
 \Big ( \Big \lfloor  \frac{n-p}{2} \Big \rfloor + 1 \Big)^{2} \geq
@@ -835,7 +846,7 @@ inner sep=1.5pt, baseline=2pt]
     \draw (3) -- (1);
 \end{tikzpicture} ist duplizierungs-invariant, da die Kopien
 der Ecken jeweils nur Grad $2$ haben. Zudem
-hat er $p=4$ Ecken mit positivem Grad. Für die Familie von
+hat er $p=4$ nichtisolierte Ecken. Für die Familie von
 Eigenschaften $P_n(\{K_4\})$ mit $ n\geq 4$ erhalten wir also
 mit Satz \ref{thm:SubgraphIsomorphismLowerBound} folgende
 untere Schranke für die randomisierte Abfragekomplexität:
@@ -863,35 +874,35 @@ Graph duplizierungs-invariant ist.
 \label{thm:KriterienDuplizierungsInvariant}
 Ein Graph $H$ ist duplizierungs-invariant, wenn eines
 der vorliegenden Kriterien erfüllt ist:
-\begin{description}
-\item[(a)] Es gibt eine Kante $uv\in H$, sodass sowohl
+\begin{enumerate}[label=\textbf{\emph{(\alph*)}}, leftmargin=*]
+\item Es gibt eine Kante $uv\in H$, sodass sowohl
            der Grad von $u$ als auch der Grad von $v$
-           minimal unter allen Ecken von $H$ mit positivem
-           Grad ist.
-\item[(b)] Es gibt eine Kante $uv \in H$ und eine Zahl
+           minimal unter allen nichtisolierten Ecken von $H$.
+\item Es gibt eine Kante $uv \in H$ und eine Zahl
            $k\in \mathbb{N}$, sodass $u$ und $v$
            Teil einer $k$-Clique in $H$ sind, aber nicht
            in $H-uv$.
-\end{description}
+\end{enumerate}
 \end{Lemma}
 \begin{proof}
 \hfill
-\begin{description}
-\item[(a)] Wir betrachten den Graphen $\Dupl(H,u,v,n)$ für ein
+\begin{enumerate}[label=\textbf{(\alph*)}, leftmargin=*]
+\item      Wir betrachten den Graphen $\Dupl(H,u,v,n)$ für ein
            beliebiges $n\in \mathbb{N}$ und
            nehmen o.B.d.A. an, dass $\deg(u) \geq \deg(v)$ in $H$
            gilt. \\
            Da der Grad von $u$ und $v$ minimal unter allen
-           Ecken von $H$ mit positivem Grad ist, gibt es
+           nichtisolierten Ecken von $H$  ist, gibt es
            mindestens $|V_{>0}(H)| - 1$ Ecken mit Grad $\geq \deg(u)$ in $H$,
-           nämlich mindestens alle Ecken von $H$ mit positivem Grad
+           nämlich mindestens alle nichtisolierten Ecken von $H$
            außer $v$.
            Im Graph $\Dupl(H,u,v,n)$ gibt es jedoch nur 
            $|V_{>0}(H)|-2$ Ecken mit Grad $\geq \deg(u)$, da alle
            Kopien von $u$ und $v$ höchstens Grad $\deg(u)-1$ haben
            und die Kante zwischen $u$ und $v$ gelöscht wurde.
            Somit kann $H$ kein Subgraph von $\Dupl(H,u,v,n)$ sein.
-\item[(b)] Wir betrachten wieder den Graphen $\Dupl(H,u,v,n)$ für
+           
+\item      Wir betrachten wieder den Graphen $\Dupl(H,u,v,n)$ für
            ein beliebiges $n\in \mathbb{N}$. Sei nun $m\in \mathbb{N}$
            die Anzahl der $k$-Cliquen in $H$. Da $u$ und $v$ nicht
            Teil einer $k$-Clique in $H-u-v$ sind, sind auch alle
@@ -903,26 +914,25 @@ der vorliegenden Kriterien erfüllt ist:
            $H-u-v$ und damit in $\Dupl(H,u,v,n)$ höchstens $m-1$
            und daher kleiner als $m$. Folglich enthält $\Dupl(H,u,v,n)$
            nicht den Subgraphen $H$. \qedhere
-\end{description}
+\end{enumerate}
 \end{proof}
 
 Mithilfe dieser Kriterien erhalten wir nun
 eine direkte untere Schranke für die randomisierte Abfragekomplexität:
 \begin{corollary}[Konkrete untere Schranken für Subgraph-Isomorphie-Eigenschaften]
 Sei $n\in \mathbb{N}$ und $H\in \mathcal{G}_n$ ein Graph
-mit $p=|V_{>0}(H)|$ Ecken mit positivem Grad.
+mit $p=|V_{>0}(H)|$ nichtisolierten Ecken.
 
 Erfüllt dann $H$ eines der folgenden Kriterien:
-\begin{description}
-\item[(a)] Es gibt eine Kante $uv\in H$, sodass sowohl
+\begin{enumerate}[label=\textbf{\emph{(\alph*)}}, leftmargin=*]
+\item Es gibt eine Kante $uv\in H$, sodass sowohl
            der Grad von $u$ als auch der Grad von $v$
-           minimal unter allen Ecken von $H$ mit positivem
-           Grad ist.
-\item[(b)] Es gibt eine Kante $uv \in H$ und eine Zahl
+           minimal unter allen nichtisolierten Ecken von $H$.
+\item Es gibt eine Kante $uv \in H$ und eine Zahl
            $k\in \mathbb{N}$, sodass $u$ und $v$
            Teil einer $k$-Clique in $H$ sind, aber nicht
            in $H-uv$.
-\end{description}
+\end{enumerate}
 so gilt für die randomisierte Abfragekomplexität der Eigenschaft 
 $P_n(\{H\})$:
 $$ C_R(P_n(\{H\})) \geq
@@ -945,8 +955,7 @@ Die Eigenschaft $P_n(\{H\})$ hat somit eine randomisierte
 Abfragekomplexität von 
 $$ C_R(P_n(\{H\})) \geq
 \frac{1}{4}n^2 - \frac{1}{2}n(p-1) + \frac{1}{4}(p-1)^2,$$
-wobei $p=|V_{>0}(H)|$ die Anzahl der Ecken von $H$ mit
-positivem Grad ist. \\
+wobei $p=|V_{>0}(H)|$ die Anzahl nichtisolierter Ecken von $H$ mitist. \\
 Ist nun beispielsweise $H=\Square$, so gilt für $n\geq 4$:
 $$ C_R(P_n(\{\ \Square \ \})) \geq
 \frac{1}{4}n^2 - \frac{3}{2}n + \frac{9}{4}$$
@@ -1399,18 +1408,19 @@ ist, erhalten wir eine Abfragekomplexität der Eigenschaft
 von $C(P_m)=m$.
 \end{proof}
 
-%\vspace*{1cm}
+\vspace*{1cm}
 
 \begingroup
 \let\clearpage\relax
 \chapter{Fazit und Ausblick}
 \endgroup
+\vspace*{-0.2cm}
 Thema dieser Facharbeit waren untere Schranken für die
 Abfragekomplexität monotoner symmetrischer Eigenschaften.
 Wir haben uns zuerst mit Graph-Eigenschaften beschäftigt 
 und quadratische untere Schranken für Subgraph-Isomorphie-
 Eigenschaften gezeigt, bei denen der einzige minimale
-Graph wenige Ecken mit positivem Grad hat und die
+Graph wenige nichtisolierte Ecken hat und die
 Eigenschaft der Duplizierungs-Invarianz besitzt.
 Diese untere Schranken können noch verallgemeinert werden
 auf Graph-Eigenschaften, bei denen es mehr als einen
