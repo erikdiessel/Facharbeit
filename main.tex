@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper, footheight=1mm]{scrreprt}
+\documentclass[10pt,a4paper, footheight=1mm, bibliography=totoc]{scrreprt}
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
@@ -13,12 +13,16 @@
 \usepackage{needspace}
 \usepackage{enumitem}
 \usepackage{microtype}
+\usepackage{etoolbox}
 \geometry{
 bottom=20mm,
 top=20mm,
 left=22mm,
 right=22mm
 }
+
+\newtoggle{book}
+\toggletrue{book}
 
 \setlist[description]{labelindent=\parindent}
 
@@ -72,13 +76,37 @@ inner sep=1.5pt, baseline=2pt]
 
 \begin{document}
 
+\iftoggle{book}
+{ 
+    \newpage
+    \thispagestyle{empty}
+    \mbox{}
+    \addtocounter{page}{-1}
+    \newpage
+    \thispagestyle{empty}
+    \mbox{}
+    \addtocounter{page}{-1}
+    \newpage
+    \thispagestyle{empty}
+    \mbox{}
+    \addtocounter{page}{-1}
+    \newpage
+    \thispagestyle{empty}
+    \mbox{}
+    \addtocounter{page}{-1}
+}{}
+
 % \maketitle
 
 \input{titlepage}
 
+\addtocounter{page}{-1}
+
 \begin{large}
 \tableofcontents
 \end{large}
+
+\addtocounter{page}{-1}
 
 \thispagestyle{empty}
 
@@ -1418,7 +1446,17 @@ in Normalform gezeigt werden müssen.
 
 \printbibliography[title={\ Literatur}]
 
+\iftoggle{book}
+{ 
+    \newpage
+    \thispagestyle{empty}
+    \mbox{}
+    \addtocounter{page}{-1}
+}{}
+
 \chapter*{Erklärung über die selbstständige Anfertigung der Arbeit}
+
+\thispagestyle{empty}
 
 Hiermit erkläre ich, dass ich die vorliegende Facharbeit
 selbstständig verfasst und keine anderen als die im Literaturverzeichnis
@@ -1430,5 +1468,17 @@ Mainz, der \today \\ \\
 \vspace*{0.2cm}
 
 Erik Diessel
+
+\iftoggle{book}
+{ 
+    \newpage
+    \thispagestyle{empty}
+    \mbox{}
+    \addtocounter{page}{-1}
+    \newpage
+    \thispagestyle{empty}
+    \mbox{}
+    \addtocounter{page}{-1}
+}{}
 
 \end{document}
