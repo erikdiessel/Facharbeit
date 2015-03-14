@@ -1011,11 +1011,20 @@ für diese Eigenschaft zeigen. Dafür müssen andere Methoden
 entwickelt werden.
 
 \chapter{Verallgemeinerung auf symmetrische Eigenschaften}
-In diesem Kapitel verallgemeinern wir das Konzept der
-Graph-Eigenschaft auf Eigenschaften von Bitfolgen, die
-symmetrisch sind, d.h. invariant gegenüber einer Symmetriegruppe.
-Danach beschäftigen wir uns mit der Abfragekomplexität
-solcher Eigenschaften. \\
+Die bisher betrachteten Graphen können mit einer Adjazenzmatrix
+dargestellt werden. 
+Ein Abfragen von Kanten entspricht dann
+dem Abfragen eines Eintrages der Adjazenzmatrix.
+Schreibt man die Einträge der Adjazenzmatrix als Folge von
+Bits, so kann man eine Graph-Eigenschaft als Bitfolgen-Eigenschaft
+auffassen, die eine gewisse Symmetrie aufweist, nämlich
+die Invarianz gegenüber Graph-Isomorphismen.
+In diesem Kapitel verallgemeinern wir das Konzept von
+Graph-Eigenschaften nun auf Eigenschaften von Bitfolgen,
+die eine beliebige Symmetrie aufweisen.
+Anschliessend beschäftigen wir uns mit der Abfragekomplexität
+solcher Eigenschaften.
+
 Eine Bitfolge stellen wir hier als Element eines Vektorraums
 über den endlichen Körper $\mathbb{F}_2$ der Ordnung $2$ dar.
 Für die Bitfolge ``101`` würden wir also schreiben:
@@ -1060,7 +1069,7 @@ Graph-Eigenschaften, \emph{minimale Muster} definieren.
 Auch im allgemeinen Fall können wir dann die Notation
 $P_m(\mathcal{H})$ für die monotone Eigenschaft
 von Bitfolgen der Länge $m$ mit der Menge an minimalen
-Mustern $\mathcal{H}\subseteq \mathbb{F}_2^m$.
+Mustern $\mathcal{H}\subseteq \mathbb{F}_2^m$ verwenden.
 
 \section{Abfragekomplexität vollständig symmetrischer Eigenschaften}
 In diesem Abschnitt betrachten wir exemplarisch
@@ -1096,7 +1105,7 @@ $\mathcal{A}$ konstruieren wir nun einen Input $g$,
 sodass $C(\mathcal{A},g)=m$ gilt. Auf die ersten $m-k$
 Abfragen von $\mathcal{A}$ antworten wir mit "`0"'.
 Der Input erfüllt nun genau die Eigenschaft $P_m$, wenn
-nun alle restlichen $k$ Bits den Wert "`1"' haben.
+alle restlichen $k$ Bits den Wert "`1"' haben.
 Antworten wir also von nun an mit "`1"', so muss der 
 Algorithmus $\mathcal{A}$
 den entsprechenden Input $g$ bis auf das letzte Bit abfragen,
@@ -1138,7 +1147,7 @@ Ein Algorithmus kann jedoch die Reihenfolge der
 abgefragten Bits jedoch nicht nachträglich ändern. Deswegen
 korrespondieren nur die Abbildungen $\varphi_\mathcal{A}$,
 zu einem richtigen Algorithmus, bei denen die Reihenfolge
-der bisher abgefragten Kanten konstant bleibt.
+der bisher abgefragten Bits konstant bleibt.
 Algebraisch ausgedrückt: Es muss für alle Eingaben
 $g\in \mathbb{F}_2^m$ und Bitindizes $1\leq i \leq m$
 mit Abfrageposition $k=(\varphi_\mathcal{A}(g))^{-1}(i)$
@@ -1162,7 +1171,7 @@ Mustern einer Eigenschaft $P_m(\mathcal{H})$.
 Zudem sei $g\in P_m(\mathcal{H})$ ein Input, der die
 Eigenschaft $P_m(\mathcal{H})$ erfüllt.
 Die Abfragekomplexität für diesen Input $g$
-ist dann definiert als Anzahl an abgefragten Kanten
+ist dann definiert als Anzahl an abgefragten Bits
 bis ein minimales Muster "`entdeckt"' wurde.
 Formal ausgedrückt:
 $$ C(\varphi_\mathcal{A}, g) :=
@@ -1218,7 +1227,7 @@ Jedoch ist die Abfragekomplexität mit dieser Charakterisierung
 nur sehr umständlich zu definieren.
 
 Da eine solche Familie von Abbildungen eindeutig
-einem Algorithmus entspricht, können wir als "`kleinen Bonus"'
+einem Algorithmus entspricht, können wir, mithilfe dieser Darstellung,
 die Anzahl aller Algorithmen für Eigenschaften auf $m$ Bits
 berechnen. Da $|\mathbb{S}_{m-k-1}|=(m-k-1)!$ und
 $|\mathbb{F}_2^k| = 2^k$ gilt, gibt es
@@ -1261,8 +1270,8 @@ Auf dieser Menge definieren wir nun eine Verknüpfung
 mit der Symmetriegruppe $S$:
 
 \begin{definition}
-\label{def:Symmetrieverknuepfung}
 [Symmetrieverknüpfung]
+\label{def:Symmetrieverknuepfung}
 \ \\
 Die äußere Verknüpfung
 \begin{align*} 
@@ -1403,18 +1412,18 @@ $\psi_\mathcal{A}$ und $\varphi_\mathcal{A}$ die gleiche
 Abfragekomplexität haben, es gilt also
 $C(\varphi_\mathcal{A}) = C(\psi_\mathcal{A}) 
 \geq C(\psi_\mathcal{A},g) = m$.
-Da $\varphi_\mathcal{A}$ ein beliebiger korrekter Algorithmus
-ist, erhalten wir eine Abfragekomplexität der Eigenschaft
+Da $\varphi_\mathcal{A}$ nur als beliebiger korrekter Algorithmus
+vorausgesetzt wurde, erhalten wir eine Abfragekomplexität der Eigenschaft
 von $C(P_m)=m$.
 \end{proof}
 
-\vspace*{1cm}
+%\vspace*{1cm}
 
-\begingroup
-\let\clearpage\relax
+%\begingroup
+%\let\clearpage\relax
 \chapter{Fazit und Ausblick}
-\endgroup
-\vspace*{-0.2cm}
+%\endgroup
+%\vspace*{-0.2cm}
 Thema dieser Facharbeit waren untere Schranken für die
 Abfragekomplexität monotoner symmetrischer Eigenschaften.
 Wir haben uns zuerst mit Graph-Eigenschaften beschäftigt 
@@ -1422,16 +1431,6 @@ und quadratische untere Schranken für Subgraph-Isomorphie-
 Eigenschaften gezeigt, bei denen der einzige minimale
 Graph wenige nichtisolierte Ecken hat und die
 Eigenschaft der Duplizierungs-Invarianz besitzt.
-Diese untere Schranken können noch verallgemeinert werden
-auf Graph-Eigenschaften, bei denen es mehr als einen
-minimalen Graphen gibt. Hierfür kann die Konstruktion
-der kantenmaximalen Graphen beibehalten werden, es muss
-jedoch eine weitere Bedingung an die Menge der minimalen
-Graphen gestellt werden. Desweiteren kann die untere
-Schranke für die Abfragekomplexität von Subgraph-Isomorphie-
-Eigenschaften in einigen Fällen auf asymptomisch $\frac{1}{2}n^2$
-verschärft werden, indem man eine strengere Bedingung
-an den minimalen Graphen stellt.
 Zugleich haben wir die Grenzen unseres Ansatzes
 aufgezeigt, was noch einmal verdeutlicht, dass 
 weiterhin neue Methoden entwickelt werden sollten.
@@ -1439,8 +1438,8 @@ weiterhin neue Methoden entwickelt werden sollten.
 Im zweiten Teil beschäftigten wir uns mit der
 Theorie allgemeiner symmetrischer Eigenschaften.
 Hierfür haben wir eine optimale untere Schranke für
-den Spezialfall, dass die Symmetriegruppe die gesamte
-symmetrische Gruppe ist, gezeigt. Danach wurden
+den Spezialfall gezeigt, dass die Symmetriegruppe die gesamte
+symmetrische Gruppe ist. Danach wurden
 einige algebraische Charakterisierungen von Algorithmen
 und der Abfragekomplexität vorgestellt. Diese Formulierungen
 können genutzt werden, um mit algebraischen Methoden
@@ -1453,6 +1452,42 @@ unverändert lässt. Dies vereinfacht Beweise
 in zukünftigen Untersuchungen, da untere Schranken
 für die Abfragekomplexität nun nur noch für Algorithmen
 in Normalform gezeigt werden müssen.
+\\
+
+In zukünftigen Arbeiten können viele der hier
+vorgestellten Methoden und Sätze noch verbessert werden.
+So kann die untere Schranke für die Abfragekomplexität
+von Subgraph-Isomorphie-Eigenschaften aus Satz
+\ref{thm:SubgraphIsomorphismLowerBound} auf beliebige
+Subgraph-Eigenschaften verallgemeinert werden. 
+Hierfür müssen die Kriterien für Duplizierungs-Invarianz
+angepasst werden an die Tatsache, dass es dann
+eine Familie unterschiedlicher minimaler Graphen gibt.
+Desweiteren kann die untere Schranke für die Abfragekomplexität
+für einige Fälle von asymptomisch $\frac{1}{4}n^2$
+auf $\frac{1}{2}n^2$ verbessert werden, indem man, 
+anstatt Kopien von zwei verschiedene Ecken, Ecken
+einfügt, deren Menge an Nachbaren die Nachbarsmengen
+der beiden verschieden Ecken vereinigt. Dabei müssen
+jedoch strengere Kriterien an den betrachteten minimalen
+Graphen gestellt werden.
+
+Für die Symmetrieverknüpfung aus dem letzten Abschnitt
+kann man zeigen, dass diese sogar eine Gruppenoperation
+darstellt, wenn die betrachtete Symmetriegruppe $S$ 
+abelsch ist. Ein Thema weiterer Untersuchungen kann
+dann die Anwendung von Sätzen der Gruppentheorie
+wie z.B. der Bahnengleichung auf die Abfragekomplexität
+von Eigenschaften mit abelschen Symmetriegruppen sein.\footnote{
+Für einen Überblick über algebraische Methoden siehe: \cite{Bosch} }
+Im Allgemeinen sollten die in dieser Facharbeit vorgestellten
+algebraischen Ansätze mit algebraischen Mitteln
+weiter verfolgt werden, da die Algebra einen großen
+Fundus von Methoden anbietet, die bisher noch nicht
+angewandt wurden.
+
+
+
 
 \printbibliography[title={\ Literatur}]
 
@@ -1480,11 +1515,7 @@ Mainz, der \today \\ \\
 Erik Diessel
 
 \iftoggle{book}
-{ 
-    \newpage
-    \thispagestyle{empty}
-    \mbox{}
-    \addtocounter{page}{-1}
+{
     \newpage
     \thispagestyle{empty}
     \mbox{}
