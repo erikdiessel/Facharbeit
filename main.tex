@@ -714,12 +714,12 @@ sich um eine Eigenschaft auf $6$ Ecken handelt:
 \end{center}
 Die Kanten, deren Hinzufügen einen Subgraphen \Square \ entstehen
 lässt, werden hier gestrichelt dargestellt. Der konstruierte
-Graph selbst enthält keinen solchen Subgraphen (Wie wir später
+Graph selbst enthält keinen solchen Subgraphen. Wie wir später
 sehen werden, liegt dies daran, dass der minimale Graph regulär
-ist). Um aus diesem konstruierten Graphen einen kantenmaximalen
+ist. Um aus diesem konstruierten Graphen einen kantenmaximalen
 Graphen zu machen, müssen nun noch Kanten hinzugefügt werden,
 bis das Hinzufügen einer beliebigen, nicht zum Graphen gehörenden
-Kante, einen Subgraphen entstehen lässt. Die Wahl der hinzugefügten
+Kante, einen Subgraphen entstehen lässt. Die Wahl der hinzuzufügenden
 Kanten ist jedoch nicht eindeutig. Eine Möglichkeit ist
 die folgende:
 \begin{center}
@@ -1115,14 +1115,16 @@ Wahl von $\mathcal{A}$ beliebig war: $C(P_m)=m$.
 \end{proof}
 
 \section{Algebraische Formulierungen}
-Dem aufmerksamen Leser ist schon aufgefallen, dass die in 
-Abschnitt \ref{sec:queryComplexity} getroffenen Definitionen
-zur Abfragekomplexität relativ schwammig ausgefallen sind.
-Dies macht es schwierig, die entsprechenden Definitionen
-für mathematische Beweise zu verwenden.
-Dies wollen wir nun beheben, indem wir eine komplett algebraisch
-formulierte Definition für die Abfragekomplexität angeben.
-Dadurch sind wir in der Lage, algebraische Methoden zu verwenden,
+
+Die in Abschnitt \ref{sec:queryComplexity} getroffenen
+Definitionen stützen sich auf die Darstellung eines 
+Algorithmus als Entscheidungsbaums.
+Diese Sichtweise macht es schwierig, übliche mathematische
+Methoden anzuwenden, um eine untere Schranke für die
+Abfragekomplexität zu beweisen.
+Indem wir eine komplett algebraisch
+formulierte Definition für die Abfragekomplexität angeben,
+sind wir später jedoch in der Lage, algebraische Methoden zu verwenden,
 wie z.B. in Abschnitt \ref{sec:AlgebraischeAnsaetze}.
 % Verschiedene Möglichkeiten, Algorithmen / Abfragekomplexität
 % algebraisch zu charakterisieren.
