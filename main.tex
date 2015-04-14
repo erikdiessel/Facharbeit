@@ -210,14 +210,14 @@ echter Subgraph von $G'$ ist, d.h. wenn auch $E(G) \neq E(G')$ gilt, schreiben
 wir $G \subset G'$ oder $G' \supset G$.
 Für $G' = (V, E \cup \{e\})$ schreiben wir vereinfachend
 $G' = G + e$ und für 
-$G' = (V \backslash \{v\}, E\big|_{(V \backslash \{v\})\times (V \backslash \{v\})})$ vereinfachend $G' = G - v$.
+$G' = \big(V \backslash \{v\}, E\cap(V \backslash \{v\})\times (V \backslash \{v\})\big)$ vereinfachend $G' = G - v$.
 
 
 \begin{definition}[Graph-Eigenschaft]
 Eine Teilmenge $P_n \subseteq \mathcal{G}_n$ der Graphen mit
 $n$ Ecken heißt \emph{Graph-Eigenschaft auf $n$ Ecken},
 wenn sie invariant unter Graph-Isomorphie ist,
-d.h. wenn für zwei isomorphe Graphen $G, G'$ gilt:
+d.h. wenn für je zwei isomorphe Graphen $G, G'$ gilt:
 $G \in P \iff G' \in P$.
 \end{definition}
 Statt $G \in P_n$ sagen wir auch: $G$ erfüllt die Eigenschaft $P_n$.
@@ -950,12 +950,12 @@ untere Schranke für die randomisierte Abfragekomplexität.
 \begin{example}[Anwendungen des vorherigen Korollars]
 Ist der Graph $H\in\mathcal{G}_n$ regulär, so haben
 alle Ecken minimalen Grad. Der Graph $H$ erfüllt also Kriterium (a)
-von Satz \ref{thm:KriterienDuplizierungsInvariant}.
+von Lemma \ref{thm:KriterienDuplizierungsInvariant}.
 Die Eigenschaft $P_n(\{H\})$ hat somit eine randomisierte
 Abfragekomplexität von 
 $$ C_R(P_n(\{H\})) \geq
 \frac{1}{4}n^2 - \frac{1}{2}n(p-1) + \frac{1}{4}(p-1)^2,$$
-wobei $p=|V_{>0}(H)|$ die Anzahl nichtisolierter Ecken von $H$ mitist. \\
+wobei $p=|V_{>0}(H)|$ die Anzahl nichtisolierter Ecken von $H$ ist. \\
 Ist nun beispielsweise $H=\Square$, so gilt für $n\geq 4$:
 $$ C_R(P_n(\{\ \Square \ \})) \geq
 \frac{1}{4}n^2 - \frac{3}{2}n + \frac{9}{4}$$
@@ -1122,7 +1122,7 @@ Algorithmus als Entscheidungsbaums.
 Diese Sichtweise macht es schwierig, übliche mathematische
 Methoden anzuwenden, um eine untere Schranke für die
 Abfragekomplexität zu beweisen.
-Indem wir nun eine komplett algebraisch
+Indem wir nun eine vollständig algebraisch
 formulierte Definition für die Abfragekomplexität angeben,
 sind wir später jedoch in der Lage, algebraische Methoden zu verwenden,
 wie z.B. in Abschnitt \ref{sec:AlgebraischeAnsaetze}.
