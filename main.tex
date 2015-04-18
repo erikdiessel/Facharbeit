@@ -165,7 +165,7 @@ quadratisch in der Anzahl der Knoten
 ist\footnote{siehe: \cite[Theorem 6]{Rivest}}: $C(P_n) \geq \frac{1}{16}n^2$.
 Die Aanderaa-Karp-Rosenberg-Vermutung, dass im Worst-Case
 zum Entscheiden einer monotonen Graph-Eigenschaft
-alle Kanten abgefragt werden müssen, d.h. dass
+alle Kanten abgefragt werden müssen, d.h., dass
 $C(P_n)=\binom{n}{2}$ gilt, ist jedoch schon
 seit Jahrzehnten offen. Mit dieser Facharbeit
 wollen wir nun an der Weiterentwicklung von Methoden
@@ -315,7 +315,7 @@ Der Graph $G_k$ ist dann per Konstruktion ein minimaler
 Graph, folglich gilt $G_k \in \Min(P_n)$. Aufgrund der
 Voraussetzung $\Min(P_n) = \Min(P'_n)$ gilt auch 
 $G_k \in \Min(P'_n)$. Da die Eigenschaft $P'_n$ monoton ist,
-und $G_j \subseteq G$, gilt dann auch $G_k \in P'_n$,
+und $G_k \subseteq G$, gilt dann auch $G \in P'_n$,
 wie gefordert.
 \vspace*{-2mm}
 \item[$\boldsymbol{P_n = P'_n \implies \Min(P_n) = \Min(P'_n)}$]
@@ -425,7 +425,7 @@ $$C(P_n) = \frac{n(n-1)}{2}$$
 \end{conjecture}
 Die Aanderaa-Karp-Rosenberg-Vermutung sagt also aus,
 das bei allen monotonen Graph-Eigenschaften im Worst-Case
-alle Kanten abgefragt werden müssen (denn ein Graph mit
+alle Kanten abgefragt werden müssen (denn ein vollständiger Graph mit
 $n$ Ecken hat genau ${\binom{n}{2}=\frac{n(n-1)}{2}}$ Kanten).
 
 \subsection{Randomisierte Abfragekomplexität}
@@ -448,8 +448,8 @@ Eigenschaft $P_n$ entscheidet, ist eine
 Wahrscheinlichkeitsverteilung von deterministischen
 Algorithmen, die $P_n$ entscheiden. \\
 Formal: eine Abbildung
-$$ p_\textup{Alg}: \{ \mathcal{A} \ \textup {deterministisch} \ | \
-         \mathcal{A} \ {\rm entscheidet} \ P_n \} \to \mathbb{R} $$
+$$ p_\textup{Alg}: \{ \mathcal{A} \ \textup{deterministisch} \ | \
+         \mathcal{A} \ {\rm entscheidet} \ P_n \} \to \mathbb{R}_{\geq 0} $$
 mit 
 $$\sum_\mathcal{A} p_\textup{Alg}(\mathcal{A}) = 1.$$
 \end{definition}
@@ -1080,13 +1080,13 @@ $S$-symmetrische Eigenschaft, so muss
 $P_m$ von der Form 
 $$ P_m= \{ g\in \mathbb{F}_2^m \ |
 \ g \textup{ hat mindestens } k\textup{-mal die Komponente } 1 \ \}$$
-sein, denn erfüllt $g\in \mathbb{F}_2^m$ die Eigenschaft
-$P_,$, so muss dies auch für alle $g'=\sigma(g)\in\mathbb{F}_2^m$
+für ein festes $k\in \mathbb{N}$ sein, denn erfüllt $g\in \mathbb{F}_2^m$ die Eigenschaft
+$P_m$, so muss dies auch für alle $g'=\sigma(g)\in\mathbb{F}_2^m$
 mit $\sigma\in S$ gelten. Da $S=\mathbb{S}_m$ alle Permutationen
 umfasst, sind für $g'\in P_m$ alle Vektoren mit
-genau so vielen Komponenten mit Wert $1$ wie $g$ möglich. Aus der
+genau so vielen Komponenten mit Wert "`1"' wie $g$ möglich. Aus der
 Monotonie von $P_m$ folgt dann, dass alle Vektoren mit
-mindestens dieser Anzahl an Komponenten mit Wert $1$ zu
+mindestens dieser Anzahl an Komponenten mit Wert "`1"' zu
 $P_m$ gehören.
 \begin{Satz}
 \label{thm:SymmetrischeGruppe}
@@ -1118,7 +1118,7 @@ Wahl von $\mathcal{A}$ beliebig war: $C(P_m)=m$.
 
 Die in Abschnitt \ref{sec:queryComplexity} getroffenen
 Definitionen stützen sich auf die Darstellung eines 
-Algorithmus als Entscheidungsbaums.
+Algorithmus als Entscheidungsbaum.
 Diese Sichtweise macht es schwierig, übliche mathematische
 Methoden anzuwenden, um eine untere Schranke für die
 Abfragekomplexität zu beweisen.
@@ -1213,7 +1213,7 @@ permutiert. Dies führt zu folgender Charakterisierung:
 
 \emph{Eine Familie von Abbildungen 
 $\psi_k:\mathbb{F}_2^k \to \mathbb{S}_{m-k-1}$
-mit $0 \leq k \leq m-3$ einschließlich einer Startreihenfolge
+mit $1 \leq k \leq m-3$ einschließlich einer Startreihenfolge
 $\psi_{-1}\in\mathbb{S}_m$ legt eindeutig einen Algorithmus fest.}
 Hierbei kann man $k$ als die Anzahl bisher erfolgter Abfragen
 auffassen. Der Wert $\psi_k(g)$ ist hier zu interpretieren
@@ -1305,7 +1305,7 @@ $$C(\varphi_\mathcal{A}) = C(\sigma \circ \varphi_\mathcal{A}).$$
 \begin{proof}
 Wir zeigen zunächst, dass 
 $C(\sigma \circ \varphi_\mathcal{A}) \geq C(\varphi_\mathcal{A})$ gilt. 
-Sei $g\in\mathbb{F}_2^m$ der Worst-Case Input für $\varphi_\mathcal{A}$,
+Sei $g\in\mathbb{F}_2^m$ ein Worst-Case Input für $\varphi_\mathcal{A}$,
 der $C(\varphi_\mathcal{A}, g) = C(\varphi_\mathcal{A})$ erfüllt.
 Wir betrachten nun die Komplexität des Inputs $g' = \sigma^{-1}(g)$
 für den Algorithmus $\sigma \circ \varphi_\mathcal{A}$.
@@ -1340,7 +1340,7 @@ Da die Eigenschaft $P_m$ $S$-symmetrisch ist und
 $\sigma\in S$ gilt, enthalten $g$ und $g'=\sigma^{-1}(g)$
 unter der Symmetriegruppe $S$ identische minimale Muster von $P_m$.
 Folglich enthält $g'=\sigma^{-1}(g)$ auch nur einziges minimales Muster,
-nämlich das Bild $\sigma^{-1}(h)$ des minimalen Musters von $h$ unter
+nämlich das Bild $\sigma^{-1}(h)$ des minimalen Musters $h$ unter
 $\sigma^{-1}$.
 
 Im Folgenden bezeichnen wir für eine einfache Lesbarkeit die
@@ -1386,7 +1386,7 @@ C(\sigma \circ \varphi_\mathcal{A}) = C(\varphi_\mathcal{A}).
 \end{equation*}
 \end{proof}
 Die Symmetrieverknüpfung erlaubt uns, Algorithmen
-in eine Normalform zu überführen ohne deren Abfragekomplexität
+in eine Normalform zu überführen, ohne deren Abfragekomplexität
 zu beeinflussen. Dies vereinfacht Beweise erheblich.
 Als Beispiel dafür geben wir zum Abschluss einen eleganteren und
 direkten alternativen
